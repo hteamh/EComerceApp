@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EComerceApp</string>
+    <string name="title_home">Add Category</string>
+    <string name="title_dashboard">Orders</string>
+    <string name="title_notifications">Reports</string>
+    <string name="title_activity_commodities">Commodities</string>
+
+
+</resources>
