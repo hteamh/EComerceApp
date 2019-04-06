@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "1037043084314",
+    "firebase_url": "https://ecomerce-accb7.firebaseio.com",
+    "project_id": "ecomerce-accb7",
+    "storage_bucket": "ecomerce-accb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037043084314:android:a4e868720478dc09",
+        "android_client_info": {
+          "package_name": "com.example.a2019.ecomerceapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALvc3191qo3FLDOByaGiJ59ITe3OGosTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037043084314-mc3n6ttugh4nl9tkvl9grk04f5ahbf8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
