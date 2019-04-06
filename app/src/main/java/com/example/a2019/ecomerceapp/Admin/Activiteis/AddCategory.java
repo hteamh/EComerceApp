@@ -3,21 +3,15 @@ package com.example.a2019.ecomerceapp.Admin.Activiteis;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-
-import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
-import com.example.a2019.ecomerceapp.Admin.ViewModel.AddCategoryViewModel;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.R;
 
@@ -28,10 +22,8 @@ public class AddCategory extends BaseActivity {
     TextInputLayout ImageName;
     TextInputLayout Description;
     public static int PICK_IMAGE_REQUEST;
-    AddCategoryViewModel viewModelCategory;
     Uri MyImageUri ;
     ProgressBar progressBar;
-    AddCategoryViewModel myViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +35,6 @@ public class AddCategory extends BaseActivity {
         ImageName = findViewById(R.id.textInputLayout);
         Upload = findViewById(R.id.Upload);
         Description = findViewById(R.id.description);
-        viewModelCategory = ViewModelProviders.of(this).get(AddCategoryViewModel.class);
-        myViewModel = ViewModelProviders.of(this).get(AddCategoryViewModel.class);
         Select_Image_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,22 +82,8 @@ public class AddCategory extends BaseActivity {
             this.Description.setError("Description must by more than 10 char");
             return;
         }
-        myViewModel.InsertNewCategory(name,id,Description,ImageUri);
-        myViewModel.getErrorMessage().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                showMessage("error",s,"yes");
-            }
-        });
-        myViewModel.getHideProgressPar().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if(aBoolean !=null&& aBoolean == true)
-                {
-                  hideProgressBar();
-                }
-            }
-        });
+
+
     }// end Insert Func
 
 
