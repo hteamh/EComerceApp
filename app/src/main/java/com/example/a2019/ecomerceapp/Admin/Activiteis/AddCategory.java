@@ -15,23 +15,27 @@ import android.widget.ImageView;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.AddCategoryViewModel;
 import com.example.a2019.ecomerceapp.R;
 
-public class AddCategory extends AppCompatActivity   {
-     ImageView MyimageView;
-     Button    Select_Image_Button;
-     Button    Upload;
-     TextInputLayout ImageName;
-    AddCategoryViewModel MyViewModel;
-    public  static  int PICK_IMAGE_REQUEST;
+public class AddCategory extends AppCompatActivity {
+    ImageView MyimageView;
+    Button Select_Image_Button;
+    Button Upload;
+    TextInputLayout ImageName;
+    public static int PICK_IMAGE_REQUEST;
+    AddCategoryViewModel viewModelCategory;
     Uri MyImageUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
+
         MyimageView = findViewById(R.id.display_Image_Category);
         Select_Image_Button = findViewById(R.id.choose_image);
         ImageName = findViewById(R.id.textInputLayout);
         Upload = findViewById(R.id.Upload);
-        MyViewModel = ViewModelProviders.of(this).get(AddCategoryViewModel.class);
+
+
+        viewModelCategory = ViewModelProviders.of(this).get(AddCategoryViewModel.class);
 
         Select_Image_Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,18 +51,18 @@ public class AddCategory extends AppCompatActivity   {
         });
 
     }
- public void OpenImageGalary()
- {
-     Intent intent = new Intent();
-     intent.setType("image/*");
-     intent.setAction(Intent.ACTION_GET_CONTENT);
-     startActivityForResult(intent,PICK_IMAGE_REQUEST);
- }
+
+    public void OpenImageGalary() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null )
-        {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             MyImageUri = data.getData();
             MyimageView.setImageURI(MyImageUri);
 

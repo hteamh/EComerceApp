@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 
 
 public class AddCategoryViewModel extends AndroidViewModel {
+
     public AddCategoryViewModel(@NonNull Application application) {
         super(application);
     }
