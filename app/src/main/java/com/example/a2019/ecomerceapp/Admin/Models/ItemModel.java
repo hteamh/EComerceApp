@@ -2,12 +2,13 @@ package com.example.a2019.ecomerceapp.Admin.Models;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.net.Uri;
 
 @Entity
 public class ItemModel {
     String name;
     String Description;
-    String ImageUri;
+    Uri ImageUri;
     String Id;
     String Price;
     String CategoryName;
@@ -15,7 +16,7 @@ public class ItemModel {
     public ItemModel() {
     }
 @Ignore
-    public ItemModel(String name, String description, String imageUri, String id, String price, String categoryName) {
+    public ItemModel(String name, String description, Uri imageUri, String id, String price, String categoryName) {
         this.name = name;
         Description = description;
         ImageUri = imageUri;
@@ -24,7 +25,7 @@ public class ItemModel {
         CategoryName = categoryName;
     }
     @Ignore
-    public ItemModel(String name, String description, String imageUri, String price, String categoryName) {
+    public ItemModel(String name, String description, Uri imageUri, String price, String categoryName) {
         this.name = name;
         Description = description;
         ImageUri = imageUri;
@@ -48,11 +49,11 @@ public class ItemModel {
         Description = description;
     }
 
-    public String getImageUri() {
+    public Uri getImageUri() {
         return ImageUri;
     }
 
-    public void setImageUri(String imageUri) {
+    public void setImageUri(Uri imageUri) {
         ImageUri = imageUri;
     }
 

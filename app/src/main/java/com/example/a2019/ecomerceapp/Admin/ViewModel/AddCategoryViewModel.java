@@ -13,6 +13,9 @@ public class AddCategoryViewModel extends AndroidViewModel {
     public AddCategoryViewModel(@NonNull Application application) {
         super(application);
     }
+    private void InsertNewCategory()
+    {
 
-
-}
+    }
+    
+    }
