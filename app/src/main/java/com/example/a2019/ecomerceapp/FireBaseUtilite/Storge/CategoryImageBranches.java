@@ -7,13 +7,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
-
-import java.net.URI;
-
 public class CategoryImageBranches  {
     public static final String  CategoryImageBranches = "CategoryImage";
 
@@ -22,12 +17,12 @@ public class CategoryImageBranches  {
     {
        return FirebaseStorage.getInstance().getReference(CategoryImageBranches);
     }
-    public static StorageTask AddCategoryImage(CategoryModel categoryModel, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener, OnProgressListener onProgressListener)
+    public static StorageTask AddCategoryImage(CategoryModel categoryModel, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener)
     {
         return  CategoryReferance().child(categoryModel.getId()).putFile(categoryModel.getUri())
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener)
-                 .addOnProgressListener(onProgressListener);
+                 ;
     }
     public  static Uri GetCategoryImageUri(String id)
     {

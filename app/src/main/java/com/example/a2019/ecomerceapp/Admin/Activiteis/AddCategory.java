@@ -1,6 +1,7 @@
 package com.example.a2019.ecomerceapp.Admin.Activiteis;
 
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -17,9 +18,10 @@ import android.widget.ProgressBar;
 
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.AddCategoryViewModel;
+import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.R;
 
-public class AddCategory extends AppCompatActivity {
+public class AddCategory extends BaseActivity {
     ImageView MyimageView;
     Button Select_Image_Button;
     Button Upload;
@@ -29,7 +31,7 @@ public class AddCategory extends AppCompatActivity {
     AddCategoryViewModel viewModelCategory;
     Uri MyImageUri ;
     ProgressBar progressBar;
-
+    AddCategoryViewModel myViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class AddCategory extends AppCompatActivity {
         Upload = findViewById(R.id.Upload);
         Description = findViewById(R.id.description);
         viewModelCategory = ViewModelProviders.of(this).get(AddCategoryViewModel.class);
+        myViewModel = ViewModelProviders.of(this).get(AddCategoryViewModel.class);
         Select_Image_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,18 +77,38 @@ public class AddCategory extends AppCompatActivity {
     }
 
     private void InsertNewCategory() {
+        showProgressBar(R.string.Loading);
         String name = this.ImageName.getEditText().getText().toString();
         Uri ImageUri = this.MyImageUri;
         String Description = this.Description.getEditText().toString();
-        String id = System.currentTimeMillis()+getUriExtention(ImageUri);
-        CategoryModel categoryModel = new CategoryModel(name,ImageUri,id,Description);
+        String id = System.currentTimeMillis()+"";
+        if(name.trim().length()<4)
+        {
+            ImageName.setError("name should be more than 4 Char");
+            return;
+        }
+        if(Description.trim().length()<10)
+        {
+            this.Description.setError("Description must by more than 10 char");
+            return;
+        }
+        myViewModel.InsertNewCategory(name,id,Description,ImageUri);
+        myViewModel.getErrorMessage().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                showMessage("error",s,"yes");
+            }
+        });
+        myViewModel.getHideProgressPar().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if(aBoolean !=null&& aBoolean == true)
+                {
+                  hideProgressBar();
+                }
+            }
+        });
+    }// end Insert Func
 
-    }
-    public String getUriExtention(Uri uri)
-    {
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
-    }
 
 }
