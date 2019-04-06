@@ -1,5 +1,9 @@
 package com.example.a2019.ecomerceapp.Admin.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+
+@Entity
 public class ItemModel {
     String name;
     String Description;
@@ -10,7 +14,7 @@ public class ItemModel {
 
     public ItemModel() {
     }
-
+@Ignore
     public ItemModel(String name, String description, String imageUri, String id, String price, String categoryName) {
         this.name = name;
         Description = description;
@@ -19,7 +23,7 @@ public class ItemModel {
         Price = price;
         CategoryName = categoryName;
     }
-
+    @Ignore
     public ItemModel(String name, String description, String imageUri, String price, String categoryName) {
         this.name = name;
         Description = description;

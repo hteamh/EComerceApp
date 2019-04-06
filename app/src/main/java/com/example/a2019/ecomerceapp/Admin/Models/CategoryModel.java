@@ -1,24 +1,28 @@
 package com.example.a2019.ecomerceapp.Admin.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+
+@Entity
 public class CategoryModel {
      String name;
      String  ImageUri;
      String  Id;
      String Description;
-
+    @Ignore
     public CategoryModel(String name, String Uri) {
         this.name = name;
         ImageUri = Uri;
     }
 
-
+    @Ignore
     public CategoryModel(String name, String imageUri, String id, String description) {
         this.name = name;
         ImageUri = imageUri;
         Id = id;
         Description = description;
     }
-
+    @Ignore
     public CategoryModel(String name, String uri, String id) {
         this.name = name;
         ImageUri = uri;

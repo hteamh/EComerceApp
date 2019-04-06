@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.a2019.ecomerceapp.Admin.ViewModel.AddCategoryViewModel;
 import com.example.a2019.ecomerceapp.R;
@@ -23,18 +24,17 @@ public class AddCategory extends AppCompatActivity {
     public static int PICK_IMAGE_REQUEST;
     AddCategoryViewModel viewModelCategory;
     Uri MyImageUri;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
-
+        progressBar = findViewById(R.id.Progress);
         MyimageView = findViewById(R.id.display_Image_Category);
         Select_Image_Button = findViewById(R.id.choose_image);
         ImageName = findViewById(R.id.textInputLayout);
         Upload = findViewById(R.id.Upload);
-
-
         viewModelCategory = ViewModelProviders.of(this).get(AddCategoryViewModel.class);
 
         Select_Image_Button.setOnClickListener(new View.OnClickListener() {
