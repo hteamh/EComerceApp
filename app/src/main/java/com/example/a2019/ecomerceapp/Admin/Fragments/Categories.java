@@ -51,7 +51,7 @@ public class Categories extends Fragment {
         MyViewModel.getMyCategoryItem().observe(this, new Observer<List<CategoryModel>>() {
             @Override
             public void onChanged(@Nullable List<CategoryModel> categoryModels) {
-                  /// here you will send your categoryModels to the Adapter 
+                  /// here you will send your categoryModels to the Adapter
             }
         });
         return view;
