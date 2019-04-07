@@ -19,7 +19,7 @@ public class CategoryImageBranches  {
     }
     public static StorageTask AddCategoryImage(CategoryModel categoryModel, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener)
     {
-        return  CategoryReferance().child(categoryModel.getId()).putFile(categoryModel.getUri())
+        return  CategoryReferance().child(categoryModel.getId()).putFile(Uri.parse(categoryModel.getImageUri()))
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener)
                  ;

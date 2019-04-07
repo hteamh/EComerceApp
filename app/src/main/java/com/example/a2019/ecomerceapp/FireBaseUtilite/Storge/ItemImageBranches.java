@@ -16,7 +16,7 @@ public class ItemImageBranches {
     }
     public static StorageTask AddItemImage(ItemModel itemModel, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener)
     {
-        return  ItemReferance().child(itemModel.getId()).putFile(itemModel.getImageUri())
+        return  ItemReferance().child(itemModel.getId()).putFile(Uri.parse(itemModel.getImageUri()))
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener)
                 ;

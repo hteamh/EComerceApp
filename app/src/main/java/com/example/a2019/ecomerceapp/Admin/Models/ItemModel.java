@@ -1,34 +1,37 @@
 package com.example.a2019.ecomerceapp.Admin.Models;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 @Entity
-public class ItemModel {
+public class ItemModel  {
+    @ColumnInfo
     String name;
+    @ColumnInfo
     String Description;
-    Uri ImageUri;
+    @ColumnInfo
+    String ImageUri;
+    @ColumnInfo
+    @NonNull
+    @PrimaryKey
     String Id;
+    @ColumnInfo
     String Price;
+    @ColumnInfo
     String CategoryName;
 
     public ItemModel() {
     }
 @Ignore
-    public ItemModel(String name, String description, Uri imageUri, String id, String price, String categoryName) {
+    public ItemModel(String name, String description, String imageUri, @NonNull String id, String price, String categoryName) {
         this.name = name;
         Description = description;
         ImageUri = imageUri;
         Id = id;
-        Price = price;
-        CategoryName = categoryName;
-    }
-    @Ignore
-    public ItemModel(String name, String description, Uri imageUri, String price, String categoryName) {
-        this.name = name;
-        Description = description;
-        ImageUri = imageUri;
         Price = price;
         CategoryName = categoryName;
     }
@@ -49,19 +52,20 @@ public class ItemModel {
         Description = description;
     }
 
-    public Uri getImageUri() {
+    public String getImageUri() {
         return ImageUri;
     }
 
-    public void setImageUri(Uri imageUri) {
+    public void setImageUri(String imageUri) {
         ImageUri = imageUri;
     }
 
+    @NonNull
     public String getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         Id = id;
     }
 

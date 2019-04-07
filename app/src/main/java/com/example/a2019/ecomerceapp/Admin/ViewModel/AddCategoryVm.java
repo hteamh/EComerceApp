@@ -1,34 +1,25 @@
 package com.example.a2019.ecomerceapp.Admin.ViewModel;
-
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Categorybranches;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class AddCategoryVm extends AndroidViewModel {
 
     MutableLiveData <String> ShowThisMessage;
     MutableLiveData <Boolean> HideBrogressBar;
     MutableLiveData <Boolean> OpenPanelActivity;
-    MutableLiveData <List<String>>ToastMessages;
-    List<String>MyToastMessagesList;
 
     public AddCategoryVm(@NonNull Application application) {
         super(application);
         ShowThisMessage = new MutableLiveData<>();
         HideBrogressBar = new MutableLiveData<>();
         OpenPanelActivity = new MutableLiveData<>();
-        MyToastMessagesList =new ArrayList<>();
-        ToastMessages = new MutableLiveData<>();
     }
 
     public MutableLiveData<String> getShowThisMessage() {
@@ -43,38 +34,65 @@ public class AddCategoryVm extends AndroidViewModel {
         return OpenPanelActivity;
     }
 
-    public MutableLiveData<List<String>> getToastMessages() {
-        return ToastMessages;
-    }
      OnSuccessListener MySuccessListenerForFireBaseDB = new OnSuccessListener() {
          @Override
          public void onSuccess(Object o) {
-
          }
      };
      OnFailureListener MyFailureListenerForFireBaseDB = new OnFailureListener() {
          @Override
          public void onFailure(@NonNull Exception e) {
-
+             ShowThisMessage.postValue(" can not Insert the new Category please Cheek your Internet Connection");
          }
      };
      OnSuccessListener MySuccessListenerForFireBaseSC = new OnSuccessListener() {
          @Override
          public void onSuccess(Object o) {
-
          }
      };
      OnFailureListener MyFailureListenerForFireBaseSC = new OnFailureListener() {
          @Override
          public void onFailure(@NonNull Exception e) {
-
+             ShowThisMessage.postValue("can not Insert the new Category Image please Cheek your Internet Connection");
          }
      };
-   public void InsertNewCategory(String name, String id, Uri ImageUri,String Description)
+   public void InsertNewCategory(String name, String id, String ImageUri,String Description)
    {
+
        CategoryModel categoryModel = new CategoryModel(name,ImageUri,id,Description);
-       Categorybranches.AddCategory(categoryModel,MySuccessListenerForFireBaseDB,MyFailureListenerForFireBaseDB);
-       // First We Will Add Category in RealTime DataBase
+       AddCategoryToFireBaseDB(categoryModel);
+       AddCategoryToFireBaseSC(categoryModel);
+       AddCategoryToRoomDb(categoryModel);
+       HideBrogressBar.postValue(true);
+          return;
+   }
+   public class AddCategory extends Thread
+   {
+       CategoryModel categoryModel;
+       public AddCategory ( CategoryModel categoryModel)
+       {
+           this.categoryModel = categoryModel;
+       }
+       @Override
+       public void run() {
+           super.run();
+           MyDatabase.getInstance().categoryDao().AddCategory(categoryModel);
+           OpenPanelActivity.postValue(true);
+       }
+   }
+     public void AddCategoryToFireBaseDB(CategoryModel categoryModel)
+   {
+      Categorybranches.AddCategory(categoryModel,MySuccessListenerForFireBaseDB,MyFailureListenerForFireBaseDB);
 
    }
+    public void AddCategoryToFireBaseSC(CategoryModel categoryModel)
+    {
+     CategoryImageBranches.AddCategoryImage(categoryModel,MySuccessListenerForFireBaseSC,MyFailureListenerForFireBaseSC);
+    }
+    public void AddCategoryToRoomDb(CategoryModel categoryModel)
+    {
+        AddCategory addCategory = new AddCategory(categoryModel);
+        addCategory.start();
+    }
+
 }

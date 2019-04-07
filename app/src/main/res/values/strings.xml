@@ -5,6 +5,10 @@
     <string name="title_notifications">Reports</string>
     <string name="title_activity_commodities">Commodities</string>
     <string name="Loading">loading</string>
+    <string name="Error">error</string>
+    <string name="No_Photo_For_this_Category">Select One Image (Required)</string>
+    <string name="Yes">yes</string>
+    <string name="Wait">Wating to Upload the New Category</string>
 
 
 </resources>

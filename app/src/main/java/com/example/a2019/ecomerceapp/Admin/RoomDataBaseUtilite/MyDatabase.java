@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
-@Database(entities = {ItemModel.class, CategoryModel.class},version = 1,exportSchema = false)
+@Database(entities ={ItemModel.class, CategoryModel.class},version = 5,exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
       public abstract CategoryDao categoryDao();
       public  abstract ItemDao itemDao();
