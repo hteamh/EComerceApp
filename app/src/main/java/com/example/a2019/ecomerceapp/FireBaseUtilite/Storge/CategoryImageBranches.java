@@ -24,10 +24,12 @@ public class CategoryImageBranches  {
                 .addOnFailureListener(onFailureListener)
                  ;
     }
-    public  static Uri GetCategoryImageUri(String id)
+    public  static void DeleteImage (String id)
     {
-     Task<Uri> uri=CategoryReferance().child(id).getDownloadUrl();
-       Uri uri1 = uri.getResult();
-       return uri1;
+         CategoryReferance().child(id).delete();
+    }
+    public static void DeleteAll()
+    {
+        CategoryReferance().delete();
     }
 }

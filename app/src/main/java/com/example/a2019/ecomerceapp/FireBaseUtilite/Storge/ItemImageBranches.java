@@ -27,4 +27,12 @@ public class ItemImageBranches {
         Uri uri1 = uri.getResult();
         return uri1;
     }
+    public  static void DeleteImage (String id)
+    {
+        ItemReferance().child(id).delete();
+    }
+    public static void DeleteAll()
+    {
+        ItemReferance().delete();
+    }
 }

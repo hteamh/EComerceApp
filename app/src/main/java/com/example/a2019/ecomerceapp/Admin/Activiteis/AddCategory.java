@@ -42,12 +42,28 @@ public class AddCategory extends BaseActivity {
         Upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Here We Will Call Function THat It Upload Image TO AddCategoryViewModel
-               if(HandelData()==false)
-               {
-                   // Here WE will liston to the observable variable in our View Model
-               }
+                HandelData();
 
+                   // Here We Will Call Function THat It Upload Image TO AddCategoryViewModel
+                   // Here WE will liston to the observable variable in our View Model
+                myViewModel.getOpenPanelActivity().observe(AddCategory.this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(@Nullable Boolean aBoolean) {
+                        if(aBoolean!=null && aBoolean==true)
+                        {
+                            startActivity(new Intent(AddCategory.this,AdminPanel.class));
+                            finish();
+                        }
+                    }
+                });
+   //////////////////////////////////////////////////////////////////////////////////////////////////////
+                myViewModel.getShowThisMessage().observe(AddCategory.this, new Observer<String>() {
+                    @Override
+                    public void onChanged(@Nullable String s) {
+                        showMessage("error",s,"yes");
+                    }
+                });
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
                 myViewModel.getHideBrogressBar().observe(AddCategory.this, new Observer<Boolean>() {
                     @Override
                     public void onChanged(@Nullable Boolean aBoolean) {
@@ -57,21 +73,10 @@ public class AddCategory extends BaseActivity {
                         }
                     }
                 });
-                myViewModel.getOpenPanelActivity().observe(AddCategory.this, new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(@Nullable Boolean aBoolean) {
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                        startActivity(new Intent(AddCategory.this,AdminPanel.class));
-                    }
-                });
-                myViewModel.getShowThisMessage().observe(AddCategory.this, new Observer<String>() {
-                    @Override
-                    public void onChanged(@Nullable String s) {
-                        showMessage("Error",s,"Yes");
-                    }
-                });
-            }
-        });
+            }// end OnCLick
+        }); // end On Click Listener
 
     }
     public void OpenImageGalary() {
@@ -88,32 +93,43 @@ public class AddCategory extends BaseActivity {
             MyimageView.setImageURI(MyImageUri);
         }
     }
- public  boolean  HandelData()
+ public  void HandelData()
     {
         String name = this.ImageName.getEditText().getText().toString().trim();
         String Des =this.Description.getEditText().getText().toString().trim();
         String id = System.currentTimeMillis()+"";
-        String Uri;
         if(name.length()<5)
         {
-            this.ImageName.getEditText().setError("name Must By More Than 5 Char");
-            ImageName.setError(null);
+         // Here You Should Validation if Is empty
+            // then Cheek if is Less than 5
+            /*
+             ****************************
+             * **********************************
+             * *******************************************
+             * *************************************************
+             */
 
-            return false;
         }
         if(Des.length()<10)
         {
+            /*
+            // Here You Should Validation if Is empty
+            // then Cheek if is Less than 10
 
+            ****************************
+            * **********************************
+            * *******************************************
+            * *************************************************
+            */
         }
 
         if(MyImageUri ==null)
         {
             showMessage("error","Select Image","Yes");
-            return false;
         }
-        Uri=MyImageUri.toString();
+       String Uri=MyImageUri.toString();
+        showProgressBar(R.string.Loading);
           myViewModel.InsertNewCategory(name,id,Uri,Des);
-        return true;
     }
 
 }

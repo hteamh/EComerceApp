@@ -37,6 +37,7 @@ public class AddCategoryVm extends AndroidViewModel {
      OnSuccessListener MySuccessListenerForFireBaseDB = new OnSuccessListener() {
          @Override
          public void onSuccess(Object o) {
+             HideBrogressBar.postValue(true);
          }
      };
      OnFailureListener MyFailureListenerForFireBaseDB = new OnFailureListener() {
@@ -48,6 +49,14 @@ public class AddCategoryVm extends AndroidViewModel {
      OnSuccessListener MySuccessListenerForFireBaseSC = new OnSuccessListener() {
          @Override
          public void onSuccess(Object o) {
+              //
+             //
+
+             /// **************************
+             //****************************************************************8
+             //////  Here i want to Acces Room Database And Insert new category
+             ////////////////
+             //////////////////////
          }
      };
      OnFailureListener MyFailureListenerForFireBaseSC = new OnFailureListener() {
@@ -61,8 +70,6 @@ public class AddCategoryVm extends AndroidViewModel {
 
        CategoryModel categoryModel = new CategoryModel(name,ImageUri,id,Description);
        AddCategoryToFireBaseDB(categoryModel);
-       AddCategoryToFireBaseSC(categoryModel);
-       AddCategoryToRoomDb(categoryModel);
        HideBrogressBar.postValue(true);
           return;
    }
@@ -94,5 +101,6 @@ public class AddCategoryVm extends AndroidViewModel {
         AddCategory addCategory = new AddCategory(categoryModel);
         addCategory.start();
     }
+
 
 }
