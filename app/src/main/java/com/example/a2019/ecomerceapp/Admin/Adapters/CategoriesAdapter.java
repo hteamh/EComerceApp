@@ -73,7 +73,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
             image_item = itemView.findViewById(R.id.image_item);
             text_item = itemView.findViewById(R.id.text_item);
-            price = itemView.findViewById(R.id.price);
+            price = itemView.findViewById(R.id.description);
         }
     }
 
