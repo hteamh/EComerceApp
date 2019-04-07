@@ -9,11 +9,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 
-/**
- * Created by Mohamed Nabil Mohamed (Nobel) on 1/24/2019.
- * byte code SA
- * m.nabil.fci2015@gmail.com
- */
+
 public class BaseActivity  extends AppCompatActivity {
 
     protected AppCompatActivity activity;
@@ -28,7 +24,7 @@ public class BaseActivity  extends AppCompatActivity {
 
     public MaterialDialog showMessage(int titleResId,int messageResId,int posResText){
 
-        new MaterialDialog.Builder(this)
+       dialog= new  MaterialDialog.Builder(this)
                 .title(titleResId)
                 .content(messageResId)
                 .positiveText(posResText)
@@ -46,7 +42,7 @@ public class BaseActivity  extends AppCompatActivity {
     public MaterialDialog showConfirmationMessage(int titleResId, int messageResId, int posResText,
                                                   MaterialDialog.SingleButtonCallback onPosAction){
 
-        new MaterialDialog.Builder(this)
+        dialog=  new MaterialDialog.Builder(this)
                 .title(titleResId)
                 .content(messageResId)
                 .positiveText(posResText)
@@ -58,7 +54,7 @@ public class BaseActivity  extends AppCompatActivity {
     }
     public MaterialDialog showMessage(String title,String message,String posText){
 
-        new MaterialDialog.Builder(this)
+        dialog=   new MaterialDialog.Builder(this)
                 .title(title)
                 .content(message)
                 .positiveText(posText)

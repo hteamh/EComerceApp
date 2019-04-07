@@ -36,50 +36,45 @@
             android:hint="name" />
 
     </android.support.design.widget.TextInputLayout>
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Progress"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout"
-        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_marginTop="10dp"
-        />
     <Button
         android:background="@color/colorPrimary"
         android:id="@+id/choose_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose The Image"
-        app:layout_constraintEnd_toEndOf="@+id/Progress"
+        app:layout_constraintEnd_toEndOf="@+id/display_Image_Category"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         android:layout_marginTop="40dp"/>
-<android.support.design.widget.TextInputLayout
-    android:id="@+id/description"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/choose_image"
 
-    >
-    <EditText
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
 
-</android.support.design.widget.TextInputLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_image">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:background="@color/colorPrimary"
-        android:text="Upload"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/Upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="30dp"
-        android:id="@+id/Upload"/>
+        android:layout_marginBottom="168dp"
+        android:background="@color/colorPrimary"
+        android:text="Upload"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

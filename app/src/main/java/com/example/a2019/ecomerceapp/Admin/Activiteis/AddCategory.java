@@ -45,7 +45,7 @@ public class AddCategory extends BaseActivity {
                 // Here We Will Call Function THat It Upload Image TO AddCategoryViewModel
                if(HandelData()==false)
                {
-                   return;
+                   // Here WE will liston to the observable variable in our View Model
                }
 
                 myViewModel.getHideBrogressBar().observe(AddCategory.this, new Observer<Boolean>() {
@@ -87,20 +87,33 @@ public class AddCategory extends BaseActivity {
             MyImageUri = data.getData();
             MyimageView.setImageURI(MyImageUri);
         }
-
     }
- public  Boolean  HandelData()
+ public  boolean  HandelData()
     {
-     String name = ImageName.getEditText().getText().toString();
-     String Uri = MyImageUri.toString();
-     String Des = Description.getEditText().toString();
-     String id = System.currentTimeMillis()+"";
-     if(name.trim().length()<5) {  ImageName.setError("Name Of Category Must Be More Than 5 char"); return false; }
-     if(Uri==null) {showMessage(R.string.Error,R.string.No_Photo_For_this_Category,R.string.Yes); return false;}
-     if (Des.trim().length()<10) {Description.setError("Description for Category Should By More Than 10 char"); return false;}
-        showProgressBar(R.string.Wait);
-        myViewModel.InsertNewCategory(name,id,Uri,Des);
-     return true;
- }
+        String name = this.ImageName.getEditText().getText().toString().trim();
+        String Des =this.Description.getEditText().getText().toString().trim();
+        String id = System.currentTimeMillis()+"";
+        String Uri;
+        if(name.length()<5)
+        {
+            this.ImageName.getEditText().setError("name Must By More Than 5 Char");
+            ImageName.setError(null);
+
+            return false;
+        }
+        if(Des.length()<10)
+        {
+
+        }
+
+        if(MyImageUri ==null)
+        {
+            showMessage("error","Select Image","Yes");
+            return false;
+        }
+        Uri=MyImageUri.toString();
+          myViewModel.InsertNewCategory(name,id,Uri,Des);
+        return true;
+    }
 
 }
