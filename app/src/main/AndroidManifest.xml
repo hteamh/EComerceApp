@@ -23,10 +23,10 @@
         </activity>
         <activity android:name=".Admin.Activiteis.AddCategory" />
         <activity
-            android:name=".Commodities"
+            android:name=".Admin.Activiteis.Commodities"
             android:label="@string/title_activity_commodities"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Add_Commodity" />
+        <activity android:name=".Admin.Activiteis.Add_Commodity" />
     </application>
 
 </manifest>
