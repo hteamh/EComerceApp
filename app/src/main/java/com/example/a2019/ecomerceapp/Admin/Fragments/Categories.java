@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AddCategory;
+import com.example.a2019.ecomerceapp.Admin.Adapters.CategoriesAdapter;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.CategoryFragmentVm;
 import com.example.a2019.ecomerceapp.R;
@@ -24,6 +28,9 @@ public class Categories extends Fragment {
 
     FloatingActionButton button;
     CategoryFragmentVm MyViewModel ;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    CategoriesAdapter adapter;
 
 
     public Categories() {
@@ -41,6 +48,10 @@ public class Categories extends Fragment {
         view= inflater.inflate(R.layout.fragment_categories, container, false);
         button=view.findViewById(R.id.add);
 
+        recyclerView=view.findViewById(R.id.category_RecycleView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager=new GridLayoutManager(getContext(),2);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +63,9 @@ public class Categories extends Fragment {
             @Override
             public void onChanged(@Nullable List<CategoryModel> categoryModels) {
                   /// here you will send your categoryModels to the Adapter
+                adapter=new CategoriesAdapter(categoryModels);
+                recyclerView.setAdapter(adapter);
+
             }
         });
         return view;
