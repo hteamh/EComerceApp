@@ -78,7 +78,10 @@ public class BaseActivity  extends AppCompatActivity {
     }
     public void hideProgressBar(){
         if(dialog!=null&&dialog.isShowing())
-            dialog.dismiss();
+        {
+           dialog.dismiss();
+        }
+
     }
 
 

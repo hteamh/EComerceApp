@@ -13,10 +13,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Categorybranches {
     public static final String CategoryBranch = "CategoryBranch";
     public static DatabaseReference GetCategoryBranch() {
-        return FirebaseDatabase.getInstance().getReference(CategoryBranch);
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        return firebaseDatabase.getReference(CategoryBranch);
     }
 
     public static void AddCategory(CategoryModel categoryModel, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener) {
@@ -34,42 +38,28 @@ public class Categorybranches {
         GetCategoryBranch().child(id).removeValue();
     }
 
-    public static void DeleteCategoryAndHisItemBYCategoryId(String id) {
-        Query query = GetCategoryBranch().orderByChild("id").equalTo(id);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+    public  static void EditCategory(CategoryModel categoryModel)
+    {
+        GetCategoryBranch().child(categoryModel.getId()).setValue(categoryModel);
+    }
+    public static List<CategoryModel> GetAllCategoryInDB()
+    {
+        final List<CategoryModel>AllCategoryInDB = new ArrayList();
+        GetCategoryBranch().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                CategoryModel categoryModel = dataSnapshot.getValue(CategoryModel.class);
-                String Name = categoryModel.getName();
-                DeleteCategoryByid(categoryModel.getId());
-                Query query2 = ItemBranches.GetAllItemByCategoryName(Name);
-                query2.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot item : dataSnapshot.getChildren()) {
-                            ItemModel itemModel = item.getValue(ItemModel.class);
-                            ItemBranches.DeleteItemByItemId(itemModel.getId());
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        /// here we should show message that the item do not Remove
-                    }
-                });
+                for (DataSnapshot MydataSnapshot : dataSnapshot.getChildren())
+                {
+                    AllCategoryInDB.add(MydataSnapshot.getValue(CategoryModel.class));
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                /// here we should show message that the Category do not Remove
-
+             //// 
             }
         });
-    }
 
-    public  static void EditCategory(CategoryModel categoryModel)
-    {
-        GetCategoryBranch().child(categoryModel.getId()).setValue(categoryModel);
+        return AllCategoryInDB;
     }
 }

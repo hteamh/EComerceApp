@@ -12,7 +12,12 @@ public class ItemImageBranches {
     public static final String  ItemImageBranches = "ItemImage";
     public static StorageReference  ItemReferance()
     {
-        return FirebaseStorage.getInstance().getReference(ItemImageBranches);
+        FirebaseStorage firebaseStorage =  FirebaseStorage.getInstance();
+
+        firebaseStorage.setMaxDownloadRetryTimeMillis(10000);  // wait 1 min for downloads
+        firebaseStorage.setMaxOperationRetryTimeMillis(10000);  // wait 10s for normal ops
+        firebaseStorage.setMaxUploadRetryTimeMillis(10000);  // wait 2 mins for uploads
+        return firebaseStorage.getReference(ItemImageBranches);
     }
     public static StorageTask AddItemImage(ItemModel itemModel, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener)
     {

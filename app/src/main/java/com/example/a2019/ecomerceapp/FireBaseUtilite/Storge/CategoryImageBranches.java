@@ -21,7 +21,12 @@ public class CategoryImageBranches  {
 
     public static StorageReference CategoryReferance()
     {
-       return FirebaseStorage.getInstance().getReference(CategoryImageBranches);
+        FirebaseStorage  CategoryReferance = FirebaseStorage.getInstance();
+        CategoryReferance.setMaxDownloadRetryTimeMillis(30000);  // wait 1 min for downloads
+        CategoryReferance.setMaxOperationRetryTimeMillis(30000);  // wait 10s for normal ops
+        CategoryReferance.setMaxUploadRetryTimeMillis(50000);  // wait 2 mins for uploads
+       return CategoryReferance.getReference(CategoryImageBranches);
+
     }
     public static StorageTask AddCategoryImage(CategoryModel categoryModel, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener)
     {
@@ -53,6 +58,7 @@ public class CategoryImageBranches  {
         .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
                 getUriListner.MyUri(null);
             }
         });
@@ -62,4 +68,5 @@ public class CategoryImageBranches  {
 
         public void MyUri(String Uri);
     }
+
 }

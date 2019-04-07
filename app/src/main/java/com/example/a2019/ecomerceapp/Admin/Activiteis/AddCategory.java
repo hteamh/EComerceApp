@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.example.a2019.ecomerceapp.Admin.ViewModel.AddCategoryVm;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.R;
@@ -43,38 +45,7 @@ public class AddCategory extends BaseActivity {
             @Override
             public void onClick(View v) {
                 HandelData();
-
-                   // Here We Will Call Function THat It Upload Image TO AddCategoryViewModel
-                   // Here WE will liston to the observable variable in our View Model
-                myViewModel.getOpenPanelActivity().observe(AddCategory.this, new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(@Nullable Boolean aBoolean) {
-                        if(aBoolean!=null && aBoolean==true)
-                        {
-                            startActivity(new Intent(AddCategory.this,AdminPanel.class));
-                            finish();
-                        }
-                    }
-                });
-   //////////////////////////////////////////////////////////////////////////////////////////////////////
-                myViewModel.getShowThisMessage().observe(AddCategory.this, new Observer<String>() {
-                    @Override
-                    public void onChanged(@Nullable String s) {
-                        showMessage("error",s,"yes");
-                    }
-                });
-  //////////////////////////////////////////////////////////////////////////////////////////////////////
-                myViewModel.getHideBrogressBar().observe(AddCategory.this, new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(@Nullable Boolean aBoolean) {
-                        if(aBoolean!=null &&aBoolean == true)
-                        {
-                            hideProgressBar();
-                        }
-                    }
-                });
-   /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+                Observable();
             }// end OnCLick
         }); // end On Click Listener
 
@@ -98,38 +69,66 @@ public class AddCategory extends BaseActivity {
         String name = this.ImageName.getEditText().getText().toString().trim();
         String Des =this.Description.getEditText().getText().toString().trim();
         String id = System.currentTimeMillis()+"";
-        if(name.length()<5)
+        if(name.length()<1)
         {
-         // Here You Should Validation if Is empty
-            // then Cheek if is Less than 5
-            /*
-             ****************************
-             * **********************************
-             * *******************************************
-             * *************************************************
-             */
-
+            showMessage("error","Enter Name","Yes");
+            return;
         }
-        if(Des.length()<10)
+        if(Des.length()<1)
         {
-            /*
-            // Here You Should Validation if Is empty
-            // then Cheek if is Less than 10
-
-            ****************************
-            * **********************************
-            * *******************************************
-            * *************************************************
-            */
+            showMessage("error","Enter Des","Yes");
+          return;
         }
-
         if(MyImageUri ==null)
         {
             showMessage("error","Select Image","Yes");
+            return;
         }
        String Uri=MyImageUri.toString();
-        showProgressBar(R.string.Loading);
           myViewModel.InsertNewCategory(name,id,Uri,Des);
+    }
+    public void Observable()
+    {
+
+               myViewModel.getOpenPanelActivity().observe(AddCategory.this, new Observer<Boolean>() {
+                   @Override
+                   public void onChanged(@Nullable Boolean aBoolean) {
+                       if(aBoolean!=null && aBoolean==true)
+                       {
+                           startActivity(new Intent(AddCategory.this,AdminPanel.class));
+                           finish();
+                           return;
+                       }
+
+           }
+       });
+
+                myViewModel.getShowThisMessage().observe(AddCategory.this, new Observer<String>() {
+                    @Override
+                    public void onChanged(@Nullable String s) {
+                        showMessage("error",s,"yes");
+                    }
+
+
+        });
+
+                myViewModel.getHideBrogressBar().observe(AddCategory.this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(@Nullable Boolean aBoolean) {
+                        if(aBoolean!=null)
+                        {
+                            if(aBoolean)
+                            {
+                             hideProgressBar();
+                            }
+                            else
+                            {
+                                showProgressBar(R.string.Loading);
+                            }
+                        }
+            }
+        });
+
     }
 
 }
