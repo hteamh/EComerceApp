@@ -10,7 +10,7 @@ import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranche
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 public class AddCategoryVm extends AndroidViewModel {
-
+    private static CategoryModel MyCategoryItem;
     MutableLiveData <String> ShowThisMessage;
     MutableLiveData <Boolean> HideBrogressBar;
     MutableLiveData <Boolean> OpenPanelActivity;
@@ -38,6 +38,7 @@ public class AddCategoryVm extends AndroidViewModel {
          @Override
          public void onSuccess(Object o) {
              HideBrogressBar.postValue(true);
+             AddCategoryToRoomDb(MyCategoryItem);
          }
      };
      OnFailureListener MyFailureListenerForFireBaseDB = new OnFailureListener() {
@@ -49,14 +50,20 @@ public class AddCategoryVm extends AndroidViewModel {
      OnSuccessListener MySuccessListenerForFireBaseSC = new OnSuccessListener() {
          @Override
          public void onSuccess(Object o) {
-              //
-             //
+             CategoryImageBranches.GetUri(MyCategoryItem, new CategoryImageBranches.GetUriListner() {
+                 @Override
+                 public void MyUri(String Uri) {
+                     if(Uri == null)
+                     {
+                         ShowThisMessage.postValue("Uri Is Not Found");
+                     }
+                     else
+                     {
+                  AddCategoryToFireBaseDB( new CategoryModel(MyCategoryItem.getName(),Uri,MyCategoryItem.getId(),MyCategoryItem.getDescription()));
+                     }
+                 }
+             });
 
-             /// **************************
-             //****************************************************************8
-             //////  Here i want to Acces Room Database And Insert new category
-             ////////////////
-             //////////////////////
          }
      };
      OnFailureListener MyFailureListenerForFireBaseSC = new OnFailureListener() {
@@ -67,11 +74,8 @@ public class AddCategoryVm extends AndroidViewModel {
      };
    public void InsertNewCategory(String name, String id, String ImageUri,String Description)
    {
-
-       CategoryModel categoryModel = new CategoryModel(name,ImageUri,id,Description);
-       AddCategoryToFireBaseDB(categoryModel);
-       HideBrogressBar.postValue(true);
-          return;
+       MyCategoryItem = new CategoryModel(name,ImageUri,id,Description);
+       AddCategoryToFireBaseSC(MyCategoryItem);
    }
    public class AddCategory extends Thread
    {
