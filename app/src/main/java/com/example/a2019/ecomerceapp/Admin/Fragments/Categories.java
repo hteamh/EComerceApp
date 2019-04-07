@@ -31,7 +31,7 @@ public class Categories extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     CategoriesAdapter adapter;
-    
+
 
     public Categories() {
         // Required empty public constructor
@@ -47,7 +47,6 @@ public class Categories extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_categories, container, false);
         button=view.findViewById(R.id.add);
-
         recyclerView=view.findViewById(R.id.category_RecycleView);
         recyclerView.setHasFixedSize(true);
         layoutManager=new GridLayoutManager(getContext(),2);
@@ -59,6 +58,7 @@ public class Categories extends Fragment {
             }
         });
         MyViewModel = ViewModelProviders.of(this).get(CategoryFragmentVm.class);
+        MyViewModel.SetData();
         MyViewModel.getMyCategoryItem().observe(this, new Observer<List<CategoryModel>>() {
             @Override
             public void onChanged(@Nullable List<CategoryModel> categoryModels) {

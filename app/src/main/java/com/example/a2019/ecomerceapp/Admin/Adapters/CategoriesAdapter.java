@@ -34,7 +34,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.commodity_item, viewGroup, false);
+                .inflate(R.layout.category_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -44,7 +44,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         viewHolder.text_item.setText(model.getName());
         viewHolder.price.setText(model.getDescription());
         Glide.with(viewHolder.itemView)
-                .load(Uri.parse(model.getImageUri())).into(viewHolder.image_item);
+                .load(model.getImageUri()).into(viewHolder.image_item);
 
         if (onCategoreyClickedListener!=null){
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +73,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             super(itemView);
 
             image_item = itemView.findViewById(R.id.image_item);
-            text_item = itemView.findViewById(R.id.text_item);
+            text_item = itemView.findViewById(R.id.name_item);
             price = itemView.findViewById(R.id.description);
         }
     }

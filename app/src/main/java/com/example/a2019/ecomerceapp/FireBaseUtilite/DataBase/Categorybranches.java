@@ -42,25 +42,10 @@ public class Categorybranches {
     {
         GetCategoryBranch().child(categoryModel.getId()).setValue(categoryModel);
     }
-    public static List<CategoryModel> GetAllCategoryInDB()
+    public static void GetAllCategoryInDB(ValueEventListener valueEventListener)
     {
-        final List<CategoryModel>AllCategoryInDB = new ArrayList();
-        GetCategoryBranch().addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot MydataSnapshot : dataSnapshot.getChildren())
-                {
-                    AllCategoryInDB.add(MydataSnapshot.getValue(CategoryModel.class));
+        GetCategoryBranch().addListenerForSingleValueEvent(valueEventListener);
 
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        return AllCategoryInDB;
     }
     public interface CallWithGetAllCategoryInDBFunction
     {
