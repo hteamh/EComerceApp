@@ -14,7 +14,7 @@ import com.example.a2019.ecomerceapp.R;
 
 public class AdminPanel extends AppCompatActivity {
 
-    Fragment fragment=null;
+    Fragment fragment = null;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -23,27 +23,32 @@ public class AdminPanel extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.add_category:
-                    fragment=new Categories();
-                     break;
+                    fragment = new Categories();
+                    break;
                 case R.id.orders:
-                    fragment=new Oreders();
+                    fragment = new Oreders();
                     break;
                 case R.id.reports:
-                    fragment= new Reports();
+                    fragment = new Reports();
                     break;
             }
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer,fragment)
-                    .commit();
+            linkfraggment();
             return true;
         }
     };
+
+    private void linkfraggment() {
+        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, fragment).commit();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_panel);
+
+        fragment = new Categories();
+        linkfraggment();
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
