@@ -1,8 +1,11 @@
 package com.example.a2019.ecomerceapp.Admin.Fragments;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,12 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AddCategory;
+import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
+import com.example.a2019.ecomerceapp.Admin.ViewModel.CategoryFragmentVm;
 import com.example.a2019.ecomerceapp.R;
+
+import java.util.List;
 
 
 public class Categories extends Fragment {
 
     FloatingActionButton button;
+    CategoryFragmentVm MyViewModel ;
 
 
     public Categories() {
@@ -39,7 +47,13 @@ public class Categories extends Fragment {
                 startActivity(new Intent(getContext(),AddCategory.class));
             }
         });
-
+        MyViewModel = ViewModelProviders.of(this).get(CategoryFragmentVm.class);
+        MyViewModel.getMyCategoryItem().observe(this, new Observer<List<CategoryModel>>() {
+            @Override
+            public void onChanged(@Nullable List<CategoryModel> categoryModels) {
+                  /// here you will send your categoryModels to the Adapter 
+            }
+        });
         return view;
     }
 

@@ -42,9 +42,8 @@ public class Categorybranches {
     {
         GetCategoryBranch().child(categoryModel.getId()).setValue(categoryModel);
     }
-    public static List<CategoryModel> GetAllCategoryInDB(final CategoryModel categoryModel, final CallWithGetAllCategoryInDBFunction mycall)
+    public static List<CategoryModel> GetAllCategoryInDB()
     {
-        final  String Error;
         final List<CategoryModel>AllCategoryInDB = new ArrayList();
         GetCategoryBranch().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -58,7 +57,6 @@ public class Categorybranches {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                mycall.GetErrorMessage(databaseError.getMessage());
             }
         });
 
