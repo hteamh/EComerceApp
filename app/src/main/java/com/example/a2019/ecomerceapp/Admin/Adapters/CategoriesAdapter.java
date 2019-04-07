@@ -1,5 +1,6 @@
 package com.example.a2019.ecomerceapp.Admin.Adapters;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,7 +44,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         viewHolder.text_item.setText(model.getName());
         viewHolder.price.setText(model.getDescription());
         Glide.with(viewHolder.itemView)
-                .load(model.getImageUri()).into(viewHolder.image_item);
+                .load(Uri.parse(model.getImageUri())).into(viewHolder.image_item);
 
         if (onCategoreyClickedListener!=null){
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

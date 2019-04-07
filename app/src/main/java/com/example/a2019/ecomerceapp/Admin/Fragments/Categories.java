@@ -31,7 +31,7 @@ public class Categories extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     CategoriesAdapter adapter;
-
+    
 
     public Categories() {
         // Required empty public constructor
@@ -65,6 +65,7 @@ public class Categories extends Fragment {
                   /// here you will send your categoryModels to the Adapter
                 adapter=new CategoriesAdapter(categoryModels);
                 recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(layoutManager);
 
             }
         });
