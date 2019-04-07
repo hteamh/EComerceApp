@@ -76,7 +76,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             text_item = itemView.findViewById(R.id.name_item);
             price = itemView.findViewById(R.id.description);
         }
-    }
+    }//,,,,
 
     public interface OnCategoreyClickedListener{
         void onItemClicked(int pos,CategoryModel model);
