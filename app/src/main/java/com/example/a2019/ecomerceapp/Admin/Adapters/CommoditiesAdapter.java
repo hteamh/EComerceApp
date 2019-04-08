@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
+import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.R;
 
 import java.util.List;
@@ -20,13 +21,13 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
 
     // don't forget to change the model
 
-    List<CategoryModel> list;
+    List<ItemModel> list;
     OnCommodityClickedListener onCommodityClickedListener;
     OnCommodityEditListener onCommodityEditListener;
 
 
 
-    public CommoditiesAdapter(List<CategoryModel> list) {
+    public CommoditiesAdapter(List<ItemModel> list) {
         this.list = list;
     }
 
@@ -49,7 +50,7 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int pos) {
-        final CategoryModel model = list.get(pos);
+        final ItemModel model = list.get(pos);
         viewHolder.text_item.setText(model.getName());
         viewHolder.price.setText(model.getDescription());
         Glide.with(viewHolder.itemView)
@@ -101,11 +102,11 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
     }
 
     public interface OnCommodityClickedListener{
-        void onItemClicked(int pos, CategoryModel model);
+        void onItemClicked(int pos, ItemModel model);
     }
 
     public interface OnCommodityEditListener{
-        void onItemEdit(int pos, CategoryModel model);
+        void onItemEdit(int pos, ItemModel model);
     }
 
 
