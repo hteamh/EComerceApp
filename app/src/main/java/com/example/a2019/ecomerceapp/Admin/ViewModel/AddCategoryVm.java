@@ -37,8 +37,17 @@ public class AddCategoryVm extends AndroidViewModel {
    {
        HideBrogressBar.postValue(false);
        MyCategoryItem = new CategoryModel(name,ImageUri,id,Description);
-       AddCategoryToFireBaseSC(MyCategoryItem);
-       return;
+       if(internetIsConnected())
+       {
+           AddCategoryToFireBaseSC(MyCategoryItem);
+           return;
+       }
+       else
+       {
+           ShowThisMessage.postValue("No internet Connection");
+           return;
+       }
+
    }
    public class AddCategory extends Thread
    {
@@ -65,7 +74,7 @@ public class AddCategoryVm extends AndroidViewModel {
           @Override
           public void onFailure(@NonNull Exception e) {
               HideBrogressBar.postValue(true);
-              ShowThisMessage.postValue("Cheek your internet Connection");
+              ShowThisMessage.postValue(e.getMessage());
           }
       });
 
@@ -109,5 +118,12 @@ public class AddCategoryVm extends AndroidViewModel {
 
     }
 
-
+    public boolean internetIsConnected() {
+        try {
+            String command = "ping -c 1 google.com";
+            return (Runtime.getRuntime().exec(command).waitFor() == 0);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
