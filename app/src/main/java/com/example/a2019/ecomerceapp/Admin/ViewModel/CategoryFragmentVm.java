@@ -23,8 +23,7 @@ public class CategoryFragmentVm extends AndroidViewModel {
         categoryModels = new ArrayList<>();
     }
 
-public void GETDATA(final MyCall myCall)
-{
+public void GETDATA(final MyCall myCall) {
     Categorybranches.GetAllCategoryInDB(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -42,8 +41,7 @@ public void GETDATA(final MyCall myCall)
     });
 }
 
-public  void SetData()
-{
+public  void SetData() {
    GETDATA(new MyCall() {
        @Override
        public void Mycall(List<CategoryModel> categoryModels) {
@@ -57,9 +55,8 @@ public  void SetData()
 
 
 
-    public interface MyCall
-    {
-        public void Mycall(List<CategoryModel> categoryModels);
+    public interface MyCall {
+         void Mycall(List<CategoryModel> categoryModels);
     }
 
 }

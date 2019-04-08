@@ -14,8 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AddCategory;
+import com.example.a2019.ecomerceapp.Admin.Activiteis.EditCategory;
 import com.example.a2019.ecomerceapp.Admin.Adapters.CategoriesAdapter;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.CategoryFragmentVm;
@@ -49,7 +51,9 @@ public class Categories extends Fragment {
         button=view.findViewById(R.id.add);
         recyclerView=view.findViewById(R.id.category_RecycleView);
         recyclerView.setHasFixedSize(true);
-        layoutManager=new GridLayoutManager(getContext(),2);
+        layoutManager=new LinearLayoutManager(getContext());
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,11 +70,26 @@ public class Categories extends Fragment {
                 adapter=new CategoriesAdapter(categoryModels);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
+                adapter.setOnCategoreyEditListener(new CategoriesAdapter.OnCategoreyEditListener() {
+                    @Override
+                    public void onItemEdit(int pos, CategoryModel model) {
 
+
+                        Intent intent=new Intent(getContext(),EditCategory.class);
+
+
+                        startActivity(intent);
+
+                    }
+                });
             }
         });
+
+
         return view;
     }
+
+
 
 
 

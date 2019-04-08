@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,10 +20,16 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
     List<CategoryModel> list;
     OnCategoreyClickedListener onCategoreyClickedListener;
+    OnCategoreyEditListener onCategoreyEditListener;
+
 
 
     public CategoriesAdapter(List<CategoryModel> list) {
         this.list = list;
+    }
+
+    public void setOnCategoreyEditListener(OnCategoreyEditListener onCategoreyEditListener) {
+        this.onCategoreyEditListener = onCategoreyEditListener;
     }
 
     public void setOnCategoreyClickedListener(OnCategoreyClickedListener onCategoreyClickedListener) {
@@ -55,6 +62,17 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             });
         }
 
+        if (onCategoreyEditListener!=null){
+            viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onCategoreyEditListener.onItemEdit(pos,model);
+                }
+            });
+        }
+
+
+
     }
 
     @Override
@@ -67,6 +85,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
         ImageView image_item;
         TextView text_item, price;
+        Button edit;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -75,10 +94,17 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             image_item = itemView.findViewById(R.id.image_item);
             text_item = itemView.findViewById(R.id.name_item);
             price = itemView.findViewById(R.id.description);
+            edit=itemView.findViewById(R.id.editButton);
         }
     }//,,,,
 
     public interface OnCategoreyClickedListener{
         void onItemClicked(int pos,CategoryModel model);
     }
+
+    public interface OnCategoreyEditListener{
+        void onItemEdit(int pos,CategoryModel model);
+    }
+
+
 }
