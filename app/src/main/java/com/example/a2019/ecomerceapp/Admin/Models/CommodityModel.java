@@ -18,6 +18,8 @@ public class CommodityModel {
     String Description;
 
     public CommodityModel() {
+
+
     }
 
     public CommodityModel(String name, String imageUri, @NonNull String id, String description) {
