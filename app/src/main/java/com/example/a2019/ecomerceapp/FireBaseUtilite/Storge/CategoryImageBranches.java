@@ -66,7 +66,6 @@ public class CategoryImageBranches  {
     public static void Edit(CategoryModel categoryModel,OnSuccessListener onSuccessListener ,OnFailureListener onFailureListener)
     {
         StorageReference myitem =  CategoryReferance().child(categoryModel.getId());
-        myitem.delete();
         CategoryReferance().child(categoryModel.getId()).putFile(Uri.parse(categoryModel.getImageUri()))
         .addOnSuccessListener(onSuccessListener)
         .addOnFailureListener(onFailureListener);

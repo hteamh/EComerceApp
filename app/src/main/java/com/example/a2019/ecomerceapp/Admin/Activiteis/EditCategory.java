@@ -96,6 +96,8 @@ public class EditCategory extends BaseActivity {
         categoryName.getEditText().setText(Categories.categoryModeWeWantToUpdate.getName());
         description.getEditText().setText(Categories.categoryModeWeWantToUpdate.getDescription());
        displayImageCategory.setImageURI(MyImageUri);
+        Glide.with(this).load(MyImageUri).into(displayImageCategory);
+
     }
     public void OpenImageGalary() {
         Intent intent = new Intent();
@@ -108,7 +110,7 @@ public class EditCategory extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             MyImageUri = data.getData();
-            displayImageCategory.setImageURI(MyImageUri);
+            Glide.with(this).load(MyImageUri).into(displayImageCategory);
         }
     }
     public  void Observe()

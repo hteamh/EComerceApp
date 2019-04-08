@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
+import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Categorybranches;
@@ -35,7 +36,7 @@ public class EditCategoryVm extends AndroidViewModel {
         return showMessage;
     }
 
-    public   void UpdateCategry(CategoryModel categoryModel)
+    public   void UpdateCategry(final CategoryModel categoryModel)
     {
         HideProgress.postValue(false);
         if(internetIsConnected())
@@ -43,30 +44,37 @@ public class EditCategoryVm extends AndroidViewModel {
             CategoryImageBranches.Edit(categoryModel, new OnSuccessListener() {
                 @Override
                 public void onSuccess(Object o) {
+                    CategoryImageBranches.GetUri(categoryModel, new CategoryImageBranches.GetUriListner() {
+                        @Override
+                        public void MyUri(String Uri) {
+                            final CategoryModel newCategoryModel = new CategoryModel(categoryModel.getName(),Uri,
+                            Categories.categoryModeWeWantToUpdate.getId(),categoryModel.getDescription());
+                            Categorybranches.EditCateory(newCategoryModel, new OnSuccessListener() {
+                                @Override
+                                public void onSuccess(Object o) {
+                                    MyThreed myThreed= new MyThreed(newCategoryModel);
+                                    myThreed.start();
+                                    HideProgress.postValue(true);
+                                    Done.postValue(true);
+                                }
+                            }, new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                 showMessage.postValue(e.getMessage());
+                                 HideProgress.postValue(true);
 
+                                }
+                            });
+                        }
+                    });
                 }
             }, new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    showMessage.postValue(e.getMessage());
+                    HideProgress.postValue(true);
                 }
             });
-            Categorybranches.EditCateory(categoryModel, new OnSuccessListener() {
-                @Override
-                public void onSuccess(Object o) {
-
-                }
-            }, new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                }
-            });
-            MyThreed myThreed =new MyThreed(categoryModel);
-            HideProgress.postValue(true);
-            Done.postValue(true);
-            myThreed.start();
-
         }
         else
         {

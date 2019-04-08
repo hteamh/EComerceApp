@@ -38,7 +38,6 @@ public class ItemImageBranches {
     {
         StorageReference myitem =  ItemReferance().child(itemModel.getId());
         StorageReference myImgeitem =ItemReferance().child(itemModel.getId()).child(itemModel.getImageUri());
-        myImgeitem.delete();
         myitem.putFile(Uri.parse(itemModel.getImageUri()))
         .addOnSuccessListener(onSuccessListener)
         .addOnFailureListener(onFailureListener);

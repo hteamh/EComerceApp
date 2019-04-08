@@ -68,7 +68,8 @@ public class AddCategory extends BaseActivity {
     {
         String name = this.ImageName.getEditText().getText().toString().trim();
         String Des =this.Description.getEditText().getText().toString().trim();
-        String id = System.currentTimeMillis()+"";
+        String M = System.currentTimeMillis()+"";
+        String id = M+1;
         if(name.length()<1)
         {
             showMessage("error","Enter Name","Yes");

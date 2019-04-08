@@ -89,7 +89,7 @@ public class AddCategoryVm extends AndroidViewModel {
                  public void MyUri(String Uri) {
                      if(Uri == null)
                      {
-                         ShowThisMessage.postValue("Uri Is Success  Upload");
+                         ShowThisMessage.postValue("Uri Is Not  Upload");
                      }
                      else
                      {
