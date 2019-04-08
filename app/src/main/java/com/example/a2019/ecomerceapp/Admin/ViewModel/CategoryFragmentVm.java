@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Categorybranches;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +37,13 @@ public void GETDATA(final MyCall myCall) {
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            MyGetTHreead myGetTHreead = new MyGetTHreead(new MyCall() {
+                @Override
+                public void Mycall(List<CategoryModel> categoryModels) {
+                    myCall.Mycall(categoryModels);
+                }
+            });
+            myGetTHreead.start();
         }
     });
 }
@@ -57,6 +64,21 @@ public  void SetData() {
 
     public interface MyCall {
          void Mycall(List<CategoryModel> categoryModels);
+    }
+    public class MyGetTHreead  extends Thread
+    {
+        MyCall myCall;
+        public MyGetTHreead(MyCall myCall)
+        {
+            this.myCall = myCall;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+          List<CategoryModel> categoryModels = MyDatabase.getInstance().categoryDao().GetAllCategory();
+         myCall.Mycall(categoryModels);
+        }
     }
 
 }
