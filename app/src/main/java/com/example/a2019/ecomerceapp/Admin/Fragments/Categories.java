@@ -39,8 +39,7 @@ public class Categories extends BaseFragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     CategoriesAdapter adapter;
-
-
+    public  static CategoryModel categoryModeWeWantToUpdate;
     public Categories() {
         // Required empty public constructor
     }
@@ -87,6 +86,7 @@ public class Categories extends BaseFragment {
                     @Override
                     public void onItemEdit(int pos, CategoryModel model) {
                         Intent intent=new Intent(getContext(),EditCategory.class);
+                        categoryModeWeWantToUpdate=model;
                         startActivity(intent);
 
                     }

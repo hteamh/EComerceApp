@@ -48,9 +48,13 @@ public class ItemBranches {
         GetItemBranch().child(id).removeValue();
     }
 
-    public static void EditItem(ItemModel itemModel)
+    public static void EditItem(ItemModel itemModel,OnSuccessListener onSuccessListener,OnFailureListener onFailureListener)
     {
-        GetItemBranch().child(itemModel.getId()).setValue(itemModel);
+        DatabaseReference myitem=   GetItemBranch().child(itemModel.getId());
+        myitem.removeValue();
+        myitem.setValue(itemModel)
+        .addOnFailureListener(onFailureListener)
+            .addOnSuccessListener(onSuccessListener);
     }
     public static List<ItemModel> GetAllItemInDb()
     {

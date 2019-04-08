@@ -29,19 +29,20 @@ public class Categorybranches {
                 .addOnFailureListener(onFailureListener);
     }
 
-    public static Query  GetCategoryByName(String Category_name) {
-        Query query = GetCategoryBranch().orderByChild("name").equalTo(Category_name);
-       return  query;
+    public static void EditCateory(CategoryModel categoryModel,OnSuccessListener onSuccessListener,OnFailureListener onFailureListener) {
+        DatabaseReference myItem =GetCategoryBranch().child(categoryModel.getId());
+        myItem.removeValue();
+        myItem.setValue(categoryModel)
+        .addOnFailureListener(onFailureListener)
+        .addOnSuccessListener(onSuccessListener);
+
+
     }
 
     public static void DeleteCategoryByid(String id) {
         GetCategoryBranch().child(id).removeValue();
     }
 
-    public  static void EditCategory(CategoryModel categoryModel)
-    {
-        GetCategoryBranch().child(categoryModel.getId()).setValue(categoryModel);
-    }
     public static void GetAllCategoryInDB(ValueEventListener valueEventListener)
     {
         GetCategoryBranch().addListenerForSingleValueEvent(valueEventListener);

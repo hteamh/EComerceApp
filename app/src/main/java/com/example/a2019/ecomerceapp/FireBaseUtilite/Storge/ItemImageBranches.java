@@ -1,5 +1,7 @@
 package com.example.a2019.ecomerceapp.FireBaseUtilite.Storge;
 import android.net.Uri;
+
+import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,6 +33,15 @@ public class ItemImageBranches {
         Task<Uri> uri=ItemReferance().child(id).getDownloadUrl();
         Uri uri1 = uri.getResult();
         return uri1;
+    }
+    public static void Edit(ItemModel itemModel , OnSuccessListener onSuccessListener,OnFailureListener onFailureListener)
+    {
+        StorageReference myitem =  ItemReferance().child(itemModel.getId());
+        StorageReference myImgeitem =ItemReferance().child(itemModel.getId()).child(itemModel.getImageUri());
+        myImgeitem.delete();
+        myitem.putFile(Uri.parse(itemModel.getImageUri()))
+        .addOnSuccessListener(onSuccessListener)
+        .addOnFailureListener(onFailureListener);
     }
     public  static void DeleteImage (String id)
     {
