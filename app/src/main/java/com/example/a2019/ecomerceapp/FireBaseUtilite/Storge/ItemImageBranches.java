@@ -34,13 +34,14 @@ public class ItemImageBranches {
         Uri uri1 = uri.getResult();
         return uri1;
     }
+    ////////////////////
+    ///////////////
     public static void Edit(ItemModel itemModel , OnSuccessListener onSuccessListener,OnFailureListener onFailureListener)
     {
         StorageReference myitem =  ItemReferance().child(itemModel.getId());
-        StorageReference myImgeitem =ItemReferance().child(itemModel.getId()).child(itemModel.getImageUri());
-        myitem.putFile(Uri.parse(itemModel.getImageUri()))
-        .addOnSuccessListener(onSuccessListener)
-        .addOnFailureListener(onFailureListener);
+        ItemReferance().child(itemModel.getId()).putFile(Uri.parse(itemModel.getImageUri()))
+                .addOnSuccessListener(onSuccessListener)
+                .addOnFailureListener(onFailureListener);
     }
     public  static void DeleteImage (String id)
     {
