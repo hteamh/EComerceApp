@@ -22,9 +22,9 @@ public class CategoryImageBranches  {
     public static StorageReference CategoryReferance()
     {
         FirebaseStorage  CategoryReferance = FirebaseStorage.getInstance();
-        CategoryReferance.setMaxDownloadRetryTimeMillis(30000);  // wait 1 min for downloads
-        CategoryReferance.setMaxOperationRetryTimeMillis(30000);  // wait 10s for normal ops
-        CategoryReferance.setMaxUploadRetryTimeMillis(50000);  // wait 2 mins for uploads
+        CategoryReferance.setMaxDownloadRetryTimeMillis(10000);  // wait 1 min for downloads
+        CategoryReferance.setMaxOperationRetryTimeMillis(10000);  // wait 10s for normal ops
+        CategoryReferance.setMaxUploadRetryTimeMillis(10000);  // wait 2 mins for uploads
        return CategoryReferance.getReference(CategoryImageBranches);
 
     }

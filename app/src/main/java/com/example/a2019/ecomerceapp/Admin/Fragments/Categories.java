@@ -3,7 +3,10 @@ package com.example.a2019.ecomerceapp.Admin.Fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,12 +24,15 @@ import com.example.a2019.ecomerceapp.Admin.Activiteis.EditCategory;
 import com.example.a2019.ecomerceapp.Admin.Adapters.CategoriesAdapter;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.CategoryFragmentVm;
+import com.example.a2019.ecomerceapp.Base.BaseFragment;
 import com.example.a2019.ecomerceapp.R;
 
 import java.util.List;
 
+import static android.support.v4.content.ContextCompat.getSystemService;
 
-public class Categories extends Fragment {
+
+public class Categories extends BaseFragment {
 
     FloatingActionButton button;
     CategoryFragmentVm MyViewModel ;
@@ -46,6 +52,7 @@ public class Categories extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_categories, container, false);
         button=view.findViewById(R.id.add);
@@ -63,6 +70,12 @@ public class Categories extends Fragment {
         });
         MyViewModel = ViewModelProviders.of(this).get(CategoryFragmentVm.class);
         MyViewModel.SetData();
+        MyViewModel.getError().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                showMessage("error",s,"yes");
+            }
+        });
         MyViewModel.getMyCategoryItem().observe(this, new Observer<List<CategoryModel>>() {
             @Override
             public void onChanged(@Nullable List<CategoryModel> categoryModels) {
@@ -73,11 +86,7 @@ public class Categories extends Fragment {
                 adapter.setOnCategoreyEditListener(new CategoriesAdapter.OnCategoreyEditListener() {
                     @Override
                     public void onItemEdit(int pos, CategoryModel model) {
-
-
                         Intent intent=new Intent(getContext(),EditCategory.class);
-
-
                         startActivity(intent);
 
                     }
@@ -88,9 +97,5 @@ public class Categories extends Fragment {
 
         return view;
     }
-
-
-
-
 
 }

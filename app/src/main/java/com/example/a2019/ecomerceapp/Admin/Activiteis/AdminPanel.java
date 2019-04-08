@@ -1,5 +1,7 @@
 package com.example.a2019.ecomerceapp.Admin.Activiteis;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,9 +12,10 @@ import android.view.MenuItem;
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Fragments.Oreders;
 import com.example.a2019.ecomerceapp.Admin.Fragments.Reports;
+import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.R;
 
-public class AdminPanel extends AppCompatActivity {
+public class AdminPanel extends BaseActivity {
 
     Fragment fragment = null;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

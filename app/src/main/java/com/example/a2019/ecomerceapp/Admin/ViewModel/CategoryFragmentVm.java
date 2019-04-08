@@ -17,13 +17,20 @@ import java.util.List;
 
 public class CategoryFragmentVm extends AndroidViewModel {
     MutableLiveData<List<CategoryModel>> MyCategoryItem;
+    MutableLiveData<String> Error;
     public  List<CategoryModel> categoryModels ;
     public CategoryFragmentVm(@NonNull Application application) {
         super(application);
         MyCategoryItem = new MutableLiveData<>();
         categoryModels = new ArrayList<>();
+        Error = new MutableLiveData<>();
     }
 
+    public MutableLiveData<String> getError() {
+        return Error;
+    }
+
+    // GetData From FireBase
 public void GETDATA(final MyCall myCall) {
     Categorybranches.GetAllCategoryInDB(new ValueEventListener() {
         @Override
@@ -37,35 +44,44 @@ public void GETDATA(final MyCall myCall) {
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-            MyGetTHreead myGetTHreead = new MyGetTHreead(new MyCall() {
-                @Override
-                public void Mycall(List<CategoryModel> categoryModels) {
-                    myCall.Mycall(categoryModels);
-                }
-            });
-            myGetTHreead.start();
+            Error.postValue("onCancelled Enter");
         }
     });
 }
-
+// Set Data to Mutiable live data
 public  void SetData() {
-   GETDATA(new MyCall() {
-       @Override
-       public void Mycall(List<CategoryModel> categoryModels) {
-           MyCategoryItem.postValue(categoryModels);
-       }
-   });
+        if(internetIsConnected())
+        {
+            GETDATA(new MyCall() {
+                @Override
+                public void Mycall(List<CategoryModel> categoryModels) {
+                    MyCategoryItem.postValue(categoryModels);
+                }
+            });
+        }
+        else
+        {
+            MyGetTHreead myGetTHreead = new MyGetTHreead(new MyCall() {
+                @Override
+                public void Mycall(List<CategoryModel> categoryModels) {
+                    MyCategoryItem.postValue(categoryModels);
+                }
+            }) ;
+            myGetTHreead.start();
+        }
+
+
 }
-    public MutableLiveData<List<CategoryModel>> getMyCategoryItem() {
+// live data Getter
+public MutableLiveData<List<CategoryModel>> getMyCategoryItem() {
         return MyCategoryItem;
     }
-
-
-
-    public interface MyCall {
+// interface for Delling with the Other Thread
+ public interface MyCall {
          void Mycall(List<CategoryModel> categoryModels);
     }
-    public class MyGetTHreead  extends Thread
+// thread for dealing whith
+public class MyGetTHreead  extends Thread
     {
         MyCall myCall;
         public MyGetTHreead(MyCall myCall)
@@ -81,4 +97,12 @@ public  void SetData() {
         }
     }
 
+    public boolean internetIsConnected() {
+        try {
+            String command = "ping -c 1 google.com";
+            return (Runtime.getRuntime().exec(command).waitFor() == 0);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
