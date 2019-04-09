@@ -50,7 +50,7 @@ public class AddCategory extends BaseActivity {
         }); // end On Click Listener
 
     }
-    public void OpenImageGalary() {
+    public void  OpenImageGalary() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
