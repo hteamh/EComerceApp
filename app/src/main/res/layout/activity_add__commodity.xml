@@ -79,6 +79,16 @@
         app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/Upload"
+        app:layout_constraintTop_toBottomOf="@+id/description_comm"
+        android:hint="price"/>
+
 
 </android.support.constraint.ConstraintLayout>
 

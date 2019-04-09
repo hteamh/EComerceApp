@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AddCategory;
+import com.example.a2019.ecomerceapp.Admin.Activiteis.Commodities;
 import com.example.a2019.ecomerceapp.Admin.Activiteis.EditCategory;
 import com.example.a2019.ecomerceapp.Admin.Adapters.CategoriesAdapter;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
@@ -40,6 +41,7 @@ public class Categories extends BaseFragment {
     RecyclerView.LayoutManager layoutManager;
     CategoriesAdapter adapter;
     public  static CategoryModel categoryModeWeWantToUpdate;
+    public  static  CategoryModel categoryModeWeWantToSHowHisItem;
     public Categories() {
         // Required empty public constructor
     }
@@ -89,8 +91,19 @@ public class Categories extends BaseFragment {
                         categoryModeWeWantToUpdate=model;
                         startActivity(intent);
 
+
                     }
                 });
+                adapter.setOnCategoreyClickedListener(new CategoriesAdapter.OnCategoreyClickedListener() {
+                    @Override
+                    public void onItemClicked(int pos, CategoryModel MyCategory) {
+                        categoryModeWeWantToSHowHisItem = MyCategory;
+                        Intent intent=new Intent(getContext(), Commodities.class);
+                        startActivity(intent);
+
+                    }
+                });
+
             }
         });
 
