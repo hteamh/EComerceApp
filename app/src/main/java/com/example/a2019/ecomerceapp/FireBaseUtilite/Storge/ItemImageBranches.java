@@ -53,7 +53,6 @@ public class ItemImageBranches {
     ///////////////
     public static void Edit(ItemModel itemModel , OnSuccessListener onSuccessListener,OnFailureListener onFailureListener)
     {
-        StorageReference myitem =  ItemReferance().child(itemModel.getId());
         ItemReferance().child(itemModel.getId()).putFile(Uri.parse(itemModel.getImageUri()))
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener);

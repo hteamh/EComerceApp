@@ -25,6 +25,7 @@ public class Commodities extends BaseActivity {
     RecyclerView.LayoutManager layoutManager;
     CommoditiesAdapter adapter;
     CommoditiesVm vm;
+    public static ItemModel comodityWeWantEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,15 @@ public class Commodities extends BaseActivity {
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
                 adapter.notifyDataSetChanged();
+
+                adapter.setOnComodityEditListener(new CommoditiesAdapter.OnComodityEditListener() {
+                    @Override
+                    public void onItemEdit(int pos, ItemModel model) {
+                        comodityWeWantEdit=model;
+                        startActivity(new Intent(Commodities.this,EditComodity.class));
+                    }
+                });
+
             }
         });
     }
