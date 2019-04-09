@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/commodity_image"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="136dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -21,9 +21,9 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/commodity_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -41,11 +41,11 @@
         android:id="@+id/choose_image_comm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:text="Choose The Image"
         app:layout_constraintEnd_toEndOf="@+id/commodity_image"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="@+id/commodity_name"
         app:layout_constraintTop_toBottomOf="@+id/commodity_name" />
 
@@ -71,12 +71,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:layout_marginBottom="168dp"
+        android:layout_marginBottom="56dp"
         android:background="@color/colorPrimary"
         android:text="Upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -85,9 +84,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:hint="price"
         app:layout_constraintBottom_toTopOf="@+id/Upload"
-        app:layout_constraintTop_toBottomOf="@+id/description_comm"
-        android:hint="price"/>
+        app:layout_constraintEnd_toEndOf="@+id/description_comm"
+        app:layout_constraintStart_toStartOf="@+id/description_comm"
+        app:layout_constraintTop_toBottomOf="@+id/description_comm" />
 
 
 </android.support.constraint.ConstraintLayout>
