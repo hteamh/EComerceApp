@@ -18,6 +18,7 @@ import java.util.List;
 
 public class Categorybranches {
     public static final String CategoryBranch = "CategoryBranch";
+
     public static DatabaseReference GetCategoryBranch() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         return firebaseDatabase.getReference(CategoryBranch);

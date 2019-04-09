@@ -16,10 +16,10 @@ import com.google.firebase.storage.UploadTask;
 import java.net.URI;
 
 public class CategoryImageBranches  {
-    public static final String  CategoryImageBranches = "CategoryImage";
+    private static final String  CategoryImageBranches = "CategoryImage";
 
 
-    public static StorageReference CategoryReferance()
+    private static StorageReference CategoryReferance()
     {
         FirebaseStorage  CategoryReferance = FirebaseStorage.getInstance();
         CategoryReferance.setMaxDownloadRetryTimeMillis(10000);  // wait 1 min for downloads
@@ -65,7 +65,6 @@ public class CategoryImageBranches  {
     }
     public static void Edit(CategoryModel categoryModel,OnSuccessListener onSuccessListener ,OnFailureListener onFailureListener)
     {
-        StorageReference myitem =  CategoryReferance().child(categoryModel.getId());
         CategoryReferance().child(categoryModel.getId()).putFile(Uri.parse(categoryModel.getImageUri()))
         .addOnSuccessListener(onSuccessListener)
         .addOnFailureListener(onFailureListener);
