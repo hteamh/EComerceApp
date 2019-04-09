@@ -1,5 +1,6 @@
 package com.example.a2019.ecomerceapp.FireBaseUtilite.Storge;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
@@ -28,11 +29,25 @@ public class ItemImageBranches {
                 .addOnFailureListener(onFailureListener)
                 ;
     }
-    public  static Uri GetItemImageUri(String id)
+    public static void  GetUri(ItemModel itemModel , final CategoryImageBranches.GetUriListner getUriListner)
     {
-        Task<Uri> uri=ItemReferance().child(id).getDownloadUrl();
-        Uri uri1 = uri.getResult();
-        return uri1;
+
+
+        ItemReferance().child(itemModel.getId())
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        getUriListner.MyUri(uri.toString());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        getUriListner.MyUri(null);
+                    }
+                });
     }
     ////////////////////
     ///////////////
