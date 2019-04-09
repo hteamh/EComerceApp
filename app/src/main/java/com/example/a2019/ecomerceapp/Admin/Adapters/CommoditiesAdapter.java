@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.R;
 
@@ -18,96 +16,47 @@ import java.util.List;
 
 public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.ViewHolder> {
 
-
-    // don't forget to change the model
-
     List<ItemModel> list;
-    OnCommodityClickedListener onCommodityClickedListener;
-    OnCommodityEditListener onCommodityEditListener;
-
-
 
     public CommoditiesAdapter(List<ItemModel> list) {
         this.list = list;
     }
 
-    public void setOnCommodityEditListener(OnCommodityEditListener onCommodityEditListener) {
-        this.onCommodityEditListener = onCommodityEditListener;
-    }
-
-    public void setOnCommodityClickedListener(OnCommodityClickedListener onCommodityClickedListener) {
-        this.onCommodityClickedListener = onCommodityClickedListener;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.commodity_item,viewGroup,false);
 
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.commodity_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int pos) {
-        final ItemModel model = list.get(pos);
-        viewHolder.text_item.setText(model.getName());
-        viewHolder.price.setText(model.getDescription());
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int pos) {
+
+        ItemModel model=list.get(pos);
+        viewHolder.name.setText(model.getName());
+        viewHolder.price.setText(model.getPrice());
+
         Glide.with(viewHolder.itemView)
-                .load(model.getImageUri()).into(viewHolder.image_item);
-
-        if (onCommodityClickedListener!=null){
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCommodityClickedListener.onItemClicked(pos,model);
-                }
-            });
-        }
-
-        if (onCommodityEditListener!=null){
-            viewHolder.edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCommodityEditListener.onItemEdit(pos,model);
-                }
-            });
-        }
-
-
+                .load(model.getImageUri()).into(viewHolder.imageView);
 
     }
 
     @Override
     public int getItemCount() {
-        if (list == null) return 0;
+        if (list==null)return 0;
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView image_item;
-        TextView text_item, price;
-        Button edit;
-
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        TextView name,price;
+        ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            image_item = itemView.findViewById(R.id.commodity_image);
-            text_item = itemView.findViewById(R.id.name_comm);
-            price = itemView.findViewById(R.id.price_comm);
-            edit=itemView.findViewById(R.id.edit_comm);
+            name=itemView.findViewById(R.id.name_comm);
+            price=itemView.findViewById(R.id.price_comm);
+            imageView=itemView.findViewById(R.id.image_comm);
         }
     }
-
-    public interface OnCommodityClickedListener{
-        void onItemClicked(int pos, ItemModel model);
-    }
-
-    public interface OnCommodityEditListener{
-        void onItemEdit(int pos, ItemModel model);
-    }
-
-
 }

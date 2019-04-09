@@ -40,7 +40,7 @@ public class ItemBranches {
     }
     public static Query GetAllItemByCategoryName(String Category_name)
     {
-        Query query =  GetItemBranch().orderByChild("CategoryName").equalTo(Category_name);
+        Query query =  GetItemBranch().orderByChild("categoryName").equalTo(Category_name);
         return query;
     }
     public static void DeleteItemByItemId(String id)

@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Adapters.CommoditiesAdapter;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
@@ -36,7 +33,7 @@ public class Commodities extends BaseActivity {
         vm= ViewModelProviders.of(this).get(CommoditiesVm.class);
 
         recyclerView=findViewById(R.id.commodities_RecycleView);
-        layoutManager=new LinearLayoutManager(this);
+        layoutManager=new GridLayoutManager(this,2);
 
         vm.setData();
 
@@ -71,6 +68,7 @@ public class Commodities extends BaseActivity {
                 adapter=new CommoditiesAdapter(list);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
+                adapter.notifyDataSetChanged();
             }
         });
     }
