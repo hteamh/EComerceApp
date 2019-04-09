@@ -18,6 +18,9 @@ public class Add_ComodityVm extends AndroidViewModel {
       MutableLiveData <Boolean> Done;
     public Add_ComodityVm(@NonNull Application application) {
         super(application);
+        HideprogressBar = new MutableLiveData<>();
+        showmessage = new MutableLiveData<>();
+        Done = new MutableLiveData<>();
     }
     // Getter
 
@@ -56,9 +59,10 @@ public class Add_ComodityVm extends AndroidViewModel {
                     public void MyUri(String Uri) {
                         if(Uri.length()>5)
                         {
+
                          ItemModel itemModel1 = new ItemModel(itemModel.getName(),itemModel.getDescription(),Uri,itemModel.getId(),
                                  itemModel.getPrice(),itemModel.getCategoryName());
-                            InsertIntoFIreBaseDB(itemModel);
+                            InsertIntoFIreBaseDB(itemModel1);
                         }
                         else
                         {
