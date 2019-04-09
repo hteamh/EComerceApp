@@ -41,40 +41,70 @@ public class EditCategoryVm extends AndroidViewModel {
         HideProgress.postValue(false);
         if(internetIsConnected())
         {
-            CategoryImageBranches.Edit(categoryModel, new OnSuccessListener() {
-                @Override
-                public void onSuccess(Object o) {
-                    CategoryImageBranches.GetUri(categoryModel, new CategoryImageBranches.GetUriListner() {
-                        @Override
-                        public void MyUri(String Uri) {
-                            final CategoryModel newCategoryModel = new CategoryModel(categoryModel.getName(),Uri,
-                            Categories.categoryModeWeWantToUpdate.getId(),categoryModel.getDescription());
-                            Categorybranches.EditCateory(newCategoryModel, new OnSuccessListener() {
-                                @Override
-                                public void onSuccess(Object o) {
-                                    MyThreed myThreed= new MyThreed(newCategoryModel);
-                                    myThreed.start();
-                                    HideProgress.postValue(true);
-                                    Done.postValue(true);
-                                }
-                            }, new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                 showMessage.postValue(e.getMessage());
-                                 HideProgress.postValue(true);
+            if(categoryModel.getImageUri() == Categories.categoryModeWeWantToUpdate.getImageUri())
+            {
+                CategoryImageBranches.GetUri(categoryModel, new CategoryImageBranches.GetUriListner() {
+                    @Override
+                    public void MyUri(String Uri) {
+                        final CategoryModel newCategoryModel = new CategoryModel(categoryModel.getName(),Uri,
+                                Categories.categoryModeWeWantToUpdate.getId(),categoryModel.getDescription());
+                        Categorybranches.EditCateory(newCategoryModel, new OnSuccessListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                MyThreed myThreed= new MyThreed(newCategoryModel);
+                                myThreed.start();
+                                HideProgress.postValue(true);
+                                Done.postValue(true);
+                            }
+                        }, new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                showMessage.postValue(e.getMessage());
+                                HideProgress.postValue(true);
 
-                                }
-                            });
-                        }
-                    });
-                }
-            }, new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    showMessage.postValue(e.getMessage());
-                    HideProgress.postValue(true);
-                }
-            });
+                            }
+                        });
+                    }
+                });
+            }
+            else
+            {
+                CategoryImageBranches.Edit(categoryModel, new OnSuccessListener() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        CategoryImageBranches.GetUri(categoryModel, new CategoryImageBranches.GetUriListner() {
+                            @Override
+                            public void MyUri(String Uri) {
+                                final CategoryModel newCategoryModel = new CategoryModel(categoryModel.getName(),Uri,
+                                        Categories.categoryModeWeWantToUpdate.getId(),categoryModel.getDescription());
+                                Categorybranches.EditCateory(newCategoryModel, new OnSuccessListener() {
+                                    @Override
+                                    public void onSuccess(Object o) {
+                                        MyThreed myThreed= new MyThreed(newCategoryModel);
+                                        myThreed.start();
+                                        HideProgress.postValue(true);
+                                        Done.postValue(true);
+                                    }
+                                }, new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        showMessage.postValue(e.getMessage());
+                                        HideProgress.postValue(true);
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        showMessage.postValue(e.getMessage());
+                        HideProgress.postValue(true);
+                    }
+                });
+            }
+
         }
         else
         {
