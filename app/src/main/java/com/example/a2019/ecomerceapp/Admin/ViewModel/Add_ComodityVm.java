@@ -1,36 +1,25 @@
 package com.example.a2019.ecomerceapp.Admin.ViewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
+import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.ItemBranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.ItemImageBranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class Add_ComodityVm extends AndroidViewModel {
-      MutableLiveData <Boolean> HideprogressBar;
-      MutableLiveData <String>  showmessage;
-      MutableLiveData <Boolean> Done;
+public class Add_ComodityVm extends BaseViewModel {
+     private MutableLiveData <Boolean> Done;
     public Add_ComodityVm(@NonNull Application application) {
         super(application);
-        HideprogressBar = new MutableLiveData<>();
-        showmessage = new MutableLiveData<>();
         Done = new MutableLiveData<>();
     }
     // Getter
 
-    public MutableLiveData<Boolean> getHideprogressBar() {
-        return HideprogressBar;
-    }
-
-    public MutableLiveData<String> getShowmessage() {
-        return showmessage;
-    }
 
     public MutableLiveData<Boolean> getDone() {
         return Done;
@@ -38,19 +27,19 @@ public class Add_ComodityVm extends AndroidViewModel {
 
     //CoreFun
     public void InsertNewComModity(ItemModel itemModel) {
-             HideprogressBar.postValue(false);
+            SetHideProgrees(false);
              if(internetIsConnected())
              {
                  InsertIntoFIreBaseStorg(itemModel);
              }
              else
              {
-                 HideprogressBar.postValue(true);
-                 showmessage.postValue(" Cheek Your Internet Connection");
+                 SetHideProgrees(true);
+                 SetMessage(" Cheek Your Internet Connection");
              }
 
     }
-    public void   InsertIntoFIreBaseStorg(final ItemModel itemModel) {
+    private void   InsertIntoFIreBaseStorg(final ItemModel itemModel) {
         ItemImageBranches.AddItemImage(itemModel, new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
@@ -66,7 +55,7 @@ public class Add_ComodityVm extends AndroidViewModel {
                         }
                         else
                         {
-                            showmessage.postValue("Failed to Get Uri From Storage tO Add to FBDB");
+                            SetMessage("Failed to Get Uri From Storage tO Add to FBDB");
                         }
                     }
                 });
@@ -74,35 +63,36 @@ public class Add_ComodityVm extends AndroidViewModel {
         }, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                HideprogressBar.postValue(true);
-               showmessage.postValue(e.getMessage()+"Failure On Add Image to Storage");
+                SetHideProgrees(true);
+               SetMessage(e.getMessage()+"Failure On Add Image to Storage");
             }
         });
     }
-    public void  InsertIntoFIreBaseDB(final ItemModel itemModel){
+    private void  InsertIntoFIreBaseDB(final ItemModel itemModel){
         ItemBranches.AddItem(itemModel, new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
+                SetHideProgrees(true);
+                Done.postValue(true);
                 InsertIntoRoomDB(itemModel);
             }
         }, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                HideprogressBar.postValue(true);
-                showmessage.postValue(e.getMessage()+"Failure On Add Image to FBDB ");
+               SetHideProgrees(true);
+                SetMessage(e.getMessage()+"Failure On Add Image to FBDB ");
             }
         });
 
     }
-    public void InsertIntoRoomDB(ItemModel itemModel){
+    private void InsertIntoRoomDB(ItemModel itemModel){
         InsertThreedRoomDb insertThreedRoomDb = new InsertThreedRoomDb(itemModel);
         insertThreedRoomDb.start();
-        HideprogressBar.postValue(true);
-        Done.postValue(true);
+
     }
     public class InsertThreedRoomDb extends Thread {
         ItemModel itemModel;
-       public  InsertThreedRoomDb(ItemModel itemModel){
+       private   InsertThreedRoomDb(ItemModel itemModel){
            this.itemModel=itemModel;
        }
 

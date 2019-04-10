@@ -2,6 +2,7 @@ package com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase;
 import android.support.annotation.NonNull;
 
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.ItemImageBranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -16,38 +17,30 @@ import java.util.List;
 
 public class ItemBranches {
     public static final String CategoryBranch = "CategoryBranch";
-    public  static final String ItemBranch = "ItemBranch";
+    private   static final String ItemBranch = "ItemBranch";
 
-    public  static DatabaseReference GetItemBranch()
+    private   static DatabaseReference GetItemBranch()
     {
 
         return FirebaseDatabase.getInstance().getReference(ItemBranch);
 
     }
-
     public static void AddItem(ItemModel itemModel,OnSuccessListener onSuccessListener, OnFailureListener onFailureListener)
     {
         GetItemBranch().child(itemModel.getId()).setValue(itemModel)
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener);
     }
-
-
-    public Query GetITemByName(String Item_name)
-    {
-        Query query =  GetItemBranch().orderByChild("name").equalTo(Item_name);
-        return query;
-    }
     public static Query GetAllItemByCategoryName(String Category_name)
     {
-        Query query =  GetItemBranch().orderByChild("categoryName").equalTo(Category_name);
-        return query;
+
+        return GetItemBranch().orderByChild("categoryName").equalTo(Category_name);
     }
     public static void DeleteItemByItemId(String id)
     {
         GetItemBranch().child(id).removeValue();
+        ItemImageBranches.DeleteImage(id);
     }
-
     public static void EditItem(ItemModel itemModel,OnSuccessListener onSuccessListener,OnFailureListener onFailureListener)
     {
         DatabaseReference myitem=   GetItemBranch().child(itemModel.getId());

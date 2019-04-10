@@ -4,20 +4,19 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "CategoryModel" )
 public class CategoryModel {
     @ColumnInfo
-     String name;
+    private String name;
     @ColumnInfo
-     String  ImageUri;
+   private   String  ImageUri;
     @NonNull
     @PrimaryKey
-     String  Id;
+   private   String  Id;
     @ColumnInfo
-     String Description;
+   private   String Description;
 
     public CategoryModel() {
     }

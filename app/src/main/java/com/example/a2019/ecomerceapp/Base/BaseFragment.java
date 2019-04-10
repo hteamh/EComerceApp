@@ -1,5 +1,6 @@
 package com.example.a2019.ecomerceapp.Base;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
@@ -12,10 +13,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
  */
 public class BaseFragment extends Fragment {
     protected BaseActivity activity;
+    BaseViewModel baseViewModel;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         activity=(BaseActivity) context;
+        baseViewModel = ViewModelProviders.of(this).get(BaseViewModel.class);
+
+
     }
 
     public MaterialDialog showMessage(int titleResId, int messageResId, int posResText){

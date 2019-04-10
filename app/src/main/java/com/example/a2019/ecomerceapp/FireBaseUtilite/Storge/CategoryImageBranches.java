@@ -1,20 +1,12 @@
 package com.example.a2019.ecomerceapp.FireBaseUtilite.Storge;
-
-import android.app.DownloadManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
-
-import java.net.URI;
-
 public class CategoryImageBranches  {
     private static final String  CategoryImageBranches = "CategoryImage";
 

@@ -1,44 +1,37 @@
 package com.example.a2019.ecomerceapp.Admin.ViewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
+import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Categorybranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class EditCategoryVm extends AndroidViewModel {
-    MutableLiveData <String> showMessage;
-    MutableLiveData <Boolean> HideProgress;
-    MutableLiveData <Boolean> Done;
+public class EditCategoryVm extends BaseViewModel {
+   private MutableLiveData <Boolean> Done;
     public EditCategoryVm(@NonNull Application application) {
         super(application);
-        showMessage = new MutableLiveData<>();
-        HideProgress = new MutableLiveData<>();
+
         Done = new MutableLiveData<>();
     }
 
-    public MutableLiveData<Boolean> getHideProgress() {
-        return HideProgress;
-    }
+
 
     public MutableLiveData<Boolean> getDone() {
         return Done;
     }
 
-    public MutableLiveData<String> getShowMessage() {
-        return showMessage;
-    }
+
 
     public   void UpdateCategry(final CategoryModel categoryModel)
     {
-        HideProgress.postValue(false);
+        SetHideProgrees(false);
         if(internetIsConnected())
         {
             if(categoryModel.getImageUri() == Categories.categoryModeWeWantToUpdate.getImageUri())
@@ -50,14 +43,14 @@ public class EditCategoryVm extends AndroidViewModel {
                     public void onSuccess(Object o) {
                         MyThreed myThreed= new MyThreed(newCategoryModel);
                         myThreed.start();
-                        HideProgress.postValue(true);
+                       SetHideProgrees(true);
                         Done.postValue(true);
                     }
                 }, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        showMessage.postValue(e.getMessage());
-                        HideProgress.postValue(true);
+                        SetMessage(e.getMessage());
+                        SetHideProgrees(true);
 
                     }
                 });
@@ -75,16 +68,17 @@ public class EditCategoryVm extends AndroidViewModel {
                                 Categorybranches.EditCateory(newCategoryModel, new OnSuccessListener() {
                                     @Override
                                     public void onSuccess(Object o) {
+                                        SetHideProgrees(true);
+                                        Done.postValue(true);
                                         MyThreed myThreed= new MyThreed(newCategoryModel);
                                         myThreed.start();
-                                        HideProgress.postValue(true);
-                                        Done.postValue(true);
+
                                     }
                                 }, new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        showMessage.postValue(e.getMessage());
-                                        HideProgress.postValue(true);
+                                       SetMessage(e.getMessage());
+                                       SetHideProgrees(true);
 
                                     }
                                 });
@@ -94,8 +88,8 @@ public class EditCategoryVm extends AndroidViewModel {
                 }, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        showMessage.postValue(e.getMessage());
-                        HideProgress.postValue(true);
+                        SetMessage(e.getMessage());
+                       SetHideProgrees(true);
                     }
                 });
             }
@@ -103,24 +97,17 @@ public class EditCategoryVm extends AndroidViewModel {
         }
         else
         {
-            HideProgress.postValue(true);
-          showMessage.postValue("No Internet Connection");
+           SetHideProgrees(true);
+          SetMessage("No Internet Connection");
         }
 
     }
-    public  boolean internetIsConnected() {
-        try {
-            String command = "ping -c 1 google.com";
-            return (Runtime.getRuntime().exec(command).waitFor() == 0);
-        } catch (Exception e) {
-            return false;
-        }
-    }
+
     public class MyThreed extends Thread
     {
         CategoryModel categoryModel;
 
-        public MyThreed(CategoryModel categoryModel) {
+        private MyThreed(CategoryModel categoryModel) {
             this.categoryModel = categoryModel;
         }
 

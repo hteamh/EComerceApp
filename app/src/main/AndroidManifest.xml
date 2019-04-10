@@ -24,6 +24,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Admin.Activiteis.AddCategory" />
+        <activity android:name=".Base.BaseActivity">
+
+        </activity>
         <activity
             android:name=".Admin.Activiteis.Commodities"
             android:label="@string/title_activity_commodities"

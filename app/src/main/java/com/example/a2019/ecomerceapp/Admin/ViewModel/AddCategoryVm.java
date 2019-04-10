@@ -1,58 +1,48 @@
 package com.example.a2019.ecomerceapp.Admin.ViewModel;
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
+import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Categorybranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.connection.util.RetryHelper;
-
-public class AddCategoryVm extends AndroidViewModel {
+public class AddCategoryVm extends BaseViewModel {
     private static CategoryModel MyCategoryItem;
-    MutableLiveData <String> ShowThisMessage;
-    MutableLiveData <Boolean> HideBrogressBar;
-    MutableLiveData <Boolean> OpenPanelActivity;
+
+  private   MutableLiveData <Boolean> OpenPanelActivity;
 
     public AddCategoryVm(@NonNull Application application) {
         super(application);
-        ShowThisMessage = new MutableLiveData<>();
-        HideBrogressBar = new MutableLiveData<>();
+
         OpenPanelActivity = new MutableLiveData<>();
     }
            ///      Get               ///
-    public MutableLiveData<String> getShowThisMessage() {
-        return ShowThisMessage;
-    }
-    public MutableLiveData<Boolean> getHideBrogressBar() {
-        return HideBrogressBar;
-    }
+
     public MutableLiveData<Boolean> getOpenPanelActivity() {
         return OpenPanelActivity;
     }
    public void InsertNewCategory(String name, String id, String ImageUri,String Description)
    {
-       HideBrogressBar.postValue(false);
+      SetHideProgrees(false);
        MyCategoryItem = new CategoryModel(name,ImageUri,id,Description);
        if(internetIsConnected())
        {
            AddCategoryToFireBaseSC(MyCategoryItem);
-           return;
        }
        else
        {
-           ShowThisMessage.postValue("No internet Connection");
-           return;
+           SetMessage("No internet Connection");
+
        }
 
    }
    public class AddCategory extends Thread
    {
        CategoryModel categoryModel;
-       public AddCategory ( CategoryModel categoryModel)
+       private AddCategory ( CategoryModel categoryModel)
        {
            this.categoryModel = categoryModel;
        }
@@ -63,23 +53,25 @@ public class AddCategoryVm extends AndroidViewModel {
            OpenPanelActivity.postValue(true);
        }
    }
-     public void AddCategoryToFireBaseDB(CategoryModel categoryModel)
+     private void AddCategoryToFireBaseDB(CategoryModel categoryModel)
    {
       Categorybranches.AddCategory(categoryModel,new OnSuccessListener() {
           @Override
           public void onSuccess(Object o) {
+              SetHideProgrees(true);
+              OpenPanelActivity.postValue(true);
               AddCategoryToRoomDb(MyCategoryItem);
           }
       },new OnFailureListener() {
           @Override
           public void onFailure(@NonNull Exception e) {
-              HideBrogressBar.postValue(true);
-              ShowThisMessage.postValue(e.getMessage());
+              SetHideProgrees(true);
+              SetMessage(e.getMessage());
           }
       });
 
    }
-    public void AddCategoryToFireBaseSC(CategoryModel categoryModel)
+    private void AddCategoryToFireBaseSC(CategoryModel categoryModel)
     {
      CategoryImageBranches.AddCategoryImage(categoryModel, new OnSuccessListener() {
          @Override
@@ -89,7 +81,7 @@ public class AddCategoryVm extends AndroidViewModel {
                  public void MyUri(String Uri) {
                      if(Uri == null)
                      {
-                         ShowThisMessage.postValue("Uri Is Not  Upload");
+                         SetMessage("Uri Is Not  Upload");
                      }
                      else
                      {
@@ -103,27 +95,18 @@ public class AddCategoryVm extends AndroidViewModel {
          @Override
          public void onFailure(@NonNull Exception e) {
 
-             HideBrogressBar.postValue(true);
-             ShowThisMessage.postValue(e.getMessage());
+            SetHideProgrees(true);
+             SetMessage(e.getMessage());
 
          }
      });
     }
-    public void AddCategoryToRoomDb(CategoryModel categoryModel)
+    private void AddCategoryToRoomDb(CategoryModel categoryModel)
     {
         AddCategory addCategory = new AddCategory(categoryModel);
         addCategory.start();
-        HideBrogressBar.postValue(true);
-        OpenPanelActivity.postValue(true);
 
     }
 
-    public boolean internetIsConnected() {
-        try {
-            String command = "ping -c 1 google.com";
-            return (Runtime.getRuntime().exec(command).waitFor() == 0);
-        } catch (Exception e) {
-            return false;
-        }
-    }
+
 }

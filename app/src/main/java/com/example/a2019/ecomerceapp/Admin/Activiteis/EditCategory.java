@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -81,7 +79,7 @@ public class EditCategory extends BaseActivity {
         if(MyImageUri ==null)
         {
             showMessage("error","Select Image","Yes");
-            return;
+
         }
     }
 
@@ -89,10 +87,10 @@ public class EditCategory extends BaseActivity {
     private void initView() {
         MyImageUri = Uri.parse(Categories.categoryModeWeWantToUpdate.getImageUri());
         Choose = findViewById(R.id.choose_image);
-        displayImageCategory = (ImageView) findViewById(R.id.display_Image_Category);
+        displayImageCategory =  findViewById(R.id.display_Image_Category);
         categoryName =  findViewById(R.id.category_name);
-        description = (TextInputLayout) findViewById(R.id.description);
-        Upload = (Button) findViewById(R.id.Upload);
+        description =  findViewById(R.id.description);
+        Upload =  findViewById(R.id.Upload);
         categoryName.getEditText().setText(Categories.categoryModeWeWantToUpdate.getName());
         description.getEditText().setText(Categories.categoryModeWeWantToUpdate.getDescription());
        displayImageCategory.setImageURI(MyImageUri);
@@ -115,7 +113,7 @@ public class EditCategory extends BaseActivity {
     }
     public  void Observe()
     {
-        myViewModel.getShowMessage().observe(this, new Observer<String>() {
+        myViewModel.getMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 showMessage("error",s,"Yes");

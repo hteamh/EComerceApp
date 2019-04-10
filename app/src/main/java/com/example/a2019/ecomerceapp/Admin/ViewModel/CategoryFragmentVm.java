@@ -1,38 +1,33 @@
 package com.example.a2019.ecomerceapp.Admin.ViewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
-
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
+import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
+import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Categorybranches;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.ItemBranches;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
-public class CategoryFragmentVm extends AndroidViewModel {
-    MutableLiveData<List<CategoryModel>> MyCategoryItem;
-    MutableLiveData<String> Error;
-    public List<CategoryModel> categoryModels;
+public class CategoryFragmentVm extends BaseViewModel {
+  private   MutableLiveData<List<CategoryModel>> MyCategoryItem;
+    private List<CategoryModel> categoryModels;
 
     public CategoryFragmentVm(@NonNull Application application) {
         super(application);
         MyCategoryItem = new MutableLiveData<>();
         categoryModels = new ArrayList<>();
-        Error = new MutableLiveData<>();
     }
 
-    public MutableLiveData<String> getError() {
-        return Error;
-    }
 
     // GetData From FireBase
-    public void GETDATA(final MyCall myCall) {
+    private void GETDATA(final MyCall myCall) {
         Categorybranches.GetAllCategoryInDB(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -44,7 +39,7 @@ public class CategoryFragmentVm extends AndroidViewModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Error.postValue("onCancelled Enter");
+               SetMessage("onCancelled Enter");
             }
         });
     }
@@ -56,6 +51,7 @@ public class CategoryFragmentVm extends AndroidViewModel {
                 @Override
                 public void Mycall(List<CategoryModel> categoryModels) {
                     MyCategoryItem.postValue(categoryModels);
+                    SetHideProgrees(true);
                 }
             });
         } else {
@@ -85,7 +81,7 @@ public class CategoryFragmentVm extends AndroidViewModel {
     public class MyGetTHreead extends Thread {
         MyCall myCall;
 
-        public MyGetTHreead(MyCall myCall) {
+        private MyGetTHreead(MyCall myCall) {
             this.myCall = myCall;
         }
 
@@ -96,13 +92,49 @@ public class CategoryFragmentVm extends AndroidViewModel {
             myCall.Mycall(categoryModels);
         }
     }
+    public void Delete(final CategoryModel categoryModel)
+    {
+        SetHideProgrees(false);
+        Categorybranches.DeleteCategoryByid(categoryModel.getId());
+        Query query= ItemBranches.GetAllItemByCategoryName(categoryModel.getName());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot mydata:dataSnapshot.getChildren())
+                {
+                    ItemModel MyItem = mydata.getValue(ItemModel.class);
+                    ItemBranches.DeleteItemByItemId(MyItem.getId());
 
-    public boolean internetIsConnected() {
-        try {
-            String command = "ping -c 1 google.com";
-            return (Runtime.getRuntime().exec(command).waitFor() == 0);
-        } catch (Exception e) {
-            return false;
-        }
+                }
+                SetHideProgrees(true);
+                DeleteCategoryAndAllHisItemFromRoom deleteCategoryAndAllHisItemFromRoom
+                        = new DeleteCategoryAndAllHisItemFromRoom(categoryModel);
+                deleteCategoryAndAllHisItemFromRoom.start();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                 SetMessage(databaseError.getMessage());
+            }
+        });
+
     }
+  public  class DeleteCategoryAndAllHisItemFromRoom extends Thread
+  {
+    CategoryModel categoryModel;
+
+      private DeleteCategoryAndAllHisItemFromRoom(CategoryModel categoryModel) {
+          this.categoryModel = categoryModel;
+      }
+
+      @Override
+      public void run() {
+          super.run();
+          MyDatabase.getInstance().categoryDao().DeleteCategory(categoryModel);
+          MyDatabase.getInstance().itemDao().DeleteAllItemByCategoryName(categoryModel.getName());
+
+      }
+  }
+
 }

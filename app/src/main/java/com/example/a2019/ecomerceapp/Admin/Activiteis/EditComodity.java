@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +50,7 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
     }
 
     private void observe() {
-        vm.getShowMessage().observe(this, new Observer<String>() {
+        vm.getMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 showMessage("error",s,"yes");
@@ -134,14 +133,14 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
         MyImageUri= Uri.parse(Commodities.comodityWeWantEdit.getImageUri());
-        commodityImage = (ImageView) findViewById(R.id.commodity_image);
-        commodityName = (TextInputLayout) findViewById(R.id.commodity_name);
-        chooseImageComm = (Button) findViewById(R.id.choose_image_comm);
+        commodityImage =  findViewById(R.id.commodity_image);
+        commodityName =  findViewById(R.id.commodity_name);
+        chooseImageComm =  findViewById(R.id.choose_image_comm);
         chooseImageComm.setOnClickListener(EditComodity.this);
-        descriptionComm = (TextInputLayout) findViewById(R.id.description_comm);
-        Upload = (Button) findViewById(R.id.Upload);
+        descriptionComm =  findViewById(R.id.description_comm);
+        Upload =  findViewById(R.id.Upload);
         Upload.setOnClickListener(EditComodity.this);
-        price = (EditText) findViewById(R.id.price);
+        price = findViewById(R.id.price);
         commodityImage.setImageURI(MyImageUri);
         commodityName.getEditText().setText(Commodities.comodityWeWantEdit.getName());
         descriptionComm.getEditText().setText(Commodities.comodityWeWantEdit.getDescription());

@@ -1,12 +1,9 @@
 package com.example.a2019.ecomerceapp.Admin.Activiteis;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
@@ -23,7 +20,6 @@ public class AdminPanel extends BaseActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
             switch (item.getItemId()) {
                 case R.id.add_category:
                     fragment = new Categories();
@@ -35,9 +31,11 @@ public class AdminPanel extends BaseActivity {
                     fragment = new Reports();
                     break;
             }
+
             linkfraggment();
             return true;
         }
+
     };
 
     private void linkfraggment() {

@@ -1,4 +1,5 @@
 package com.example.a2019.ecomerceapp.FireBaseUtilite.Storge;
+import android.arch.persistence.room.Query;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
@@ -12,11 +13,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
 public class ItemImageBranches {
-    public static final String  ItemImageBranches = "ItemImage";
-    public static StorageReference  ItemReferance()
+    private static final String  ItemImageBranches = "ItemImage";
+    private static StorageReference  ItemReferance()
     {
         FirebaseStorage firebaseStorage =  FirebaseStorage.getInstance();
-
         firebaseStorage.setMaxDownloadRetryTimeMillis(10000);  // wait 1 min for downloads
         firebaseStorage.setMaxOperationRetryTimeMillis(10000);  // wait 10s for normal ops
         firebaseStorage.setMaxUploadRetryTimeMillis(10000);  // wait 2 mins for uploads
@@ -49,8 +49,7 @@ public class ItemImageBranches {
                     }
                 });
     }
-    ////////////////////
-    ///////////////
+
     public static void Edit(ItemModel itemModel , OnSuccessListener onSuccessListener,OnFailureListener onFailureListener)
     {
         ItemReferance().child(itemModel.getId()).putFile(Uri.parse(itemModel.getImageUri()))
@@ -60,6 +59,7 @@ public class ItemImageBranches {
     public  static void DeleteImage (String id)
     {
         ItemReferance().child(id).delete();
+
     }
     public static void DeleteAll()
     {

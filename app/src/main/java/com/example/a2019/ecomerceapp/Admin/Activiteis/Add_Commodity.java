@@ -7,15 +7,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
-import com.example.a2019.ecomerceapp.Admin.ViewModel.AddCategoryVm;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.Add_ComodityVm;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.R;
@@ -52,14 +49,14 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
     }
 
     private void initView() {
-        commodityImage = (ImageView) findViewById(R.id.commodity_image);
-        commodityName = (TextInputLayout) findViewById(R.id.commodity_name);
-        chooseImageComm = (Button) findViewById(R.id.choose_image_comm);
+        commodityImage =  findViewById(R.id.commodity_image);
+        commodityName =  findViewById(R.id.commodity_name);
+        chooseImageComm =  findViewById(R.id.choose_image_comm);
         chooseImageComm.setOnClickListener(Add_Commodity.this);
-        descriptionComm = (TextInputLayout) findViewById(R.id.description_comm);
-        Upload = (Button) findViewById(R.id.Upload);
+        descriptionComm =  findViewById(R.id.description_comm);
+        Upload =  findViewById(R.id.Upload);
         Upload.setOnClickListener(Add_Commodity.this);
-        price = (EditText) findViewById(R.id.price);
+        price = findViewById(R.id.price);
     }
     public void  OpenImageGalary() {
         Intent intent = new Intent();
@@ -107,14 +104,14 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
        myViewModel.InsertNewComModity(itemModel);
     }
     public void Observe(){
-        myViewModel.getShowmessage().observe(this, new Observer<String>() {
+        myViewModel.getMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 showMessage("Error",s,"Yes");
             }
         });
         ////
-        myViewModel.getHideprogressBar().observe(this, new Observer<Boolean>() {
+        myViewModel.getHideProgress().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 if(aBoolean !=null)

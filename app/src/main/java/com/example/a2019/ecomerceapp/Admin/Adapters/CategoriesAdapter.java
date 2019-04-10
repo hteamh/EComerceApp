@@ -1,6 +1,5 @@
 package com.example.a2019.ecomerceapp.Admin.Adapters;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,11 +17,14 @@ import java.util.List;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
 
-    List<CategoryModel> list;
-    OnCategoreyClickedListener onCategoreyClickedListener;
-    OnCategoreyEditListener onCategoreyEditListener;
+  private   List<CategoryModel> list;
+   private OnCategoreyClickedListener onCategoreyClickedListener;
+  private   OnCategoreyEditListener onCategoreyEditListener;
+  private   OnCategoreyDeleteListener onCategoreyDeleteListener;
 
-
+    public void setOnCategoreyDeleteListener(OnCategoreyDeleteListener onCategoreyDeleteListener) {
+        this.onCategoreyDeleteListener = onCategoreyDeleteListener;
+    }
 
     public CategoriesAdapter(List<CategoryModel> list) {
         this.list = list;
@@ -46,7 +48,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int pos) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int pos) {
         final CategoryModel model = list.get(pos);
         viewHolder.text_item.setText(model.getName());
         viewHolder.price.setText(model.getDescription());
@@ -58,6 +60,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     onCategoreyClickedListener.onItemClicked(pos,model);
+                }
+            });
+        }
+        if(onCategoreyDeleteListener!=null)
+        {
+            viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onCategoreyDeleteListener.onItemDelete(pos,model);
                 }
             });
         }
@@ -83,6 +94,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         ImageView image_item;
         TextView text_item, price;
         Button edit;
+        Button delete;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -92,6 +104,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             text_item = itemView.findViewById(R.id.name_item);
             price = itemView.findViewById(R.id.description);
             edit=itemView.findViewById(R.id.editButton);
+            delete = itemView.findViewById(R.id.delete);
         }
     }//,,,,
 
@@ -101,6 +114,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
     public interface OnCategoreyEditListener{
         void onItemEdit(int pos,CategoryModel model);
+    }
+    public interface OnCategoreyDeleteListener{
+        void onItemDelete(int pos,CategoryModel model);
     }
 
 

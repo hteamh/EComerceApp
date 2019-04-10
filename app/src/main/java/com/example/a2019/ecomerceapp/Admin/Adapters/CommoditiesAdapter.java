@@ -18,8 +18,9 @@ import java.util.List;
 
 public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.ViewHolder> {
 
-    List<ItemModel> list;
-    OnComodityEditListener onComodityEditListener;
+  private   List<ItemModel> list;
+  private   OnComodityEditListener onComodityEditListener;
+  private   OnComodityDeleteListener onComodityDeleteListener;
 
     public CommoditiesAdapter(List<ItemModel> list) {
         this.list = list;
@@ -27,6 +28,10 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
 
     public void setOnComodityEditListener(OnComodityEditListener onComodityEditListener) {
         this.onComodityEditListener = onComodityEditListener;
+    }
+
+    public void setOnComodityDeleteListener(OnComodityDeleteListener onComodityDeleteListener) {
+        this.onComodityDeleteListener = onComodityDeleteListener;
     }
 
     @NonNull
@@ -38,7 +43,7 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int pos) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int pos) {
 
         final ItemModel model=list.get(pos);
         viewHolder.name.setText(model.getName());
@@ -48,10 +53,19 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
                 .load(model.getImageUri()).into(viewHolder.imageView);
 
         if (onComodityEditListener!=null){
-            viewHolder.button.setOnClickListener(new View.OnClickListener() {
+            viewHolder.buttonEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onComodityEditListener.onItemEdit(pos,model);
+                }
+            });
+        }
+        if(onComodityDeleteListener!=null)
+        {
+            viewHolder.buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onComodityDeleteListener.onItemEdit(pos,model);
                 }
             });
         }
@@ -67,18 +81,23 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView name,price;
         ImageView imageView;
-        Button button;
+        Button buttonEdit;
+        Button buttonDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.name_comm);
             price=itemView.findViewById(R.id.price_comm);
             imageView=itemView.findViewById(R.id.image_comm);
-            button=itemView.findViewById(R.id.edit_comm);
+            buttonEdit=itemView.findViewById(R.id.edit_comm);
+            buttonDelete=itemView.findViewById(R.id.delete);
         }
     }
 
     public interface OnComodityEditListener{
+        void onItemEdit(int pos,ItemModel model);
+    }
+    public interface  OnComodityDeleteListener{
         void onItemEdit(int pos,ItemModel model);
     }
 }

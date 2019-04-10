@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.CategoryDao;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranches;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.ItemImageBranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -17,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Categorybranches {
-    public static final String CategoryBranch = "CategoryBranch";
+    private static final String CategoryBranch = "CategoryBranch";
 
-    public static DatabaseReference GetCategoryBranch() {
+    private static DatabaseReference GetCategoryBranch() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         return firebaseDatabase.getReference(CategoryBranch);
     }
@@ -42,6 +44,7 @@ public class Categorybranches {
 
     public static void DeleteCategoryByid(String id) {
         GetCategoryBranch().child(id).removeValue();
+        CategoryImageBranches.DeleteImage(id);
     }
 
     public static void GetAllCategoryInDB(ValueEventListener valueEventListener)
@@ -49,8 +52,5 @@ public class Categorybranches {
         GetCategoryBranch().addListenerForSingleValueEvent(valueEventListener);
 
     }
-    public interface CallWithGetAllCategoryInDBFunction
-    {
-        public void GetErrorMessage(String error);
-    }
+
 }

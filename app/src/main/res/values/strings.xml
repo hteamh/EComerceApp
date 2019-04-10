@@ -9,6 +9,8 @@
     <string name="No_Photo_For_this_Category">Select One Image (Required)</string>
     <string name="Yes">yes</string>
     <string name="Wait">Wating to Upload the New Category</string>
+    <string name="You_Will_Be_Remove_All">you will be delete all item in this category also</string>
+    <string name="You_Will_Be_Remove_Item">you will remove this item</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.a2019.ecomerceapp.Base;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,11 +15,13 @@ public class BaseActivity  extends AppCompatActivity {
 
     protected AppCompatActivity activity;
     MaterialDialog dialog;
+    BaseViewModel baseViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
+        baseViewModel = ViewModelProviders.of(this).get(BaseViewModel.class);
     }
 
 

@@ -3,14 +3,12 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.ViewModel.AddCategoryVm;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
@@ -104,7 +102,7 @@ public class AddCategory extends BaseActivity {
            }
        });
 
-                myViewModel.getShowThisMessage().observe(AddCategory.this, new Observer<String>() {
+                myViewModel.getMessage().observe(AddCategory.this, new Observer<String>() {
                     @Override
                     public void onChanged(@Nullable String s) {
                         showMessage("error",s,"yes");
@@ -113,7 +111,7 @@ public class AddCategory extends BaseActivity {
 
         });
 
-                myViewModel.getHideBrogressBar().observe(AddCategory.this, new Observer<Boolean>() {
+                myViewModel.getHideProgress().observe(AddCategory.this, new Observer<Boolean>() {
                     @Override
                     public void onChanged(@Nullable Boolean aBoolean) {
                         if(aBoolean!=null)
