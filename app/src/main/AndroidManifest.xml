@@ -17,23 +17,27 @@
         <activity
             android:name=".Admin.Activiteis.AdminPanel"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Admin.Activiteis.AddCategory" />
-        <activity android:name=".Base.BaseActivity">
-
-        </activity>
+        <activity android:name=".Base.BaseActivity"></activity>
         <activity
             android:name=".Admin.Activiteis.Commodities"
             android:label="@string/title_activity_commodities"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Admin.Activiteis.Add_Commodity" />
         <activity android:name=".Admin.Activiteis.EditCategory" />
-        <activity android:name=".Admin.Activiteis.EditComodity"></activity>
+        <activity android:name=".Admin.Activiteis.EditComodity" />
+        <activity
+            android:name=".Customers.Home"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@ public class AdminPanel extends BaseActivity {
             switch (item.getItemId()) {
                 case R.id.add_category:
                     fragment = new Categories();
+
                     break;
                 case R.id.orders:
                     fragment = new Oreders();
@@ -39,7 +40,7 @@ public class AdminPanel extends BaseActivity {
     };
 
     private void linkfraggment() {
-        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragmentContainer, fragment).commit();
 
     }
 
@@ -54,5 +55,11 @@ public class AdminPanel extends BaseActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

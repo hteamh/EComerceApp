@@ -40,6 +40,7 @@ public class Commodities extends BaseActivity {
         intiAdapter();
         vm.setData();
         observe();
+
         FloatingActionButton fab =  findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,5 +103,6 @@ public class Commodities extends BaseActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
+
 
 }

@@ -125,8 +125,7 @@ public class Categories extends BaseFragment {
             public void onItemClicked(int pos, CategoryModel MyCategory) {
                 categoryModeWeWantToSHowHisItem = MyCategory;
                 Intent intent=new Intent(getContext(), Commodities.class);
-                getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
-                getActivity().finish();
+
                 startActivity(intent);
 
             }
