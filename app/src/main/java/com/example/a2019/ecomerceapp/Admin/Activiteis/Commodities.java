@@ -37,15 +37,9 @@ public class Commodities extends BaseActivity {
 
         recyclerView=findViewById(R.id.commodities_RecycleView);
         layoutManager=new GridLayoutManager(this,2);
-
+        intiAdapter();
         vm.setData();
-
         observe();
-
-
-
-        // initialize the adapter when you get the data
-
         FloatingActionButton fab =  findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +63,7 @@ public class Commodities extends BaseActivity {
         vm.getListMutableLiveData().observe(this, new Observer<List<ItemModel>>() {
             @Override
             public void onChanged(@Nullable List<ItemModel> list) {
-                adapter=new CommoditiesAdapter(list);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(layoutManager);
-                adapter.notifyDataSetChanged();
+               adapter.ChangeData(list);
                 AdapterListner();
 
             }
@@ -85,8 +76,9 @@ public class Commodities extends BaseActivity {
             @Override
             public void onItemEdit(int pos, ItemModel model) {
                 comodityWeWantEdit=model;
-                startActivity(new Intent(Commodities.this,EditComodity.class));
                 finish();
+                startActivity(new Intent(Commodities.this,EditComodity.class));
+
             }
         });
         adapter.setOnComodityDeleteListener(new CommoditiesAdapter.OnComodityDeleteListener() {
@@ -103,6 +95,12 @@ public class Commodities extends BaseActivity {
                         });
             }
         });
+    }
+    public void intiAdapter()
+    {
+        adapter=new CommoditiesAdapter(null);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
 }

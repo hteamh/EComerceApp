@@ -88,6 +88,11 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         if (list == null) return 0;
         return list.size();
     }
+    public void ChangeData(List<CategoryModel> list)
+    {
+        this.list = list;
+        this.notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

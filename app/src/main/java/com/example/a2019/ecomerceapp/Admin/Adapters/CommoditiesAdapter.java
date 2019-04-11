@@ -100,4 +100,9 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
     public interface  OnComodityDeleteListener{
         void onItemEdit(int pos,ItemModel model);
     }
+    public void ChangeData(List<ItemModel> list)
+    {
+        this.list = list;
+        this.notifyDataSetChanged();
+    }
 }

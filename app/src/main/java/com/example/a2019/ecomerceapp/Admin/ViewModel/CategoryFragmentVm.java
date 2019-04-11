@@ -32,7 +32,9 @@ public class CategoryFragmentVm extends BaseViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    categoryModels.add(dataSnapshot1.getValue(CategoryModel.class));
+
+                        categoryModels.add(dataSnapshot1.getValue(CategoryModel.class));
+
                 }
                 myCall.Mycall(categoryModels);
             }
@@ -50,8 +52,12 @@ public class CategoryFragmentVm extends BaseViewModel {
             GETDATA(new MyCall() {
                 @Override
                 public void Mycall(List<CategoryModel> categoryModels) {
-                    MyCategoryItem.postValue(categoryModels);
-                    SetHideProgrees(true);
+                    if(categoryModels!=null)
+                    {
+                        MyCategoryItem.postValue(categoryModels);
+                        SetHideProgrees(true);
+                    }
+
                 }
             });
         } else {
@@ -104,21 +110,20 @@ public class CategoryFragmentVm extends BaseViewModel {
                 {
                     ItemModel MyItem = mydata.getValue(ItemModel.class);
                     ItemBranches.DeleteItemByItemId(MyItem.getId());
-
                 }
                 SetHideProgrees(true);
-                DeleteCategoryAndAllHisItemFromRoom deleteCategoryAndAllHisItemFromRoom
-                        = new DeleteCategoryAndAllHisItemFromRoom(categoryModel);
-                deleteCategoryAndAllHisItemFromRoom.start();
-
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                SetHideProgrees(true);
                  SetMessage(databaseError.getMessage());
             }
         });
-
+        DeleteCategoryAndAllHisItemFromRoom deleteCategoryAndAllHisItemFromRoom
+                = new DeleteCategoryAndAllHisItemFromRoom(categoryModel);
+        deleteCategoryAndAllHisItemFromRoom.start();
     }
   public  class DeleteCategoryAndAllHisItemFromRoom extends Thread
   {

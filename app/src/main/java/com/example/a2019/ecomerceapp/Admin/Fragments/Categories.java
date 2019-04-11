@@ -52,13 +52,14 @@ public class Categories extends BaseFragment {
         recyclerView=view.findViewById(R.id.category_RecycleView);
         recyclerView.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(getContext());
-
-
-
+        IntiAdapter();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
+                getActivity().finish();
                 startActivity(new Intent(getContext(),AddCategory.class));
+                getActivity().finish();
             }
         });
         MyViewModel = ViewModelProviders.of(this).get(CategoryFragmentVm.class);
@@ -78,9 +79,9 @@ public class Categories extends BaseFragment {
         MyViewModel.getMyCategoryItem().observe(this, new Observer<List<CategoryModel>>() {
             @Override
             public void onChanged(@Nullable List<CategoryModel> categoryModels) {
-               IntiAdapter(categoryModels);
-                AdapterClickLisner();
 
+                AdapterClickLisner();
+                 adapter.ChangeData(categoryModels);
             }
         });
         MyViewModel.getHideProgress().observe(this, new Observer<Boolean>() {
@@ -100,9 +101,9 @@ public class Categories extends BaseFragment {
             }
         });
     }
-    public void IntiAdapter(List<CategoryModel> categoryModels)
+    public void IntiAdapter()
     {
-        adapter=new CategoriesAdapter(categoryModels);
+        adapter=new CategoriesAdapter(null);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
@@ -111,11 +112,11 @@ public class Categories extends BaseFragment {
         adapter.setOnCategoreyEditListener(new CategoriesAdapter.OnCategoreyEditListener() {
             @Override
             public void onItemEdit(int pos, CategoryModel model) {
+                getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
+                getActivity().finish();
                 Intent intent=new Intent(getContext(),EditCategory.class);
                 categoryModeWeWantToUpdate=model;
                 startActivity(intent);
-                getActivity().finish();
-
 
             }
         });
@@ -124,6 +125,8 @@ public class Categories extends BaseFragment {
             public void onItemClicked(int pos, CategoryModel MyCategory) {
                 categoryModeWeWantToSHowHisItem = MyCategory;
                 Intent intent=new Intent(getContext(), Commodities.class);
+                getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
+                getActivity().finish();
                 startActivity(intent);
 
             }
@@ -138,12 +141,17 @@ public class Categories extends BaseFragment {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 MyViewModel.Delete(model);
+                                getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
                                 getActivity().finish();
-                                startActivity(new Intent(getContext(), AdminPanel.class));
+                                startActivity(new Intent(getActivity(),AdminPanel.class));
                             }
                         });
             }
+
+
         });
     }
+
+
 
 }
