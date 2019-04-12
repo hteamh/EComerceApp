@@ -68,8 +68,7 @@ public class Categories extends BaseFragment {
 
         return view;
     }
-    private void Observe()
-    {
+    private void Observe() {
         MyViewModel.getMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -101,14 +100,14 @@ public class Categories extends BaseFragment {
             }
         });
     }
-    public void IntiAdapter()
-    {
+
+    public void IntiAdapter() {
         adapter=new CategoriesAdapter(null);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
-    public void AdapterClickLisner()
-    {
+
+    public void AdapterClickLisner() {
         adapter.setOnCategoreyEditListener(new CategoriesAdapter.OnCategoreyEditListener() {
             @Override
             public void onItemEdit(int pos, CategoryModel model) {

@@ -1,4 +1,4 @@
-package com.example.a2019.ecomerceapp.Customers;
+package com.example.a2019.ecomerceapp.Customers.Fragments;
 
 
 import android.os.Bundle;
@@ -12,21 +12,19 @@ import com.example.a2019.ecomerceapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeCommodities extends Fragment {
 
 
-    public HomeFragment() {
+    public HomeCommodities() {
         // Required empty public constructor
     }
 
-    View view ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_home, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_home_commodities, container, false);
     }
 
 }
