@@ -110,6 +110,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClicked(int pos, CategoryModel MyCategory) {
                 categoryModeWeWantToSHowHisItem = MyCategory;
+                /// here the problem
               Fragment  fragment = new HomeCommodities();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
