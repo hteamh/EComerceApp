@@ -126,7 +126,6 @@ public class EditCategory extends BaseActivity {
                 {
                     if(aBoolean)
                     {
-                        startActivity(new Intent(EditCategory.this,AdminPanel.class));
                         finish();
                     }
                 }
@@ -149,6 +148,11 @@ public class EditCategory extends BaseActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 }

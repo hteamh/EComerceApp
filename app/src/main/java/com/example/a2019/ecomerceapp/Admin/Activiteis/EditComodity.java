@@ -75,7 +75,6 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
         vm.getDone().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
-                startActivity(new Intent(EditComodity.this,Commodities.class));
                 finish();
             }
         });
@@ -145,5 +144,10 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
         commodityName.getEditText().setText(Commodities.comodityWeWantEdit.getName());
         descriptionComm.getEditText().setText(Commodities.comodityWeWantEdit.getDescription());
         price.setText(Commodities.comodityWeWantEdit.getPrice());
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

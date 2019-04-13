@@ -140,8 +140,8 @@ public class Categories extends BaseFragment {
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 MyViewModel.Delete(model);
                                 getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
-                                getActivity().finish();
-                                startActivity(new Intent(getActivity(),AdminPanel.class));
+                              //  getActivity().finish();
+                              //  startActivity(new Intent(getActivity(),AdminPanel.class));
                             }
                         });
             }

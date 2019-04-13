@@ -46,7 +46,7 @@ public class Commodities extends BaseActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Commodities.this,Add_Commodity.class));
-                finish();
+
             }
         });
     }
@@ -77,7 +77,6 @@ public class Commodities extends BaseActivity {
             @Override
             public void onItemEdit(int pos, ItemModel model) {
                 comodityWeWantEdit=model;
-                finish();
                 startActivity(new Intent(Commodities.this,EditComodity.class));
 
             }
@@ -104,5 +103,9 @@ public class Commodities extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

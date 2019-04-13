@@ -48,7 +48,6 @@ public class CategoryFragmentVm extends BaseViewModel {
 
     // Set Data to Mutiable live data
     public void SetData() {
-        SetHideProgrees(false);
         if (internetIsConnected()) {
             GETDATA(new MyCall() {
                 @Override
@@ -56,11 +55,9 @@ public class CategoryFragmentVm extends BaseViewModel {
                     if(categoryModels!=null)
                     {
                         MyCategoryItem.postValue(categoryModels);
-                        SetHideProgrees(true);
                     }
                     else
                     {
-                        SetHideProgrees(true);
                         SetMessage("No Category to Get it ");
                     }
 
@@ -71,7 +68,6 @@ public class CategoryFragmentVm extends BaseViewModel {
                 @Override
                 public void Mycall(List<CategoryModel> categoryModels) {
                     MyCategoryItem.postValue(categoryModels);
-                    SetHideProgrees(true);
                 }
             });
             myGetTHreead.start();
