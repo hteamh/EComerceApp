@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AdminPanel;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
-import com.example.a2019.ecomerceapp.Customers.Fragments.HomeFragment;
+import com.example.a2019.ecomerceapp.Customers.Fragments.CategoryHomeFragment;
 import com.example.a2019.ecomerceapp.R;
 
 public class Home extends BaseActivity
@@ -42,7 +42,7 @@ public class Home extends BaseActivity
 
     private void loadFragment() {
 
-        Fragment fragment = new HomeFragment();
+        Fragment fragment = new CategoryHomeFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)

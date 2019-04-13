@@ -33,16 +33,15 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment {
+public class CategoryHomeFragment extends BaseFragment {
 
     CategoryFragmentVm MyViewModel ;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     HomeCategoriesAdapter adapter;
-    public  static CategoryModel categoryModeWeWantToSHowHisItem;
 
 
-    public HomeFragment() {
+    public CategoryHomeFragment() {
         // Required empty public constructor
     }
 
@@ -109,7 +108,7 @@ public class HomeFragment extends BaseFragment {
         adapter.setOnCategoryClickedListener(new HomeCategoriesAdapter.OnCategoryClickedListener() {
             @Override
             public void onItemClicked(int pos, CategoryModel MyCategory) {
-                categoryModeWeWantToSHowHisItem = MyCategory;
+                Categories.categoryModeWeWantToSHowHisItem = MyCategory;
                 /// here the problem
               Fragment  fragment = new HomeCommodities();
                 getActivity().getSupportFragmentManager()
