@@ -75,6 +75,22 @@ public class HomeCommodities extends BaseFragment {
 
             }
         });
+        vm.getHideProgress().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if(aBoolean!=null)
+                {
+                    if(aBoolean)
+                    {
+                        hideProgressBar();
+                    }
+                    else
+                    {
+                        showProgressBar(R.string.Loading) ;
+                    }
+                }
+            }
+        });
     }
 
     public void intiAdapter()

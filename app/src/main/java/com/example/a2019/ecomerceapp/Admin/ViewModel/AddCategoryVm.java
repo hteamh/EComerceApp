@@ -34,7 +34,9 @@ public class AddCategoryVm extends BaseViewModel {
        }
        else
        {
-           SetMessage("No internet Connection");
+           SetHideProgrees(true);
+           SetMessage(" Can Not Add This Category  internet Connection");
+           OpenPanelActivity.postValue(true);
 
        }
 
@@ -50,7 +52,6 @@ public class AddCategoryVm extends BaseViewModel {
        public void run() {
            super.run();
            MyDatabase.getInstance().categoryDao().AddCategory(categoryModel);
-           OpenPanelActivity.postValue(true);
        }
    }
      private void AddCategoryToFireBaseDB(CategoryModel categoryModel)

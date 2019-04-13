@@ -35,7 +35,8 @@ public class Add_ComodityVm extends BaseViewModel {
              else
              {
                  SetHideProgrees(true);
-                 SetMessage(" Cheek Your Internet Connection");
+                 SetMessage(" Can Not Insert New Commodity  Cheek Your Internet Connection");
+                 Done.postValue(true);
              }
 
     }
@@ -55,7 +56,9 @@ public class Add_ComodityVm extends BaseViewModel {
                         }
                         else
                         {
+                            SetHideProgrees(true);
                             SetMessage("Failed to Get Uri From Storage tO Add to FBDB");
+                            Done.postValue(true);
                         }
                     }
                 });

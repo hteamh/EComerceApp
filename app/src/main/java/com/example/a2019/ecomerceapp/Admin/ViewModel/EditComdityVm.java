@@ -46,7 +46,10 @@ public class EditComdityVm extends BaseViewModel {
             }
 
         }else {
+            SetHideProgrees(true);
            SetMessage("check your internet connection");
+           Done.postValue(true);
+
         }
 
 

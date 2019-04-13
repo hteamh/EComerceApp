@@ -60,12 +60,13 @@ public class CommoditiesVm extends BaseViewModel {
     }
     // core fun
     public void setData(){
+        SetHideProgrees(false);
 
         getData(new call() {
             @Override
             public void mycall(List<ItemModel> list) {
                 listMutableLiveData.postValue(list);
-
+              SetHideProgrees(true);
             }
         });
 

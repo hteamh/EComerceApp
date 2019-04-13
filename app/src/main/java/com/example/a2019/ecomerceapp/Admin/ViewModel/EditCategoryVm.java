@@ -99,6 +99,7 @@ public class EditCategoryVm extends BaseViewModel {
         {
            SetHideProgrees(true);
           SetMessage("No Internet Connection");
+          Done.postValue(true);
         }
 
     }

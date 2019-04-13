@@ -117,6 +117,7 @@ public class Categories extends BaseFragment {
                 categoryModeWeWantToUpdate=model;
                 startActivity(intent);
 
+
             }
         });
         adapter.setOnCategoreyClickedListener(new CategoriesAdapter.OnCategoreyClickedListener() {
@@ -124,7 +125,6 @@ public class Categories extends BaseFragment {
             public void onItemClicked(int pos, CategoryModel MyCategory) {
                 categoryModeWeWantToSHowHisItem = MyCategory;
                 Intent intent=new Intent(getContext(), Commodities.class);
-
                 startActivity(intent);
 
             }
