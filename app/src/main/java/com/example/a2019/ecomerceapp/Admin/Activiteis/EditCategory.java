@@ -37,7 +37,7 @@ public class EditCategory extends BaseActivity {
             @Override
             public void onClick(View v) {
                 HandleData();
-                GetNewData();
+               
                 Observe();
             }
 
@@ -54,13 +54,8 @@ public class EditCategory extends BaseActivity {
 
     }
 
-    private void GetNewData() {
-        CategoryModel categoryModel = new CategoryModel(categoryName.getEditText().getText().toString(),
-                MyImageUri.toString(),Categories.categoryModeWeWantToUpdate.getId(),
-                description.getEditText().getText().toString()
-                );
-        myViewModel.UpdateCategry(categoryModel);
-    }
+
+
 
     private void HandleData() {
 
@@ -81,6 +76,11 @@ public class EditCategory extends BaseActivity {
             showMessage("error","Select Image","Yes");
 
         }
+        CategoryModel categoryModel = new CategoryModel(categoryName.getEditText().getText().toString(),
+                MyImageUri.toString(),Categories.categoryModeWeWantToUpdate.getId(),
+                description.getEditText().getText().toString()
+        );
+        myViewModel.UpdateCategry(categoryModel);
     }
 
 
