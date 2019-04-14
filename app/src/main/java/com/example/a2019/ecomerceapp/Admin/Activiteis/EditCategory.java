@@ -126,6 +126,7 @@ public class EditCategory extends BaseActivity {
                 {
                     if(aBoolean)
                     {
+                        startActivity(new Intent(EditCategory.this,AdminPanel.class));
                         finish();
                     }
                 }

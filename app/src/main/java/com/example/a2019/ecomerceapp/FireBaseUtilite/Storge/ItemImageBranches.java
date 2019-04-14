@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
@@ -54,16 +55,13 @@ public class ItemImageBranches {
     {
         ItemReferance().child(itemModel.getId()).putFile(Uri.parse(itemModel.getImageUri()))
                 .addOnSuccessListener(onSuccessListener)
-                .addOnFailureListener(onFailureListener);
+                .addOnFailureListener(onFailureListener)
+             ;
     }
     public  static void DeleteImage (String id)
     {
         ItemReferance().child(id).delete();
 
-    }
-    public static void DeleteAll()
-    {
-        ItemReferance().delete();
     }
 
 }

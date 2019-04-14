@@ -76,6 +76,7 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 finish();
+                startActivity(new Intent(EditComodity.this,Commodities.class));
             }
         });
 

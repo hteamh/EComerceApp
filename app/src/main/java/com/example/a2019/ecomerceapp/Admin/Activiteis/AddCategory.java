@@ -93,8 +93,8 @@ public class AddCategory extends BaseActivity {
                    public void onChanged(@Nullable Boolean aBoolean) {
                        if(aBoolean!=null && aBoolean==true)
                        {
-                           startActivity(new Intent(AddCategory.this,AdminPanel.class));
                            finish();
+                           startActivity(new Intent(AddCategory.this,AdminPanel.class));
                            return;
                        }
 

@@ -56,22 +56,21 @@ public class Categories extends BaseFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
                 getActivity().finish();
                 startActivity(new Intent(getContext(),AddCategory.class));
-                getActivity().finish();
             }
         });
         MyViewModel = ViewModelProviders.of(this).get(CategoryFragmentVm.class);
         MyViewModel.SetData();
         Observe();
-
         return view;
     }
+
     private void Observe() {
         MyViewModel.getMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
+                if(s!=null)
                 showMessage("error",s,"yes");
             }
         });
@@ -80,24 +79,10 @@ public class Categories extends BaseFragment {
             public void onChanged(@Nullable List<CategoryModel> categoryModels) {
 
                 AdapterClickLisner();
-                 adapter.ChangeData(categoryModels);
+                adapter.ChangeData(categoryModels);
+
             }
-        });
-        MyViewModel.getHideProgress().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if(aBoolean!=null)
-                {
-                    if(aBoolean)
-                    {
-                      hideProgressBar();
-                    }
-                    else
-                    {
-                      showProgressBar(R.string.Loading) ;
-                    }
-                }
-            }
+
         });
     }
 
@@ -111,10 +96,9 @@ public class Categories extends BaseFragment {
         adapter.setOnCategoreyEditListener(new CategoriesAdapter.OnCategoreyEditListener() {
             @Override
             public void onItemEdit(int pos, CategoryModel model) {
-                getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
-                getActivity().finish();
                 Intent intent=new Intent(getContext(),EditCategory.class);
                 categoryModeWeWantToUpdate=model;
+                getActivity().finish();
                 startActivity(intent);
 
 
@@ -139,9 +123,8 @@ public class Categories extends BaseFragment {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 MyViewModel.Delete(model);
-                                getActivity().getSupportFragmentManager().beginTransaction().remove(Categories.this).commit();
-                              //  getActivity().finish();
-                              //  startActivity(new Intent(getActivity(),AdminPanel.class));
+                                getActivity().finish();
+                                startActivity(new Intent(getActivity(),AdminPanel.class));
                             }
                         });
             }
@@ -149,7 +132,4 @@ public class Categories extends BaseFragment {
 
         });
     }
-
-
-
 }

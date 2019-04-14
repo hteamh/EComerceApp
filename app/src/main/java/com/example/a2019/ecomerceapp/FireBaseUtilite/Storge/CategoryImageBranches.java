@@ -5,6 +5,7 @@ import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 public class CategoryImageBranches  {
@@ -59,14 +60,15 @@ public class CategoryImageBranches  {
     {
         CategoryReferance().child(categoryModel.getId()).putFile(Uri.parse(categoryModel.getImageUri()))
         .addOnSuccessListener(onSuccessListener)
-        .addOnFailureListener(onFailureListener);
+        .addOnFailureListener(onFailureListener)
+        ;
 
     }
 
     ///  Make Interface Listner to Get Data From Back Ground Threed
     public interface GetUriListner{
 
-        public void MyUri(String Uri);
+         void MyUri(String Uri);
     }
 
 }

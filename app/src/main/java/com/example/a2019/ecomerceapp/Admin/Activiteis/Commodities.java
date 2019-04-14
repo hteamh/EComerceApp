@@ -46,6 +46,7 @@ public class Commodities extends BaseActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Commodities.this,Add_Commodity.class));
+                finish();
 
             }
         });
@@ -78,6 +79,7 @@ public class Commodities extends BaseActivity {
             public void onItemEdit(int pos, ItemModel model) {
                 comodityWeWantEdit=model;
                 startActivity(new Intent(Commodities.this,EditComodity.class));
+                finish();
 
             }
         });
@@ -91,6 +93,8 @@ public class Commodities extends BaseActivity {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 vm.Delete(model);
+                                finish();
+                                startActivity(new Intent(Commodities.this,Commodities.class));
                             }
                         });
             }

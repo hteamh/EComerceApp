@@ -76,9 +76,18 @@
         android:layout_marginBottom="168dp"
         android:background="@color/colorPrimary"
         android:text="Upload"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/choose_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/choose_image"
+        app:layout_constraintTop_toTopOf="@id/choose_image"
+        />
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/progrees"
+        app:layout_constraintTop_toBottomOf="@id/Upload"/>
 
 </android.support.constraint.ConstraintLayout>

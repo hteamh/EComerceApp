@@ -18,7 +18,6 @@ import java.util.List;
 public class CategoryFragmentVm extends BaseViewModel {
   private   MutableLiveData<List<CategoryModel>> MyCategoryItem;
     private List<CategoryModel> categoryModels;
-
     public CategoryFragmentVm(@NonNull Application application) {
         super(application);
         MyCategoryItem = new MutableLiveData<>();
@@ -144,5 +143,6 @@ public class CategoryFragmentVm extends BaseViewModel {
 
       }
   }
+
 
 }
