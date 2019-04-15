@@ -61,8 +61,9 @@ public class EditComdityVm extends BaseViewModel {
             ItemImageBranches.GetUri(itemModel, new CategoryImageBranches.GetUriListner() {
                 @Override
                 public void MyUri(String Uri) {
-                    ItemModel model=new ItemModel(itemModel.getName(),itemModel.getDescription(),
-                            Uri,itemModel.getId(),itemModel.getCategoryName(),itemModel.getCategoryName());
+                    ItemModel model=new ItemModel(itemModel.getName(),itemModel.getDescription(),itemModel.getImageUri(),
+                            itemModel.getId(),itemModel.getPrice(),itemModel.getCategoryName(),
+                            itemModel.getCount(),itemModel.getBuyingPrice());
                     UpdateIntoFireBaseDB(model);
                 }
             });

@@ -13,13 +13,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AdminPanel;
+import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
-import com.example.a2019.ecomerceapp.Customers.Fragments.BasketFragment;
 import com.example.a2019.ecomerceapp.Customers.Fragments.CategoryHomeFragment;
 import com.example.a2019.ecomerceapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Home extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static List<ItemModel> itemModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,7 @@ public class Home extends BaseActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+       itemModels=new ArrayList<>();
         loadFragment();
 
 
@@ -77,13 +81,8 @@ public class Home extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.basket) {
-            Fragment fragment = new BasketFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.homeContainerFragment, fragment)
-                    .commit();
+        if (id == R.id.Basket) {
+            startActivity(new Intent(Home.this,BasktActivity.class));
             return true;
         }
 

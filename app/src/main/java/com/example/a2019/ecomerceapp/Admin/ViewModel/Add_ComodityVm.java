@@ -49,8 +49,8 @@ public class Add_ComodityVm extends BaseViewModel {
                         if(Uri.length()>5)
                         {
 
-                         ItemModel itemModel1 = new ItemModel(itemModel.getName(),itemModel.getDescription(),Uri,itemModel.getId(),
-                                 itemModel.getPrice(),itemModel.getCategoryName());
+                         ItemModel itemModel1 = new ItemModel(itemModel.getName()
+                                 ,itemModel.getDescription(),itemModel.getImageUri(),itemModel.getId(),itemModel.getPrice(),itemModel.getCategoryName(),itemModel.getCount(),itemModel.getBuyingPrice());
                             InsertIntoFIreBaseDB(itemModel1);
                         }
                         else

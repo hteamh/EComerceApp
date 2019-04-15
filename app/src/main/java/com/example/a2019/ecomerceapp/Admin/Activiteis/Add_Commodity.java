@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.Add_ComodityVm;
@@ -23,7 +25,8 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
     protected Button chooseImageComm;
     protected TextInputLayout descriptionComm;
     protected Button Upload;
-    protected EditText price;
+    protected EditText price,Buyingprice;
+
     Uri MyImageUri;
     Add_ComodityVm myViewModel;
     private static  final int PICK_IMAGE_REQUEST =1;
@@ -57,6 +60,7 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
         Upload =  findViewById(R.id.Upload);
         Upload.setOnClickListener(Add_Commodity.this);
         price = findViewById(R.id.price);
+        Buyingprice =findViewById(R.id.Buingprice);
     }
     public void  OpenImageGalary() {
         Intent intent = new Intent();
@@ -77,6 +81,7 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
         String name = this.commodityName.getEditText().getText().toString().trim();
         String Des =this.descriptionComm.getEditText().getText().toString().trim();
         String Price = this.price.getText().toString().trim();
+        String BuyingPrice= this.Buyingprice.getText().toString().trim();
         String M = System.currentTimeMillis()+"";
         String id = M+1;
         if(name.length()<1)
@@ -87,7 +92,10 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
         if(Price.length()<1)
         {
             showMessage("error","Enter Price","Yes");return;
-
+        }
+        if(BuyingPrice.length()<1)
+        {
+            showMessage("error","Enter Price","Yes");return;
         }
         if(Des.length()<1)
         {
@@ -100,7 +108,9 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
             return;
         }
         String Uri=MyImageUri.toString();
-        ItemModel itemModel = new ItemModel(name,Des,Uri,id,Price, Categories.categoryModeWeWantToSHowHisItem.getName());
+        ItemModel itemModel = new ItemModel(name,Des,Uri,id,Price,
+                Categories.categoryModeWeWantToSHowHisItem.getName(),
+                "0",BuyingPrice);
        myViewModel.InsertNewComModity(itemModel);
     }
     public void Observe() {

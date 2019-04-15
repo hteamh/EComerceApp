@@ -22,18 +22,12 @@ public class ItemModel  {
    private String Price;
     @ColumnInfo
    private String CategoryName;
-
-    public ItemModel() {
-    }
-@Ignore
-    public ItemModel(String name, String description, String imageUri, @NonNull String id, String price, String categoryName) {
-        this.name = name;
-        Description = description;
-        ImageUri = imageUri;
-        Id = id;
-        Price = price;
-        CategoryName = categoryName;
-    }
+    @ColumnInfo
+    private String Count;
+    @ColumnInfo
+    private String BuyingPrice;
+    @ColumnInfo
+    private String Item_profit;
 
     public String getName() {
         return name;
@@ -82,5 +76,45 @@ public class ItemModel  {
 
     public void setCategoryName(String categoryName) {
         CategoryName = categoryName;
+    }
+
+    public String getCount() {
+        return Count;
+    }
+
+    public void setCount(String count) {
+        Count = count;
+    }
+
+    public String getBuyingPrice() {
+        return BuyingPrice;
+    }
+
+    public void setBuyingPrice(String buyingPrice) {
+        BuyingPrice = buyingPrice;
+    }
+
+    public String getItem_profit() {
+        return Item_profit;
+    }
+
+    public void setItem_profit(String item_profit) {
+        Item_profit = item_profit;
+    }
+
+    public ItemModel() {
+    }
+    @Ignore
+
+    public ItemModel(String name, String description, String imageUri, @NonNull String id, String price, String categoryName, String count, String buyingPrice) {
+        this.name = name;
+        Description = description;
+        ImageUri = imageUri;
+        Id = id;
+        Price = price;
+        CategoryName = categoryName;
+        Count = count;
+        BuyingPrice = buyingPrice;
+        this.Item_profit=Integer.toString(Integer.parseInt(Price)-Integer.parseInt(BuyingPrice));
     }
 }

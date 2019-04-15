@@ -33,7 +33,7 @@ public class CommoditiesVm extends BaseViewModel {
 
     private void getData(final call call){
         list=new ArrayList<>();
-        if (internetIsConnected()){
+
        Query query =ItemBranches.GetAllItemByCategoryName(Categories.categoryModeWeWantToSHowHisItem.getName());
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -54,22 +54,16 @@ public class CommoditiesVm extends BaseViewModel {
                 }
             });
 
-        }else {
-            // get data from room
-            getDataFromRoomDB th=new getDataFromRoomDB();
-            th.start();
         }
-    }
+
     // core fun
     public void setData(){
         if(internetIsConnected())
         {
-            SetHideProgrees(false);
             getData(new call() {
                 @Override
                 public void mycall(List<ItemModel> list) {
                     listMutableLiveData.postValue(list);
-                    SetHideProgrees(true);
                     DeleaingTHreead deleaingTHreead = new DeleaingTHreead(list);
                     deleaingTHreead.start();
 

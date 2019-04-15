@@ -24,6 +24,7 @@ import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.CategoryFragmentVm;
 import com.example.a2019.ecomerceapp.Base.BaseFragment;
+import com.example.a2019.ecomerceapp.Customers.Activities.Commdity;
 import com.example.a2019.ecomerceapp.Customers.Activities.Home;
 import com.example.a2019.ecomerceapp.Customers.Adapters.HomeCategoriesAdapter;
 import com.example.a2019.ecomerceapp.R;
@@ -54,7 +55,6 @@ public class CategoryHomeFragment extends BaseFragment {
         recyclerView=view.findViewById(R.id.homeRecycleView);
         layoutManager=new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);
-
         IntiAdapter();
         MyViewModel = ViewModelProviders.of(this).get(CategoryFragmentVm.class);
         MyViewModel.SetData();
@@ -109,16 +109,7 @@ public class CategoryHomeFragment extends BaseFragment {
             @Override
             public void onItemClicked(int pos, CategoryModel MyCategory) {
                 Categories.categoryModeWeWantToSHowHisItem = MyCategory;
-                /// here the problem
-              Fragment  fragment = new HomeCommodities();
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.homeContainerFragment, fragment)
-                        .commit();
-
-
-
+             startActivity(new Intent(getContext(), Commdity.class));
             }
         });
 

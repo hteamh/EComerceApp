@@ -18,10 +18,16 @@ import java.util.List;
 public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommoditiesAdapter.ViewHolder> {
 
     List<ItemModel>list;
+    OnHeartClick onHeartClick;
+
+    public void setOnHeartClick(OnHeartClick onHeartClick) {
+        this.onHeartClick = onHeartClick;
+    }
 
     public HomeCommoditiesAdapter(List<ItemModel> list) {
         this.list = list;
     }
+
 
     @NonNull
     @Override
@@ -33,12 +39,21 @@ public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommodities
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int pos) {
-        ItemModel model=list.get(pos);
+        final ItemModel model=list.get(pos);
         viewHolder.name.setText(model.getName());
         viewHolder.price.setText(model.getPrice());
 
         Glide.with(viewHolder.itemView)
                 .load(model.getImageUri()).into(viewHolder.imageView);
+        if(onHeartClick !=null)
+        {
+            viewHolder.fev.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                  onHeartClick.OnClick(model);
+                }
+            });
+        }
 
     }
 
@@ -55,13 +70,19 @@ public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommodities
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView name,price;
-        ImageView imageView;
+        ImageView imageView,fev;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.image_com);
             name=itemView.findViewById(R.id.name_com);
             price=itemView.findViewById(R.id.price_com);
+            fev= itemView.findViewById(R.id.fav);
         }
+    }
+    public interface OnHeartClick{
+        public void OnClick(ItemModel itemModel);
     }
 }

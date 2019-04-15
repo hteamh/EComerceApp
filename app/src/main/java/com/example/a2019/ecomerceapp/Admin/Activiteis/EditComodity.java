@@ -25,7 +25,7 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
     protected Button chooseImageComm;
     protected TextInputLayout descriptionComm;
     protected Button Upload;
-    protected EditText price;
+    protected EditText price,BuyingPrice;
     protected Uri MyImageUri;
     private static final int PICK_IMAGE_REQUEST=1;
     private EditComdityVm vm;
@@ -84,6 +84,7 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
 
     public  void HandelData()
     {
+        String BuyingPrice = this.BuyingPrice.getText().toString().trim();
         String name = this.commodityName.getEditText().getText().toString().trim();
         String Des =this.descriptionComm.getEditText().getText().toString().trim();
         String Price = this.price.getText().toString().trim();
@@ -93,6 +94,11 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
             return;
         }
         if(Price.length()<1)
+        {
+            showMessage("error","Enter Price","Yes");return;
+
+        }
+        if(BuyingPrice.length()<1)
         {
             showMessage("error","Enter Price","Yes");return;
 
@@ -109,7 +115,7 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
         }
         String Uri=MyImageUri.toString();
         ItemModel itemModel = new ItemModel(name,Des,Uri,Commodities.comodityWeWantEdit.getId(),Price,
-                Categories.categoryModeWeWantToSHowHisItem.getName());
+                Categories.categoryModeWeWantToSHowHisItem.getName(),"0",BuyingPrice);
         vm.Update(itemModel);
 
     }
@@ -140,6 +146,7 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
         Upload =  findViewById(R.id.Upload);
         Upload.setOnClickListener(EditComodity.this);
         price = findViewById(R.id.price);
+        BuyingPrice = findViewById(R.id.Buingprice);
         commodityImage.setImageURI(MyImageUri);
         commodityName.getEditText().setText(Commodities.comodityWeWantEdit.getName());
         descriptionComm.getEditText().setText(Commodities.comodityWeWantEdit.getDescription());
