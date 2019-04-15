@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AdminPanel;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
+import com.example.a2019.ecomerceapp.Customers.Fragments.BasketFragment;
 import com.example.a2019.ecomerceapp.Customers.Fragments.CategoryHomeFragment;
 import com.example.a2019.ecomerceapp.R;
 
@@ -76,7 +77,13 @@ public class Home extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.basket) {
+            Fragment fragment = new BasketFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.homeContainerFragment, fragment)
+                    .commit();
             return true;
         }
 
