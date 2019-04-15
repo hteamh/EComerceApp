@@ -113,6 +113,7 @@ public class CategoryHomeFragment extends BaseFragment {
               Fragment  fragment = new HomeCommodities();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
+                        .addToBackStack(null)
                         .replace(R.id.homeContainerFragment, fragment)
                         .commit();
 
@@ -124,5 +125,9 @@ public class CategoryHomeFragment extends BaseFragment {
 
     }
 
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        getActivity().finish();
+    }
 }

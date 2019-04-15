@@ -27,9 +27,6 @@ import com.example.a2019.ecomerceapp.R;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeCommodities extends BaseFragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;

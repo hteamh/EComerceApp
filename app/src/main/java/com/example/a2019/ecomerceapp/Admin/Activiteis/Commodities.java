@@ -70,6 +70,7 @@ public class Commodities extends BaseActivity {
             }
         });
     }
+
     public void AdapterListner()
     {
 
