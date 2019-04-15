@@ -56,38 +56,46 @@ public class CommoditiesVm extends BaseViewModel {
 
         }else {
             // get data from room
-            getDataFromRoomDB th=new getDataFromRoomDB(list);
+            getDataFromRoomDB th=new getDataFromRoomDB();
             th.start();
         }
     }
     // core fun
     public void setData(){
-        SetHideProgrees(false);
+        if(internetIsConnected())
+        {
+            SetHideProgrees(false);
+            getData(new call() {
+                @Override
+                public void mycall(List<ItemModel> list) {
+                    listMutableLiveData.postValue(list);
+                    SetHideProgrees(true);
+                    DeleaingTHreead deleaingTHreead = new DeleaingTHreead(list);
+                    deleaingTHreead.start();
 
-        getData(new call() {
-            @Override
-            public void mycall(List<ItemModel> list) {
-                listMutableLiveData.postValue(list);
-              SetHideProgrees(true);
-                DeleaingTHreead deleaingTHreead = new DeleaingTHreead(list);
-                deleaingTHreead.start();
+                }
+            });
+        }
+        else
+        {
+            getDataFromRoomDB getDataFromRoomDB = new getDataFromRoomDB() ;
+            getDataFromRoomDB.start();
+        }
 
-            }
-        });
 
     }
 
     public class getDataFromRoomDB extends Thread{
-        List<ItemModel> list;
 
-        private getDataFromRoomDB(List<ItemModel> list){
-            this.list=list;
+        private getDataFromRoomDB(){
         }
 
         @Override
         public void run() {
             super.run();
-          list=  MyDatabase.getInstance().itemDao().GetAllITem();
+            List <ItemModel> List = MyDatabase.getInstance().itemDao().GetAllITem(Categories.categoryModeWeWantToSHowHisItem.getName());
+            listMutableLiveData.postValue(List);
+
         }
     }
 
@@ -110,30 +118,22 @@ public class CommoditiesVm extends BaseViewModel {
         @Override
         public void run() {
             super.run();
-            List <ItemModel> OldList = MyDatabase.getInstance().itemDao().GetAllITem();
+            List <ItemModel> OldList = MyDatabase.getInstance().itemDao().GetAllITem(Categories.categoryModeWeWantToSHowHisItem.getName());
             for(int k=0;k<OldList.size();k++)
             {
                 MyDatabase.getInstance().itemDao().DeleteItem(OldList.get(k));
             }
-
-            if(MyItem.size()<20)
-            {
-                for(int i=0;i<MyItem.size();i++)
+            for(int i=0;i<MyItem.size();i++)
                 {
                     MyDatabase.getInstance().itemDao().AddItem(MyItem.get(i));
                 }
             }
-            else
-            {
-                for(int J=0;J<20;J++)
-                {
-                    MyDatabase.getInstance().itemDao().AddItem(MyItem.get(J));
-                }
+
             }
 
 
         }
-    }
 
 
-}
+
+

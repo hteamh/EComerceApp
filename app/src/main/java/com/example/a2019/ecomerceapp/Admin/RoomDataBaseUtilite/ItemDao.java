@@ -21,8 +21,8 @@ public interface ItemDao{
      void  UpdataItem(ItemModel itemModel);
     @Query("Select * from ItemModel Where id =:id")
      ItemModel GetItemById(String id);
-    @Query("Select * from ItemModel")
-     List<ItemModel> GetAllITem();
+    @Query("Select * from ItemModel where CategoryName =:name ")
+     List<ItemModel> GetAllITem( String name);
     @Query("Delete  from  ItemModel where CategoryName =:categoryName ")
       void DeleteAllItemByCategoryName(String categoryName);
 

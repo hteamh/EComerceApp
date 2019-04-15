@@ -152,9 +152,6 @@ public class CategoryFragmentVm extends BaseViewModel {
                 CategoryModel  categoryModel= Mycategory.get(i);
                 MyDatabase.getInstance().categoryDao().AddCategory(categoryModel);
             }
-
-
-
         }
     }
 }
