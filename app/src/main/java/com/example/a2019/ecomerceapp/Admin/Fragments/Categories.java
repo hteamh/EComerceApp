@@ -21,6 +21,7 @@ import com.example.a2019.ecomerceapp.Admin.Activiteis.Commodities;
 import com.example.a2019.ecomerceapp.Admin.Activiteis.EditCategory;
 import com.example.a2019.ecomerceapp.Admin.Adapters.CategoriesAdapter;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.CategoryFragmentVm;
 import com.example.a2019.ecomerceapp.Base.BaseFragment;
 import com.example.a2019.ecomerceapp.R;
@@ -56,7 +57,6 @@ public class Categories extends BaseFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
                 startActivity(new Intent(getContext(),AddCategory.class));
             }
         });
@@ -81,6 +81,7 @@ public class Categories extends BaseFragment {
                 AdapterClickLisner();
                 adapter.ChangeData(categoryModels);
 
+
             }
 
         });
@@ -98,7 +99,6 @@ public class Categories extends BaseFragment {
             public void onItemEdit(int pos, CategoryModel model) {
                 Intent intent=new Intent(getContext(),EditCategory.class);
                 categoryModeWeWantToUpdate=model;
-                getActivity().finish();
                 startActivity(intent);
 
 
@@ -132,4 +132,12 @@ public class Categories extends BaseFragment {
 
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MyViewModel.SetData();
+        Observe();
+    }
+
 }

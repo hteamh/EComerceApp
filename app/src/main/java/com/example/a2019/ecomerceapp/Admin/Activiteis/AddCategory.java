@@ -94,8 +94,6 @@ public class AddCategory extends BaseActivity {
                        if(aBoolean!=null && aBoolean==true)
                        {
                            finish();
-                           startActivity(new Intent(AddCategory.this,AdminPanel.class));
-                           return;
                        }
 
            }

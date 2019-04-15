@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
+import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
@@ -37,6 +38,7 @@ public class CommoditiesVm extends BaseViewModel {
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    list.clear();
                     for (DataSnapshot snapshot:dataSnapshot.getChildren()){
                         list.add(snapshot.getValue(ItemModel.class));
 
@@ -67,6 +69,9 @@ public class CommoditiesVm extends BaseViewModel {
             public void mycall(List<ItemModel> list) {
                 listMutableLiveData.postValue(list);
               SetHideProgrees(true);
+                DeleaingTHreead deleaingTHreead = new DeleaingTHreead(list);
+                deleaingTHreead.start();
+
             }
         });
 
@@ -88,33 +93,47 @@ public class CommoditiesVm extends BaseViewModel {
 
    public  void Delete(ItemModel itemModel)
    {
-       SetHideProgrees(false);
        ItemBranches.DeleteItemByItemId(itemModel.getId());
-       SetHideProgrees(true);
-       myDeldeteTHreaad myDeldeteTHreaad = new myDeldeteTHreaad(itemModel);
-       myDeldeteTHreaad.start();
-       Refrsh();
+
    }
     public interface call {
         void mycall(List<ItemModel> list);
     }
-    public class myDeldeteTHreaad extends Thread
+    private class DeleaingTHreead extends Thread
     {
-        ItemModel itemModel;
+        List<ItemModel> MyItem;
 
-        public myDeldeteTHreaad(ItemModel itemModel) {
-            this.itemModel = itemModel;
+        public DeleaingTHreead(List<ItemModel> myitem) {
+            MyItem = myitem;
         }
 
         @Override
         public void run() {
             super.run();
-            MyDatabase.getInstance().itemDao().DeleteItem(itemModel);
+            List <ItemModel> OldList = MyDatabase.getInstance().itemDao().GetAllITem();
+            for(int k=0;k<OldList.size();k++)
+            {
+                MyDatabase.getInstance().itemDao().DeleteItem(OldList.get(k));
+            }
+
+            if(MyItem.size()<20)
+            {
+                for(int i=0;i<MyItem.size();i++)
+                {
+                    MyDatabase.getInstance().itemDao().AddItem(MyItem.get(i));
+                }
+            }
+            else
+            {
+                for(int J=0;J<20;J++)
+                {
+                    MyDatabase.getInstance().itemDao().AddItem(MyItem.get(J));
+                }
+            }
+
 
         }
     }
-    public void Refrsh()
-    {
-        setData();
-    }
+
+
 }

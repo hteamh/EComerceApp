@@ -103,25 +103,21 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
         ItemModel itemModel = new ItemModel(name,Des,Uri,id,Price, Categories.categoryModeWeWantToSHowHisItem.getName());
        myViewModel.InsertNewComModity(itemModel);
     }
-    public void Observe(){
+    public void Observe() {
         myViewModel.getMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                showMessage("Error",s,"Yes");
+                showMessage("Error", s, "Yes");
             }
         });
         ////
         myViewModel.getHideProgress().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
-                if(aBoolean !=null)
-                {
-                    if(aBoolean)
-                    {
+                if (aBoolean != null) {
+                    if (aBoolean) {
                         hideProgressBar();
-                    }
-                    else
-                    {
+                    } else {
                         showProgressBar(R.string.Loading);
                     }
                 }
@@ -131,10 +127,8 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
         myViewModel.getDone().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
-                if(aBoolean !=null)
-                {
+                if (aBoolean != null) {
                     if (aBoolean) {
-                        startActivity(new Intent(Add_Commodity.this,Commodities.class));
                         finish();
                     }
                 }
@@ -142,4 +136,5 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
         });
 
     }
+
 }

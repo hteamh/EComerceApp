@@ -71,13 +71,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="148dp"
         android:background="@color/colorPrimary"
         android:text="Upload"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.535"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/choose_image_comm"
+        app:layout_constraintStart_toEndOf="@+id/choose_image_comm"
+        app:layout_constraintTop_toTopOf="@+id/choose_image_comm"/>
 
     <EditText
         android:id="@+id/price"

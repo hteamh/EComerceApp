@@ -41,7 +41,6 @@ public class AddCategoryVm extends BaseViewModel {
        {
            SetHideProgrees(true);
            SetMessage(" Can Not Add This Category  internet Connection");
-           OpenPanelActivity.postValue(true);
 
        }
 
@@ -66,7 +65,6 @@ public class AddCategoryVm extends BaseViewModel {
           public void onSuccess(Object o) {
               SetHideProgrees(true);
               OpenPanelActivity.postValue(true);
-              AddCategoryToRoomDb(MyCategoryItem);
           }
       },new OnFailureListener() {
           @Override
@@ -110,12 +108,7 @@ public class AddCategoryVm extends BaseViewModel {
 
 
     }
-    private void AddCategoryToRoomDb(CategoryModel categoryModel)
-    {
-        AddCategory addCategory = new AddCategory(categoryModel);
-        addCategory.start();
 
-    }
 
 
 }

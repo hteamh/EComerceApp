@@ -36,7 +36,6 @@ public class Add_ComodityVm extends BaseViewModel {
              {
                  SetHideProgrees(true);
                  SetMessage(" Can Not Insert New Commodity  Cheek Your Internet Connection");
-                 Done.postValue(true);
              }
 
     }
@@ -77,7 +76,6 @@ public class Add_ComodityVm extends BaseViewModel {
             public void onSuccess(Object o) {
                 SetHideProgrees(true);
                 Done.postValue(true);
-                InsertIntoRoomDB(itemModel);
             }
         }, new OnFailureListener() {
             @Override
@@ -88,23 +86,8 @@ public class Add_ComodityVm extends BaseViewModel {
         });
 
     }
-    private void InsertIntoRoomDB(ItemModel itemModel){
-        InsertThreedRoomDb insertThreedRoomDb = new InsertThreedRoomDb(itemModel);
-        insertThreedRoomDb.start();
 
-    }
-    public class InsertThreedRoomDb extends Thread {
-        ItemModel itemModel;
-       private   InsertThreedRoomDb(ItemModel itemModel){
-           this.itemModel=itemModel;
-       }
 
-        @Override
-        public void run() {
-            super.run();
-            MyDatabase.getInstance().itemDao().AddItem(itemModel);
-        }
-    }
     public boolean internetIsConnected() {
         try {
             String command = "ping -c 1 google.com";

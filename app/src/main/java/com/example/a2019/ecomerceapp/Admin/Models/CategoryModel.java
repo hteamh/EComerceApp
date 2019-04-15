@@ -14,7 +14,7 @@ public class CategoryModel {
    private   String  ImageUri;
     @NonNull
     @PrimaryKey
-   private   String  Id;
+   private String  Id;
     @ColumnInfo
    private   String Description;
 

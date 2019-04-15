@@ -48,7 +48,6 @@ public class EditComdityVm extends BaseViewModel {
         }else {
             SetHideProgrees(true);
            SetMessage("check your internet connection");
-           Done.postValue(true);
 
         }
 
@@ -87,8 +86,6 @@ public class EditComdityVm extends BaseViewModel {
             public void onSuccess(Object o) {
                 SetHideProgrees(true);
                 Done.postValue(true);
-                ThreadUpdateRoom th= new ThreadUpdateRoom(itemModel);
-                th.start();
 
 
             }
@@ -103,18 +100,6 @@ public class EditComdityVm extends BaseViewModel {
 
     }
 
-    public class ThreadUpdateRoom extends Thread{
-        ItemModel model;
 
-        private ThreadUpdateRoom (ItemModel model){
-            this.model=model;
-        }
-
-        @Override
-        public void run() {
-            super.run();
-            MyDatabase.getInstance().itemDao().UpdataItem(model);
-        }
-    }
 
 }

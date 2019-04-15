@@ -41,8 +41,6 @@ public class EditCategoryVm extends BaseViewModel {
                 Categorybranches.EditCateory(newCategoryModel, new OnSuccessListener() {
                     @Override
                     public void onSuccess(Object o) {
-                        MyThreed myThreed= new MyThreed(newCategoryModel);
-                        myThreed.start();
                        SetHideProgrees(true);
                         Done.postValue(true);
                     }
@@ -70,15 +68,13 @@ public class EditCategoryVm extends BaseViewModel {
                                     public void onSuccess(Object o) {
                                         SetHideProgrees(true);
                                         Done.postValue(true);
-                                        MyThreed myThreed= new MyThreed(newCategoryModel);
-                                        myThreed.start();
 
                                     }
                                 }, new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                       SetMessage(e.getMessage());
-                                       SetHideProgrees(true);
+                                        SetHideProgrees(true);
+                                        SetMessage(e.getMessage());
 
                                     }
                                 });
@@ -88,8 +84,8 @@ public class EditCategoryVm extends BaseViewModel {
                 }, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        SetHideProgrees(true);
                         SetMessage(e.getMessage());
-                       SetHideProgrees(true);
                     }
                 });
             }
@@ -99,24 +95,9 @@ public class EditCategoryVm extends BaseViewModel {
         {
            SetHideProgrees(true);
           SetMessage("No Internet Connection");
-          Done.postValue(true);
         }
 
     }
 
-    public class MyThreed extends Thread
-    {
-        CategoryModel categoryModel;
 
-        private MyThreed(CategoryModel categoryModel) {
-            this.categoryModel = categoryModel;
-        }
-
-        @Override
-        public void run() {
-            super.run();
-            MyDatabase.getInstance().categoryDao().
-     Update(categoryModel.getName(),categoryModel.getImageUri(),categoryModel.getId(),categoryModel.getDescription());
-        }
-    }
 }

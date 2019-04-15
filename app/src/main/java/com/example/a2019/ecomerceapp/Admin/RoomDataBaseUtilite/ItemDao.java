@@ -9,9 +9,11 @@ import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 
 import java.util.List;
 
+import static android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE;
+
 @Dao
 public interface ItemDao{
-    @Insert
+    @Insert(onConflict =CONFLICT_REPLACE)
      void AddItem(ItemModel itemModel);
     @Delete
       void DeleteItem(ItemModel itemModel);
@@ -23,4 +25,5 @@ public interface ItemDao{
      List<ItemModel> GetAllITem();
     @Query("Delete  from  ItemModel where CategoryName =:categoryName ")
       void DeleteAllItemByCategoryName(String categoryName);
+
 }
