@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
+import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.Customers.Activities.Home;
 
@@ -37,5 +38,8 @@ public class BasketVm extends BaseViewModel {
 
 
 
+    }
+
+    public void SendOrder(UserModel userModel, List<ItemModel> myItemList) {
     }
 }

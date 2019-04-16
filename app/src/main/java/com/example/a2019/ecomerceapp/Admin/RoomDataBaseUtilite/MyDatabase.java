@@ -9,6 +9,7 @@ import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 public abstract class MyDatabase extends RoomDatabase {
       public abstract CategoryDao categoryDao();
       public  abstract ItemDao itemDao();
+      public  abstract  UserDao userDao();
       private  static MyDatabase myDatabase;
       public  static void init(Context context)
       {

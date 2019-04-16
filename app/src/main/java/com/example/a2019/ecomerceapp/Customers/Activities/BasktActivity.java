@@ -8,29 +8,50 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
+import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Customers.Adapters.BasketAdapter;
 import com.example.a2019.ecomerceapp.Customers.ViewModel.BasketVm;
 import com.example.a2019.ecomerceapp.R;
-
 import java.util.List;
-
 public class BasktActivity extends AppCompatActivity {
     RecyclerView myRecycler;
     BasketAdapter myAdapter;
     RecyclerView.LayoutManager layoutManager;
     BasketVm basketVm;
+    Button Buy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baskt);
         basketVm = ViewModelProviders.of(this).get(BasketVm.class);
         myRecycler = findViewById(R.id.RecyclerBasket);
+        Buy = findViewById(R.id.Buy);
         initAdapter();
         basketVm.GetAllFev();
         AdapterLisner();
+        Buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MyDatabase.getInstance().userDao().GetAllUser()!=null)
+                {
+
+                    UserModel userModel = MyDatabase.getInstance().userDao().GetAllUser();
+                    List<ItemModel> myItemList = Home.itemModels;
+                    Home.itemModels.clear();
+                    basketVm.SendOrder(userModel,myItemList);
+                }
+                else
+                {
+                     // /////////
+
+                }
+            }
+        });
         Observe();
 
 
@@ -63,7 +84,6 @@ public class BasktActivity extends AppCompatActivity {
           }
       });
     }
-
 
     @Override
     public void onBackPressed() {
