@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.R;
 
@@ -17,17 +16,21 @@ import java.util.List;
 
 public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommoditiesAdapter.ViewHolder> {
 
-    List<ItemModel>list;
-    OnHeartClick onHeartClick;
+  private   List<ItemModel>list;
+   private OnSHopClick onSHopClick;
+  private   OnHeart onHeart;
 
-    public void setOnHeartClick(OnHeartClick onHeartClick) {
-        this.onHeartClick = onHeartClick;
+    public void setOnSHopClick(OnSHopClick onSHopClick) {
+        this.onSHopClick = onSHopClick;
     }
 
     public HomeCommoditiesAdapter(List<ItemModel> list) {
         this.list = list;
     }
 
+    public void setOnHeart(OnHeart onHeart) {
+        this.onHeart = onHeart;
+    }
 
     @NonNull
     @Override
@@ -45,14 +48,18 @@ public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommodities
 
         Glide.with(viewHolder.itemView)
                 .load(model.getImageUri()).into(viewHolder.imageView);
-        if(onHeartClick !=null)
+        if(onSHopClick !=null)
         {
             viewHolder.fev.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  onHeartClick.OnClick(model);
+                  onSHopClick.OnClick(model);
                 }
             });
+        }
+        if(onHeart !=null)
+        {
+            onHeart.OnClick(model);
         }
 
     }
@@ -70,7 +77,7 @@ public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommodities
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView name,price;
-        ImageView imageView,fev;
+        ImageView imageView,fev,Love;
 
 
 
@@ -80,9 +87,14 @@ public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommodities
             name=itemView.findViewById(R.id.name_com);
             price=itemView.findViewById(R.id.price_com);
             fev= itemView.findViewById(R.id.fav);
+            Love = itemView.findViewById(R.id.Lovely);
         }
     }
-    public interface OnHeartClick{
-        public void OnClick(ItemModel itemModel);
+    public interface OnSHopClick {
+         void OnClick(ItemModel itemModel);
     }
+    public interface OnHeart{
+         void OnClick(ItemModel itemModel);
+    }
+
 }

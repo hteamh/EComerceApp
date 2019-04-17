@@ -4,17 +4,19 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class UserModel {
     @PrimaryKey
-    String Uid;
+    @NonNull
+    private   String Uid;
     @ColumnInfo
-    String name;
+    private  String name;
     @ColumnInfo
-    String Phone;
+    private  String Phone;
     @ColumnInfo
-    String Adrees;
+    private  String Adrees;
 
     public String getUid() {
         return Uid;

@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -15,7 +16,7 @@ public interface UserDao {
      void AddUser(UserModel userModel);
     @Delete
     void  DeleteUser(UserModel userModel);
-    @Query("Select * From UserModel")
-    UserModel GetAllUser();
+    @Query("Select * From usermodel")
+    List<UserModel> GetAllUser();
 
 }

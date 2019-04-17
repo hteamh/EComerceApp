@@ -10,11 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
+import com.example.a2019.ecomerceapp.Admin.Models.MyfevItem;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.CommoditiesVm;
 import com.example.a2019.ecomerceapp.Customers.Adapters.HomeCommoditiesAdapter;
 import com.example.a2019.ecomerceapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Commdity extends AppCompatActivity {
@@ -43,11 +44,20 @@ RecyclerView.LayoutManager layoutManager;
     }
     private void AdapterListner()
     {
-        myadapter.setOnHeartClick(new HomeCommoditiesAdapter.OnHeartClick() {
+        myadapter.setOnSHopClick(new HomeCommoditiesAdapter.OnSHopClick() {
             @Override
             public void OnClick(ItemModel itemModel) {
                 Home.itemModels.add(itemModel);
                 Toast.makeText(Commdity.this, "add to Basket", Toast.LENGTH_SHORT).show();
+            }
+        });
+        myadapter.setOnHeart(new HomeCommoditiesAdapter.OnHeart() {
+            @Override
+            public void OnClick(ItemModel itemModel) {
+                MyfevItem myfevItem = new MyfevItem(itemModel.getName(),itemModel.getDescription()
+           ,itemModel.getImageUri(),itemModel.getId(),itemModel.getPrice(),itemModel.getCategoryName(),itemModel.getCount(),itemModel.getBuyingPrice());
+                AddFevThread addFevThread = new AddFevThread(myfevItem);
+                addFevThread.start();
             }
         });
 
@@ -65,5 +75,19 @@ RecyclerView.LayoutManager layoutManager;
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+    class AddFevThread extends Thread
+    {
+        MyfevItem myfevItem;
+
+        public AddFevThread(MyfevItem myfevItem) {
+            this.myfevItem = myfevItem;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            MyDatabase.getInstance().fevItemDao().AddItem(myfevItem);
+        }
     }
 }

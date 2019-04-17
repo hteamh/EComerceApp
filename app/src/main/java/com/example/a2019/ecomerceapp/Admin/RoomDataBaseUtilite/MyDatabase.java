@@ -5,11 +5,15 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
-@Database(entities ={ItemModel.class, CategoryModel.class},version = 10,exportSchema = false)
+import com.example.a2019.ecomerceapp.Admin.Models.MyfevItem;
+import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
+
+@Database(entities ={ItemModel.class, CategoryModel.class, UserModel.class, MyfevItem.class},version = 12,exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
       public abstract CategoryDao categoryDao();
       public  abstract ItemDao itemDao();
       public  abstract  UserDao userDao();
+      public  abstract  fevItemDao fevItemDao();
       private  static MyDatabase myDatabase;
       public  static void init(Context context)
       {

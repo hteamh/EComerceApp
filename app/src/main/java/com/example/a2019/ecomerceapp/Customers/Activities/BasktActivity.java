@@ -3,6 +3,7 @@ package com.example.a2019.ecomerceapp.Customers.Activities;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,20 +11,26 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
+import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.Customers.Adapters.BasketAdapter;
 import com.example.a2019.ecomerceapp.Customers.ViewModel.BasketVm;
 import com.example.a2019.ecomerceapp.R;
+import com.google.firebase.database.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
-public class BasktActivity extends AppCompatActivity {
+public class BasktActivity extends BaseActivity {
     RecyclerView myRecycler;
     BasketAdapter myAdapter;
     RecyclerView.LayoutManager layoutManager;
     BasketVm basketVm;
     Button Buy;
+  static   UserModel MyUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,25 +44,47 @@ public class BasktActivity extends AppCompatActivity {
         Buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyDatabase.getInstance().userDao().GetAllUser()!=null)
+                if(Home.itemModels!=null)
                 {
+                    if(Home.itemModels.size()>0)
+                    {
+                        getUserThread getUserThread = new getUserThread(new OnitemUserGitListner() {
+                            @Override
+                            public void Userget(UserModel userModel) {
+                                MyUser = userModel;
+                                if(MyUser==null)
+                                {
+                                    startActivity(new Intent(BasktActivity.this,RegisterByNameAndPhone.class));
+                                }
+                                else
+                                {
+                                    basketVm.SendOrder(MyUser,Home.itemModels);
+                                }
+                            }
+                        });
+                        getUserThread.start();
 
-                    UserModel userModel = MyDatabase.getInstance().userDao().GetAllUser();
-                    List<ItemModel> myItemList = Home.itemModels;
-                    Home.itemModels.clear();
-                    basketVm.SendOrder(userModel,myItemList);
+
+                    }
+                    else
+                    {
+                        showMessage("Message","No item Selected","Ok");
+
+                    }
                 }
                 else
                 {
-                     // /////////
+                    showMessage("Message","No item Selected","Ok");
 
                 }
+
             }
         });
         Observe();
 
 
     }
+
     private void initAdapter()
     {
         myAdapter = new BasketAdapter(null);
@@ -81,6 +110,28 @@ public class BasktActivity extends AppCompatActivity {
               myAdapter.ChangeData(itemModels);
               myRecycler.setAdapter(myAdapter);
               myRecycler.setLayoutManager(layoutManager);
+
+          }
+      });
+      basketVm.getDone().observe(this, new Observer<Boolean>() {
+          @Override
+          public void onChanged(@Nullable Boolean aBoolean) {
+              if(aBoolean!=null)
+              {
+                  if(aBoolean)
+                  {
+                      Toast.makeText(activity, "Your Order Uploaded", Toast.LENGTH_SHORT).show();
+                      Handler handler = new Handler();
+                      handler.postDelayed(new Runnable() {
+                          @Override
+                          public void run() {
+                              startActivity(new Intent(BasktActivity.this,Home.class));
+                              Home.itemModels.clear();
+                              finish();
+                          }
+                      },2000);
+                  }
+              }
           }
       });
     }
@@ -90,4 +141,41 @@ public class BasktActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
+public interface OnitemUserGitListner{
+        void Userget(UserModel userModel);
 }
+public class getUserThread extends Thread
+{
+    OnitemUserGitListner onitemUserGitListner;
+
+    private getUserThread(OnitemUserGitListner onitemUserGitListner) {
+        this.onitemUserGitListner = onitemUserGitListner;
+    }
+
+    @Override
+    public void run() {
+        super.run();
+        List<UserModel>userModel;
+        userModel = new ArrayList<>();
+userModel =MyDatabase.getInstance().userDao().GetAllUser();
+        if(userModel!=null)
+        {
+            if(userModel.size()>0)
+            {
+                onitemUserGitListner.Userget( userModel.get(0));
+
+            }
+            else
+            {
+                onitemUserGitListner.Userget(null);
+            }
+
+        }
+        else
+        {
+            onitemUserGitListner.Userget(null);
+        }
+    }
+}
+}
+
