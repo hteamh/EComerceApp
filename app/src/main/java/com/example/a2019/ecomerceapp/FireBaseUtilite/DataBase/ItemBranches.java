@@ -49,7 +49,7 @@ public class ItemBranches {
         .addOnFailureListener(onFailureListener)
             .addOnSuccessListener(onSuccessListener);
     }
-    public static List<ItemModel> GetAllItemInDb()
+    public static void  GetAllItemInDb(final GetAllItemListner getAllItemListner)
     {
         final List<ItemModel> AllItem = new ArrayList<>();
         GetItemBranch().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -59,6 +59,7 @@ public class ItemBranches {
                 {
                    AllItem.add(mydataSnapshot.getValue(ItemModel.class));
                 }
+                getAllItemListner.GetAll(AllItem);
             }
 
             @Override
@@ -66,6 +67,29 @@ public class ItemBranches {
 
             }
         });
-        return AllItem;
+    }
+    public static void GetOneItem(final String ItemModelid, final GetOneItemListner getOneItemListner)
+    {
+        Query query = ItemBranches.GetItemBranch().orderByChild("id").equalTo(ItemModelid);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot myitem : dataSnapshot.getChildren())
+                {
+                    ItemModel itemModel = myitem.getValue(ItemModel.class);
+                    getOneItemListner.onitem(itemModel);
+                }            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public interface GetOneItemListner{
+        public void onitem(ItemModel itemModel);
+    }
+    public  interface GetAllItemListner{
+        public void GetAll(List<ItemModel>itemModels);
     }
 }

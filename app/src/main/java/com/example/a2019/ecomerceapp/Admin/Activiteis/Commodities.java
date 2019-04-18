@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -36,7 +37,7 @@ public class Commodities extends BaseActivity {
         vm= ViewModelProviders.of(this).get(CommoditiesVm.class);
 
         recyclerView=findViewById(R.id.commodities_RecycleView);
-        layoutManager=new GridLayoutManager(this,2);
+        layoutManager=new LinearLayoutManager(this);
         intiAdapter();
         vm.setData();
         observe();

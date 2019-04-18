@@ -2,14 +2,15 @@ package com.example.a2019.ecomerceapp.Customers.ViewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
-import com.example.a2019.ecomerceapp.Admin.Models.Order;
+import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
+import com.example.a2019.ecomerceapp.Admin.Models.Order_Commedity;
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.Customers.Activities.Home;
-import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.OrdarsItemBranches;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.OrderBranches;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Order_CommedityBranche;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -58,28 +59,39 @@ public class BasketVm extends BaseViewModel {
     }
 
     public void SendOrder(UserModel userModel, List<ItemModel> myItemList) {
-        String orderid= userModel.getUid()+ System.currentTimeMillis();
+     final    String  orderid= userModel.getUid()+ System.currentTimeMillis();
         String TotalPrice= "0" ;
-        for(int i = 0 ; i < myItemList.size();i++)
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String data =    dateFormat.format(date);
+        for(int i = 0;i < myItemList.size();i++)
         {
        TotalPrice  = Integer.toString(Integer.parseInt(TotalPrice)
          + Integer.parseInt(myItemList.get(i).getPrice())  * Integer.parseInt(myItemList.get(i).getCount()));
+            Order_CommedityBranche.AddOrder(new Order_Commedity(myItemList.get(i).getId(), orderid,myItemList.get(i).getCount()), new OnSuccessListener() {
+                @Override
+                public void onSuccess(Object o) {
+                }
+            }, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
         }
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-     String data =    dateFormat.format(date);
-        Order order = new Order(orderid,userModel.getUid(),data,TotalPrice,myItemList,userModel);
-        OrdarsItemBranches.AddOrder(order, new OnSuccessListener() {
+
+        OrderBranches.AddOrder(new OrderModel(orderid, userModel.getName(), userModel.getPhone(), userModel.getAdrees(), TotalPrice, data), new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
-                    Done.postValue(true);
+
             }
         }, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                 Done.postValue(false);
+
             }
         });
+        Done.postValue(true);
     }
 
 }

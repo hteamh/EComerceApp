@@ -110,7 +110,7 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
         String Uri=MyImageUri.toString();
         ItemModel itemModel = new ItemModel(name,Des,Uri,id,Price,
                 Categories.categoryModeWeWantToSHowHisItem.getName(),
-                "0",BuyingPrice);
+                "1",BuyingPrice);
        myViewModel.InsertNewComModity(itemModel);
     }
     public void Observe() {

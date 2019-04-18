@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
-import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Categorybranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranches;

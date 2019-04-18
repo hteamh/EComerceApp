@@ -57,8 +57,7 @@ public class CategoryHomeFragment extends BaseFragment {
         recyclerView.setHasFixedSize(true);
         IntiAdapter();
         MyViewModel = ViewModelProviders.of(this).get(CategoryFragmentVm.class);
-        MyViewModel.SetData();
-        Observe();
+
 
         return view;
     }
@@ -120,5 +119,12 @@ public class CategoryHomeFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         getActivity().finish();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MyViewModel.SetData();
+        Observe();
     }
 }

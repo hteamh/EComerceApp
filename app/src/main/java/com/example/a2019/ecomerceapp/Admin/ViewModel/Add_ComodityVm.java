@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
-import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.ItemBranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranches;
@@ -50,7 +49,7 @@ public class Add_ComodityVm extends BaseViewModel {
                         {
 
                          ItemModel itemModel1 = new ItemModel(itemModel.getName()
-                                 ,itemModel.getDescription(),itemModel.getImageUri(),itemModel.getId(),itemModel.getPrice(),itemModel.getCategoryName(),itemModel.getCount(),itemModel.getBuyingPrice());
+                                 ,itemModel.getDescription(),Uri,itemModel.getId(),itemModel.getPrice(),itemModel.getCategoryName(),itemModel.getCount(),itemModel.getBuyingPrice());
                             InsertIntoFIreBaseDB(itemModel1);
                         }
                         else

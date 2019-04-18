@@ -1,9 +1,7 @@
 package com.example.a2019.ecomerceapp.Admin.ViewModel;
 
 import android.app.Application;
-import android.app.ListActivity;
 import android.arch.lifecycle.MutableLiveData;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
@@ -133,7 +131,7 @@ public class CategoryFragmentVm extends BaseViewModel {
     {
         List<CategoryModel> Mycategory;
 
-        public DeleaingTHreead(List<CategoryModel> mycategory) {
+        private DeleaingTHreead(List<CategoryModel> mycategory) {
             Mycategory = mycategory;
         }
 

@@ -9,10 +9,6 @@ import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Categorybranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.CategoryImageBranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 
 public class AddCategoryVm extends BaseViewModel {
     private static CategoryModel MyCategoryItem;

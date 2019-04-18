@@ -115,7 +115,7 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
         }
         String Uri=MyImageUri.toString();
         ItemModel itemModel = new ItemModel(name,Des,Uri,Commodities.comodityWeWantEdit.getId(),Price,
-                Categories.categoryModeWeWantToSHowHisItem.getName(),"0",BuyingPrice);
+                Categories.categoryModeWeWantToSHowHisItem.getName(),"1",BuyingPrice);
         vm.Update(itemModel);
 
     }

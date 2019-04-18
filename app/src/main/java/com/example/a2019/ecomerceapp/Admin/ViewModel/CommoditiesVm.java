@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
-import com.example.a2019.ecomerceapp.Admin.Models.CategoryModel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
@@ -34,7 +33,7 @@ public class CommoditiesVm extends BaseViewModel {
     private void getData(final call call){
         list=new ArrayList<>();
 
-       Query query =ItemBranches.GetAllItemByCategoryName(Categories.categoryModeWeWantToSHowHisItem.getName());
+       Query query = ItemBranches.GetAllItemByCategoryName(Categories.categoryModeWeWantToSHowHisItem.getName());
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -105,7 +104,7 @@ public class CommoditiesVm extends BaseViewModel {
     {
         List<ItemModel> MyItem;
 
-        public DeleaingTHreead(List<ItemModel> myitem) {
+        private DeleaingTHreead(List<ItemModel> myitem) {
             MyItem = myitem;
         }
 

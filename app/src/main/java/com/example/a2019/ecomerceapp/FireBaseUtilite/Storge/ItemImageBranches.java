@@ -53,6 +53,7 @@ public class ItemImageBranches {
 
     public static void Edit(ItemModel itemModel , OnSuccessListener onSuccessListener,OnFailureListener onFailureListener)
     {
+        ItemReferance().child(itemModel.getId()).delete();
         ItemReferance().child(itemModel.getId()).putFile(Uri.parse(itemModel.getImageUri()))
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener)
