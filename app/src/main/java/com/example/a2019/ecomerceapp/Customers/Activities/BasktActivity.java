@@ -129,7 +129,7 @@ public class BasktActivity extends BaseActivity {
                               Home.itemModels.clear();
                               finish();
                           }
-                      },2000);
+                      },1000);
                   }
               }
           }

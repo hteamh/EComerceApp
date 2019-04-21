@@ -84,6 +84,9 @@ public class Oreders extends BaseFragment {
             @Override
             public void OnSendClick(OrdersCountainer ordersCountainer, int Pos) {
                 myViewModel.DeleteOrderToMoveToSalesBasket(ordersCountainer);
+                getActivity().getSupportFragmentManager().beginTransaction().remove(Oreders.this).commit();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainer,Oreders.this);
             }
         });
     }
