@@ -8,20 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.example.a2019.ecomerceapp.Admin.Models.OrdersCountainer;
 import com.example.a2019.ecomerceapp.R;
-
 import java.util.List;
 
 public class OrdarAdapter extends RecyclerView.Adapter<OrdarAdapter.MyViewHolder> {
    private List<OrdersCountainer> ordersCountainers;
   private   orderAdapter orderAdapter ;
+    OnSendClickListner onSendClickListner;
+
 
     public OrdarAdapter(List<OrdersCountainer> ordersCountainers ,orderAdapter orderAdapter ) {
         this.ordersCountainers = ordersCountainers;
         this.orderAdapter = orderAdapter;
-
     }
 
     @NonNull
@@ -34,15 +33,28 @@ public class OrdarAdapter extends RecyclerView.Adapter<OrdarAdapter.MyViewHolder
         return MyViewH;
     }
 
+    public void setOnSendClickListner(OnSendClickListner onSendClickListner) {
+        this.onSendClickListner = onSendClickListner;
+    }
+
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        OrdersCountainer ordersCountainer = this.ordersCountainers.get(i);
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+        final OrdersCountainer ordersCountainer = this.ordersCountainers.get(i);
         myViewHolder.Date.setText("Date :" + ordersCountainer.getDate());
-        myViewHolder.Adrees.setText("Adrees:" + ordersCountainer.getUserAdrees());
+        myViewHolder.Adrees.setText("Adrees:" + ordersCountainer.getAdrees());
         myViewHolder.price.setText("T price"+ ordersCountainer.getTotalPrice());
-        myViewHolder.name.setText("name :" + ordersCountainer.getUserName());
-        myViewHolder.phone.setText("phone  :"+ordersCountainer.getUserPhone());
-      orderAdapter.ChangeData(ordersCountainer.getItemModels());
+        myViewHolder.name.setText("name :" + ordersCountainer.getName());
+        myViewHolder.phone.setText("phone  :"+ordersCountainer.getPhone());
+         orderAdapter.ChangeData(ordersCountainer.getItemModels());
+        if(this.onSendClickListner!=null)
+        {
+            myViewHolder.Send.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onSendClickListner.OnSendClick(ordersCountainer,i);
+                }
+            });
+        }
     }
 
     @Override
@@ -74,5 +86,8 @@ public class OrdarAdapter extends RecyclerView.Adapter<OrdarAdapter.MyViewHolder
             Send = itemView.findViewById(R.id.newButton);
             innerRecyclerView = itemView.findViewById(R.id.SubRecyclerView);
         }
+    }
+    public interface OnSendClickListner{
+         void OnSendClick(OrdersCountainer ordersCountainer , int Pos);
     }
 }

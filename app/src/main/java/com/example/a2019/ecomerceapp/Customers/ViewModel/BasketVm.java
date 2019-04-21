@@ -2,6 +2,7 @@ package com.example.a2019.ecomerceapp.Customers.ViewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
@@ -79,8 +80,8 @@ public class BasketVm extends BaseViewModel {
                 }
             });
         }
-
-        OrderBranches.AddOrder(new OrderModel(orderid, userModel.getName(), userModel.getPhone(), userModel.getAdrees(), TotalPrice, data), new OnSuccessListener() {
+    OrderModel orderModel = new OrderModel(userModel,orderid,TotalPrice, data);
+        OrderBranches.AddOrder(orderModel, new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
 

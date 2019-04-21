@@ -115,5 +115,6 @@ public class ItemModel  {
         CategoryName = categoryName;
         Count = count;
         BuyingPrice = buyingPrice;
+        this.Item_profit="0";
     }
 }
