@@ -42,7 +42,7 @@ public class Oreders extends BaseFragment {
                              Bundle savedInstanceState) {
    view= inflater.inflate(R.layout.fragment_oreders, container, false);
         IntiData();
-        myViewModel.SetOrderCountainerToTHeAdapter();
+        myViewModel.GetAllItem();
         Observe();
         return view;
     }

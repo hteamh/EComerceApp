@@ -46,29 +46,35 @@ public class OrdersViewModels  extends BaseViewModel {
 
         return OrderGetter;
     }
-     public  void  SetOrderCountainerToTHeAdapter()
+     public  void GetAllItem()
      {
-  final List<OrdersCountainer>MyOrderCountainer = new ArrayList<>();
          OrderBranches.GetAllOrder(new OrderBranches.GetAllOrderListner() {
              @Override
              public void onGetAllOrder(List<OrderModel> orderModelList) {
                  for(int I = 0;I<orderModelList.size();I++)
                  {
+
                      final int xx = I;
                      final int ZZ=orderModelList.size()-1;
   final OrderModel MyOrder = orderModelList.get(I);
           Order_CommedityBranche.GetAllOrderCommedityBrancheByOrderId(MyOrder.getId(), new Order_CommedityBranche.GetAllOrderCommedityBrancheByOrderIdListner() {
+              final List<OrdersCountainer>MyOrderCountainer = new ArrayList<>();
               @Override
               public void onAllOrderCommedityBrancheGet(List<Order_Commedity> order_commedities) {
-                  for(int J = 0;J<order_commedities.size();J++)
+                for(int J = 0;J<order_commedities.size();J++)
                   {
+                      if(xx == 0)
+                      {
+                          MyOrderCountainer.clear();
+                      }
                       final List<ItemModel> MyItemModelList = new ArrayList<>();
-                      Order_Commedity MyOC= order_commedities.get(J);
+                      final Order_Commedity MyOC= order_commedities.get(J);
                   final int x=J;
                   final int z=order_commedities.size()-1;
            ItemBranches.GetOneItem(MyOC.getCommdityid(), new ItemBranches.GetOneItemListner() {
                @Override
                public void onitem(ItemModel itemModels) {
+                   itemModels.setCount(MyOC.getCounter());
                    MyItemModelList.add(itemModels);
                    if(x == z)
                    {
@@ -78,6 +84,7 @@ public class OrdersViewModels  extends BaseViewModel {
                    {
                        OrderGetter.postValue(MyOrderCountainer);
                    }
+
                }
            });
 
