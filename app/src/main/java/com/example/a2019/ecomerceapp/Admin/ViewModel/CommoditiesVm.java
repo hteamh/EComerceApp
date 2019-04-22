@@ -8,6 +8,7 @@ import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.ItemBranches;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.ItemImageBranches;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -95,6 +96,7 @@ public class CommoditiesVm extends BaseViewModel {
    public  void Delete(ItemModel itemModel)
    {
        ItemBranches.DeleteItemByItemId(itemModel.getId());
+       ItemImageBranches.DeleteImage(itemModel.getId());
 
    }
     public interface call {
