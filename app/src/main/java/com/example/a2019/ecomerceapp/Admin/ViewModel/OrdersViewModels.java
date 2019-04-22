@@ -30,16 +30,10 @@ import java.util.List;
 
 public class OrdersViewModels  extends BaseViewModel {
  private     MutableLiveData<List<OrdersCountainer>> OrderGetter;
- public static  MutableLiveData <String> SendToSalesBasket;
 
     public OrdersViewModels(@NonNull Application application) {
         super(application);
         OrderGetter = new MutableLiveData<>();
-        SendToSalesBasket = new MutableLiveData<>();
-    }
-
-    public MutableLiveData<String> getSendToSalesBasket() {
-        return SendToSalesBasket;
     }
 
     public MutableLiveData<List<OrdersCountainer>> getOrderGetter() {
@@ -48,26 +42,21 @@ public class OrdersViewModels  extends BaseViewModel {
     }
      public  void GetAllItem()
      {
+         final List<OrdersCountainer>MyOrderCountainer = new ArrayList<>();
          OrderBranches.GetAllOrder(new OrderBranches.GetAllOrderListner() {
              @Override
              public void onGetAllOrder(List<OrderModel> orderModelList) {
                  for(int I = 0;I<orderModelList.size();I++)
                  {
-
+                     final List<ItemModel> MyItemModelList = new ArrayList<>();
                      final int xx = I;
                      final int ZZ=orderModelList.size()-1;
   final OrderModel MyOrder = orderModelList.get(I);
           Order_CommedityBranche.GetAllOrderCommedityBrancheByOrderId(MyOrder.getId(), new Order_CommedityBranche.GetAllOrderCommedityBrancheByOrderIdListner() {
-              final List<OrdersCountainer>MyOrderCountainer = new ArrayList<>();
               @Override
               public void onAllOrderCommedityBrancheGet(List<Order_Commedity> order_commedities) {
                 for(int J = 0;J<order_commedities.size();J++)
                   {
-                      if(xx == 0)
-                      {
-                          MyOrderCountainer.clear();
-                      }
-                      final List<ItemModel> MyItemModelList = new ArrayList<>();
                       final Order_Commedity MyOC= order_commedities.get(J);
                   final int x=J;
                   final int z=order_commedities.size()-1;
@@ -79,11 +68,16 @@ public class OrdersViewModels  extends BaseViewModel {
                    if(x == z)
                    {
                        MyOrderCountainer.add(new OrdersCountainer(MyOrder, MyItemModelList));
+                       if(xx ==ZZ)
+                       {
+                           OrderGetter.postValue(MyOrderCountainer);
+                           if(OrderGetter.getValue()!=null)
+                           {
+                               MyOrderCountainer.clear();
+                           }
+                       }
                    }
-                   if(xx ==ZZ)
-                   {
-                       OrderGetter.postValue(MyOrderCountainer);
-                   }
+
 
                }
            });
@@ -103,9 +97,41 @@ public class OrdersViewModels  extends BaseViewModel {
 OrderBranches.DeleteOrder(ordersCountainer.getId());
 }
 
+    public void SendOrderToSalesBasket(final OrdersCountainer ordersCountainer) {
+        UserModel  MyuserModel = new UserModel(ordersCountainer.getUid(),ordersCountainer.getName()
+         ,ordersCountainer.getPhone(),ordersCountainer.getAdrees());
+        final SalesModel MysalesModel = new SalesModel(MyuserModel,ordersCountainer.getId());
+        SalesBranches.AddSalesBell(MysalesModel, new OnSuccessListener() {
+            @Override
+            public void onSuccess(Object o) {
+                List<ItemModel> MyItemList = new ArrayList<>();
+                MyItemList = ordersCountainer.getItemModels();
+                for(int i = 0; i <MyItemList.size();i++)
+                {
+              ItemModel MyItemModel = MyItemList.get(i);
+             SalesItem salesItem = new SalesItem(MyItemModel,MysalesModel.getId());
+             SalesItemBranches.AddSalesItem(salesItem, new OnSuccessListener() {
+                 @Override
+                 public void onSuccess(Object o) {
+                     SetMessage("Done");
+                 }
+             }, new OnFailureListener() {
+                 @Override
+                 public void onFailure(@NonNull Exception e) {
+                     SetMessage(e.getMessage()+"Failure to add new salesItem");
 
-    public interface GetCountainer{
-        void Countainer(List <OrdersCountainer> ordersCountainers);
+                 }
+             });
+                }
+            }
+        }, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                SetMessage(e.getMessage()+"Failure to add new sales bill");
+            }
+        });
+
+
     }
 
 }

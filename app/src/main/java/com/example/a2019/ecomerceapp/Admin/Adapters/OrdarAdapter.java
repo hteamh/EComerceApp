@@ -51,9 +51,15 @@ public class OrdarAdapter extends RecyclerView.Adapter<OrdarAdapter.MyViewHolder
             myViewHolder.Send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ordersCountainers.remove(i);
+                    ChangeData(ordersCountainers);
+                    notifyDataSetChanged();
                     onSendClickListner.OnSendClick(ordersCountainer,i);
+
+
                 }
-            });
+            }
+            );
         }
     }
 

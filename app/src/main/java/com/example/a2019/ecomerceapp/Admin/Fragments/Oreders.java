@@ -43,6 +43,7 @@ public class Oreders extends BaseFragment {
    view= inflater.inflate(R.layout.fragment_oreders, container, false);
         IntiData();
         myViewModel.GetAllItem();
+        ListneAdapter();
         Observe();
         return view;
     }
@@ -70,12 +71,7 @@ public class Oreders extends BaseFragment {
           }
 
       });
-      myViewModel.getSendToSalesBasket().observe(this, new Observer<String>() {
-          @Override
-          public void onChanged(@Nullable String s) {
-              Toast.makeText(activity, s, Toast.LENGTH_LONG).show();
-          }
-      });
+
     }
     private void ListneAdapter()
     {
@@ -84,9 +80,8 @@ public class Oreders extends BaseFragment {
             @Override
             public void OnSendClick(OrdersCountainer ordersCountainer, int Pos) {
                 myViewModel.DeleteOrderToMoveToSalesBasket(ordersCountainer);
-                getActivity().getSupportFragmentManager().beginTransaction().remove(Oreders.this).commit();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainer,Oreders.this);
+                myViewModel.SendOrderToSalesBasket(ordersCountainer);
+
             }
         });
     }
@@ -94,6 +89,5 @@ public class Oreders extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ListneAdapter();
     }
 }
