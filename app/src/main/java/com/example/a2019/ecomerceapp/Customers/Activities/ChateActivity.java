@@ -23,6 +23,8 @@ public class ChateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
             }
         });
     }
