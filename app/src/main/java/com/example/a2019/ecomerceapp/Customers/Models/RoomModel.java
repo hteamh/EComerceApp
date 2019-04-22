@@ -5,25 +5,17 @@ public class RoomModel {
    private String name;
    private String desc;
    private String CreatedAt;
-   private String userId;
 
-    public RoomModel(String name, String desc, String createdAt, String userId) {
+    public RoomModel(String name, String desc, String createdAt) {
         this.name = name;
         this.desc = desc;
         CreatedAt = createdAt;
-        this.userId = userId;
     }
 
     public RoomModel() {
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getName() {
         return name;
