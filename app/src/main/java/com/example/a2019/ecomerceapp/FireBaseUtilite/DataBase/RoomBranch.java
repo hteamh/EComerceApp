@@ -16,8 +16,8 @@ public class RoomBranch {
         return FirebaseDatabase.getInstance().getReference(RoomBranch);
     }
 
-    public static void AddRoom(RoomModel roomModel,UserModel userModel, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener){
-       getRoomRef().child(userModel.getUid()).setValue(roomModel)
+    public static void AddRoom(RoomModel roomModel,String id, OnSuccessListener onSuccessListener, OnFailureListener onFailureListener){
+       getRoomRef().child(id).setValue(roomModel)
                .addOnSuccessListener(onSuccessListener)
                .addOnFailureListener(onFailureListener);
     }

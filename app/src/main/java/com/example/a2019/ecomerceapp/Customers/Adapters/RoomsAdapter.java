@@ -33,7 +33,6 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         RoomModel model=list.get(pos);
         viewHolder.name.setText(model.getName());
         viewHolder.desc.setText(model.getDesc());
-        viewHolder.time.setText(model.getCreatedAt());
 
     }
 
@@ -45,13 +44,12 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name,desc,time;
+        TextView name,desc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.roomName);
             desc=itemView.findViewById(R.id.roomDesc);
-            time=itemView.findViewById(R.id.createdAt);
         }
     }
 

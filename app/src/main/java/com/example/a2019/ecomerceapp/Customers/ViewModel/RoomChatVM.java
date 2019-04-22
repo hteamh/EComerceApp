@@ -34,11 +34,11 @@ public class RoomChatVM extends BaseViewModel {
         return listMutableLiveData;
     }
 
-    public void InsertNewRoom(RoomModel roomModel, UserModel userModel){
+    public void InsertNewRoom(RoomModel roomModel,String id){
 
         SetHideProgrees(false);
 
-        RoomBranch.AddRoom(roomModel, userModel, new OnSuccessListener() {
+        RoomBranch.AddRoom(roomModel,id, new OnSuccessListener() {
 
             @Override
             public void onSuccess(Object o) {

@@ -23,7 +23,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
     TextInputLayout Username,UserPhone,UserAdrees;
     Button Login;
     RegisterVM myviewModel;
-    private static UserModel Us;
+    public static UserModel Us;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

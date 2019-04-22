@@ -1,15 +1,15 @@
 package com.example.a2019.ecomerceapp.Customers.Models;
 
+import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
+
 public class RoomModel {
 
    private String name;
    private String desc;
-   private String CreatedAt;
 
-    public RoomModel(String name, String desc, String createdAt) {
+    public RoomModel(String name, String desc) {
         this.name = name;
         this.desc = desc;
-        CreatedAt = createdAt;
     }
 
     public RoomModel() {
@@ -33,11 +33,5 @@ public class RoomModel {
         this.desc = desc;
     }
 
-    public String getCreatedAt() {
-        return CreatedAt;
-    }
 
-    public void setCreatedAt(String createdAt) {
-        CreatedAt = createdAt;
-    }
 }
