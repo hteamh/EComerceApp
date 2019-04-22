@@ -8,4 +8,13 @@
         android:icon="@drawable/shop_basket"
         app:showAsAction="always"
         tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/chate"
+        android:orderInCategory="100"
+        android:icon="@drawable/chate"
+        app:showAsAction="always"
+        tools:ignore="MenuTitle" />
+
+
 </menu>

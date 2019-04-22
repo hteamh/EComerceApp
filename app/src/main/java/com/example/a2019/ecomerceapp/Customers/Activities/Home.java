@@ -83,6 +83,11 @@ public class Home extends BaseActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.Basket) {
             startActivity(new Intent(Home.this,BasktActivity.class));
+
+            return true;
+        }else if (id==R.id.chate){
+            startActivity(new Intent(Home.this,ChateActivity.class));
+
             return true;
         }
 
