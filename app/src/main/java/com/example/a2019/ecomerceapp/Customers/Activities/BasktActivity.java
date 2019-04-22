@@ -121,15 +121,8 @@ public class BasktActivity extends BaseActivity {
                   if(aBoolean)
                   {
                       Toast.makeText(activity, "Your Order Uploaded", Toast.LENGTH_SHORT).show();
-                      Handler handler = new Handler();
-                      handler.postDelayed(new Runnable() {
-                          @Override
-                          public void run() {
-                              startActivity(new Intent(BasktActivity.this,Home.class));
-                              Home.itemModels.clear();
-                              finish();
-                          }
-                      },1000);
+                      startActivity(new Intent(BasktActivity.this,Home.class));
+                      Home.itemModels.clear();
                   }
               }
           }

@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.a2019.ecomerceapp.Admin.Fragments.Oreders;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
 import com.example.a2019.ecomerceapp.Admin.Models.Order_Commedity;
@@ -20,37 +21,34 @@ import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.SalesBranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.SalesItemBranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class OrdersViewModels  extends BaseViewModel {
- private     MutableLiveData<List<OrdersCountainer>> OrderGetter;
+ private     MutableLiveData<OrdersCountainer> OrderGetter;
+ public static OrdersCountainer MyOrderCountainer;
+
 
     public OrdersViewModels(@NonNull Application application) {
         super(application);
         OrderGetter = new MutableLiveData<>();
     }
 
-    public MutableLiveData<List<OrdersCountainer>> getOrderGetter() {
+    public MutableLiveData<OrdersCountainer> getOrderGetter() {
 
         return OrderGetter;
     }
-     public  void GetAllItem()
+     public  void GetOneOrder()
      {
-         final List<OrdersCountainer>MyOrderCountainer = new ArrayList<>();
          OrderBranches.GetAllOrder(new OrderBranches.GetAllOrderListner() {
              @Override
              public void onGetAllOrder(List<OrderModel> orderModelList) {
+                 if(orderModelList.size()<=0 ){OrderGetter.postValue(null);}
                  for(int I = 0;I<orderModelList.size();I++)
                  {
                      final List<ItemModel> MyItemModelList = new ArrayList<>();
-                     final int xx = I;
-                     final int ZZ=orderModelList.size()-1;
+                     MyItemModelList.clear();
   final OrderModel MyOrder = orderModelList.get(I);
           Order_CommedityBranche.GetAllOrderCommedityBrancheByOrderId(MyOrder.getId(), new Order_CommedityBranche.GetAllOrderCommedityBrancheByOrderIdListner() {
               @Override
@@ -60,22 +58,17 @@ public class OrdersViewModels  extends BaseViewModel {
                       final Order_Commedity MyOC= order_commedities.get(J);
                   final int x=J;
                   final int z=order_commedities.size()-1;
-           ItemBranches.GetOneItem(MyOC.getCommdityid(), new ItemBranches.GetOneItemListner() {
+                 ItemBranches.GetOneItem(MyOC.getCommdityid(), new ItemBranches.GetOneItemListner() {
                @Override
                public void onitem(ItemModel itemModels) {
                    itemModels.setCount(MyOC.getCounter());
                    MyItemModelList.add(itemModels);
                    if(x == z)
                    {
-                       MyOrderCountainer.add(new OrdersCountainer(MyOrder, MyItemModelList));
-                       if(xx ==ZZ)
-                       {
-                           OrderGetter.postValue(MyOrderCountainer);
-                           if(OrderGetter.getValue()!=null)
-                           {
-                               MyOrderCountainer.clear();
-                           }
-                       }
+                       MyOrderCountainer = new OrdersCountainer(MyOrder,MyItemModelList);
+                       OrderGetter.postValue(MyOrderCountainer);
+
+
                    }
 
 
@@ -88,6 +81,7 @@ public class OrdersViewModels  extends BaseViewModel {
                   }
               }
           });
+          return;
                  }
              }
          });
@@ -95,9 +89,10 @@ public class OrdersViewModels  extends BaseViewModel {
      }
     public void DeleteOrderToMoveToSalesBasket(OrdersCountainer ordersCountainer) {
 OrderBranches.DeleteOrder(ordersCountainer.getId());
+SendOrderToSalesBasket(ordersCountainer);
 }
 
-    public void SendOrderToSalesBasket(final OrdersCountainer ordersCountainer) {
+     void SendOrderToSalesBasket(final OrdersCountainer ordersCountainer) {
         UserModel  MyuserModel = new UserModel(ordersCountainer.getUid(),ordersCountainer.getName()
          ,ordersCountainer.getPhone(),ordersCountainer.getAdrees());
         final SalesModel MysalesModel = new SalesModel(MyuserModel,ordersCountainer.getId());
@@ -113,7 +108,6 @@ OrderBranches.DeleteOrder(ordersCountainer.getId());
              SalesItemBranches.AddSalesItem(salesItem, new OnSuccessListener() {
                  @Override
                  public void onSuccess(Object o) {
-                     SetMessage("Done");
                  }
              }, new OnFailureListener() {
                  @Override

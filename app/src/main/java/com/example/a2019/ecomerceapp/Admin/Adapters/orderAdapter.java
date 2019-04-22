@@ -45,7 +45,7 @@ public class orderAdapter extends RecyclerView.Adapter<orderAdapter.MyVH> {
     }
     public  void ChangeData(List<ItemModel> itemModels) {
         this.itemModels = itemModels;
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public class MyVH extends RecyclerView.ViewHolder {
