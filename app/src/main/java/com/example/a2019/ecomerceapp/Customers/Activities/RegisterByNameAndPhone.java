@@ -58,7 +58,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
                 }
                 else
                 {
-                    String Uid = System.currentTimeMillis()+"M";
+                    String Uid = System.currentTimeMillis()+Username;
                     UserModel userModel = new UserModel(Uid,Username,Userphone,UserAdrees);
                     myviewModel.login(userModel);
                     Us = userModel;
