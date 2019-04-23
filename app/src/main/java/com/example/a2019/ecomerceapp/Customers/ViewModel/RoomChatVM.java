@@ -1,16 +1,12 @@
 package com.example.a2019.ecomerceapp.Customers.ViewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
-import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
-import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
-import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
+
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.Customers.Models.RoomModel;
-import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.ItemBranches;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.RoomBranch;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomChatVM extends BaseViewModel {
@@ -28,6 +25,7 @@ public class RoomChatVM extends BaseViewModel {
     public RoomChatVM(@NonNull Application application) {
         super(application);
         listMutableLiveData=new MutableLiveData<>();
+        list=new ArrayList<>();
     }
 
     public MutableLiveData<List<RoomModel>> getListMutableLiveData() {
@@ -56,8 +54,8 @@ public class RoomChatVM extends BaseViewModel {
 
     }
 
-    public void GetRoom (UserModel userModel){
-        Query query = RoomBranch.GetAllRoomsByUserId(userModel.getUid());
+    public void GetRoom (String id){
+        Query query = RoomBranch.GetAllRoomsByUserId(id);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -76,4 +74,7 @@ public class RoomChatVM extends BaseViewModel {
             }
         });
     }
+
+
+
 }

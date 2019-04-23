@@ -3,6 +3,8 @@ package com.example.a2019.ecomerceapp.Customers.Activities;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,8 @@ public class AddRoom extends BaseActivity implements View.OnClickListener {
     protected EditText uRoomDesc;
     protected Button creat;
     RoomChatVM roomChatVM;
+    public static RoomModel roomModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class AddRoom extends BaseActivity implements View.OnClickListener {
         super.setContentView(R.layout.activity_add_room);
         initView();
         roomChatVM = ViewModelProviders.of(this).get(RoomChatVM.class);
+
     }
 
     @Override
@@ -33,9 +38,8 @@ public class AddRoom extends BaseActivity implements View.OnClickListener {
         if (view.getId() == R.id.creat) {
             String name=uRoomName.getText().toString().trim();
             String desc=uRoomDesc.getText().toString().trim();
-            RoomModel roomModel= new RoomModel(name,desc);
+             roomModel= new RoomModel(name,desc);
             roomChatVM.InsertNewRoom(roomModel,RegisterByNameAndPhone.Us.getUid());
-
 
         }
     }

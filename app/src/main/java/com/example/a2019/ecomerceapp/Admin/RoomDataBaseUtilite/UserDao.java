@@ -17,6 +17,7 @@ public interface UserDao {
     @Delete
     void  DeleteUser(UserModel userModel);
     @Query("Select * From usermodel")
+
     List<UserModel> GetAllUser();
 
 }
