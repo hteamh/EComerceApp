@@ -1,4 +1,4 @@
-package com.example.a2019.ecomerceapp.Customers.Adapters;
+package com.example.a2019.ecomerceapp.Admin.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Customers.Models.RoomModel;
 import com.example.a2019.ecomerceapp.R;
 
@@ -32,8 +31,8 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int pos) {
 
         RoomModel model=list.get(pos);
-        viewHolder.name.setText(model.getName());
-        viewHolder.desc.setText(model.getDesc());
+        viewHolder.name.setText(model.getRoomname());
+        viewHolder.desc.setText(model.getRoomDes());
 
     }
 

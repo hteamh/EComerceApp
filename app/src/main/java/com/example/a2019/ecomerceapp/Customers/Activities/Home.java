@@ -1,7 +1,10 @@
 package com.example.a2019.ecomerceapp.Customers.Activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,6 +19,7 @@ import com.example.a2019.ecomerceapp.Admin.Activiteis.AdminPanel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.Customers.Fragments.CategoryHomeFragment;
+import com.example.a2019.ecomerceapp.Customers.ViewModel.HomeViewModel;
 import com.example.a2019.ecomerceapp.R;
 
 import java.util.ArrayList;
@@ -24,11 +28,14 @@ import java.util.List;
 public class Home extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static List<ItemModel> itemModels;
+    HomeViewModel homeViewModel;
+    public  static String User_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
        itemModels=new ArrayList<>();
@@ -86,12 +93,34 @@ public class Home extends BaseActivity
 
             return true;
         }else if (id==R.id.chate){
-            startActivity(new Intent(Home.this,ChateActivity.class));
+            homeViewModel.CheekRegister();
+            IsReGister();
 
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void IsReGister() {
+
+        homeViewModel.getISRegister().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if(aBoolean!=null)
+                {
+                    if(aBoolean)
+                    {
+                        startActivity(new Intent(Home.this,ChatActivity.class));
+                    }
+                    else
+                    {
+                        startActivity(new Intent(Home.this,RegisterByNameAndPhone.class));
+
+                    }
+                }
+            }
+        });
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -123,4 +152,5 @@ public class Home extends BaseActivity
     public void admin(View view) {
         startActivity(new Intent(this,AdminPanel.class));
     }
+
 }

@@ -2,14 +2,10 @@ package com.example.a2019.ecomerceapp.Customers.Activities;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.a2019.ecomerceapp.Admin.ViewModel.AddCategoryVm;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.Customers.Models.RoomModel;
 import com.example.a2019.ecomerceapp.Customers.ViewModel.RoomChatVM;
@@ -39,7 +35,7 @@ public class AddRoom extends BaseActivity implements View.OnClickListener {
             String name=uRoomName.getText().toString().trim();
             String desc=uRoomDesc.getText().toString().trim();
              roomModel= new RoomModel(name,desc);
-            roomChatVM.InsertNewRoom(roomModel,RegisterByNameAndPhone.Us.getUid());
+            roomChatVM.InsertNewRoom(roomModel,RegisterByNameAndPhone.MyUserModel.getUid());
 
         }
     }

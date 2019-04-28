@@ -15,9 +15,20 @@ public class UserModel {
     private  String name;
     @ColumnInfo
     private  String Phone;
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
     @ColumnInfo
     private  String Adrees;
 
+    @ColumnInfo
+    private  String Email;
     public String getUid() {
         return Uid;
     }
@@ -58,5 +69,14 @@ public class UserModel {
         this.name = name;
         Phone = phone;
         Adrees = adrees;
+        this.Email=null;
+    }
+
+    public UserModel(@NonNull String uid, String name, String phone, String adrees, String email) {
+        Uid = uid;
+        this.name = name;
+        Phone = phone;
+        Adrees = adrees;
+        Email = email;
     }
 }

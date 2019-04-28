@@ -3,16 +3,13 @@ package com.example.a2019.ecomerceapp.Customers.Activities;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
@@ -20,7 +17,6 @@ import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.Customers.Adapters.BasketAdapter;
 import com.example.a2019.ecomerceapp.Customers.ViewModel.BasketVm;
 import com.example.a2019.ecomerceapp.R;
-import com.google.firebase.database.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;

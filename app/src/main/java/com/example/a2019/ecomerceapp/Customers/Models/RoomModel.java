@@ -1,37 +1,55 @@
 package com.example.a2019.ecomerceapp.Customers.Models;
 
+import android.arch.persistence.room.Ignore;
+import android.support.annotation.NonNull;
+
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 
-public class RoomModel {
+public class RoomModel extends UserModel {
+   String RoomId;
+   String Roomname;
+   String RoomDes;
 
-   private String name;
-   private String desc;
+    public String getRoomId() {
+        return RoomId;
+    }
 
-    public RoomModel(String name, String desc) {
-        this.name = name;
-        this.desc = desc;
+    public void setRoomId(String roomId) {
+        RoomId = roomId;
+    }
+
+    public String getRoomname() {
+        return Roomname;
+    }
+
+    public void setRoomname(String roomname) {
+        Roomname = roomname;
+    }
+
+    public String getRoomDes() {
+        return RoomDes;
+    }
+
+    public void setRoomDes(String roomDes) {
+        RoomDes = roomDes;
+    }
+
+
+@Ignore
+    public RoomModel(UserModel userModel) {
+        super(userModel.getUid(), userModel.getName(), userModel.getPhone(), userModel.getAdrees(),userModel.getEmail());
+        this.RoomDes=userModel.getAdrees();
+        this.Roomname=userModel.getName()+userModel.getPhone();
+        this.RoomId =userModel.getUid();
     }
 
     public RoomModel() {
     }
 
-
-
-    public String getName() {
-        return name;
+    public RoomModel(UserModel userModel, String roomId) {
+        super(userModel.getUid(), userModel.getName(), userModel.getPhone(), userModel.getAdrees());
+        RoomId = roomId;
+        this.RoomDes=userModel.getAdrees();
+        this.Roomname=userModel.getName()+userModel.getPhone();
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-
 }

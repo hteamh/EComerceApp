@@ -3,14 +3,11 @@ package com.example.a2019.ecomerceapp.Customers.Activities;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
@@ -23,7 +20,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
     TextInputLayout Username,UserPhone,UserAdrees;
     Button Login;
     RegisterVM myviewModel;
-    public static UserModel Us;
+    public static UserModel MyUserModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +58,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
                     String Uid = System.currentTimeMillis()+Username;
                     UserModel userModel = new UserModel(Uid,Username,Userphone,UserAdrees);
                     myviewModel.login(userModel);
-                    Us = userModel;
+                    MyUserModel = userModel;
                 }
             }
 
@@ -75,7 +72,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
                     if(aBoolean)
                     {
                         Toast.makeText(activity, "Your Login is success", Toast.LENGTH_LONG).show();
-                        AddUserThread addUserThread = new AddUserThread(Us);
+                        AddUserThread addUserThread = new AddUserThread(MyUserModel);
                         addUserThread.start();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
@@ -83,7 +80,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
                             public void run() {
                                 finish();
                             }
-                        },2000);
+                        },1000);
                     }
                     else
                     {
