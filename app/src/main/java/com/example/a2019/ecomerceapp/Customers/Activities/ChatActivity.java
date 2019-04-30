@@ -112,7 +112,7 @@ public class ChatActivity extends BaseActivity {
         Send_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextInTheMessage.getText().toString().trim().length()>1)
+                if(TextInTheMessage.getText().toString().trim().length()>0)
                 {
                     String s= TextInTheMessage.getText().toString().trim();
                     messageVm.SetTextMessage(s) ;

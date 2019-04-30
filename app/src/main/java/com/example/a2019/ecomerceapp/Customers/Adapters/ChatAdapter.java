@@ -1,7 +1,6 @@
 package com.example.a2019.ecomerceapp.Customers.Adapters;
 
 import android.net.Uri;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity;
 import com.example.a2019.ecomerceapp.Customers.Activities.Home;
@@ -276,6 +274,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
     }
     public  void ChangeData(List <MessageModel> messageModels)
     {
+        if(MyMessage!=null)
+        {
+            MyMessage.clear();
+        }
         MyMessage =messageModels;
         notifyDataSetChanged();
     }
