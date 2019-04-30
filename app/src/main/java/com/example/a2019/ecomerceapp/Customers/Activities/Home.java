@@ -1,10 +1,8 @@
 package com.example.a2019.ecomerceapp.Customers.Activities;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,11 +12,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AdminPanel;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
+import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.Customers.Fragments.CategoryHomeFragment;
+import com.example.a2019.ecomerceapp.Customers.Models.RoomModel;
 import com.example.a2019.ecomerceapp.Customers.ViewModel.HomeViewModel;
 import com.example.a2019.ecomerceapp.R;
 
@@ -29,7 +31,8 @@ public class Home extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static List<ItemModel> itemModels;
     HomeViewModel homeViewModel;
-    public  static String User_name;
+    public  static UserModel userModel;
+    public  static RoomModel roomModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,34 +96,41 @@ public class Home extends BaseActivity
 
             return true;
         }else if (id==R.id.chate){
-            homeViewModel.CheekRegister();
-            IsReGister();
-
-            return true;
+                CheekRegister();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void IsReGister() {
-
-        homeViewModel.getISRegister().observe(this, new Observer<Boolean>() {
+    private void CheekRegister() {
+        ThreadGetUser threadGetUser = new ThreadGetUser(new InUserGet() {
             @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if(aBoolean!=null)
+            public void GetUser(final UserModel userModel) {
+                if(userModel==null)
                 {
-                    if(aBoolean)
-                    {
-                        startActivity(new Intent(Home.this,ChatActivity.class));
-                    }
-                    else
-                    {
-                        startActivity(new Intent(Home.this,RegisterByNameAndPhone.class));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(Home.this, RegisterByNameAndPhone.class));
 
-                    }
+                        }
+                    });
+                }
+                else
+                {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Home.userModel=userModel;
+                            roomModel = new RoomModel(userModel,userModel.getUid());
+                           startActivity(new Intent(Home.this,ChatActivity.class));
+                        }
+                    });
                 }
             }
         });
+        threadGetUser.start();
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -152,5 +162,32 @@ public class Home extends BaseActivity
     public void admin(View view) {
         startActivity(new Intent(this,AdminPanel.class));
     }
+    public class ThreadGetUser extends Thread{
+        InUserGet inUserGet;
 
+        public ThreadGetUser(InUserGet inUserGet) {
+            this.inUserGet = inUserGet;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+        final List<UserModel> AllUser;
+            AllUser =MyDatabase.getInstance().userDao().GetAllUser();
+   if (AllUser.size()>0)
+   {
+           inUserGet.GetUser(AllUser.get(0));
+   }
+   else
+   {
+       inUserGet.GetUser(null);
+   }
+
+
+        }
+    }
+    public interface InUserGet
+    {
+        void GetUser(UserModel userModel);
+    }
 }

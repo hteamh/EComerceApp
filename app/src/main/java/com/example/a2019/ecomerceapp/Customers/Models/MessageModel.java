@@ -10,6 +10,17 @@ public class MessageModel {
     String Longitude;
     String ImageUri;
     String Sender_name;
+    String Data;
+
+    public String getData() {
+        return Data;
+    }
+    public MessageModel()
+    {}
+
+    public void setData(String data) {
+        Data = data;
+    }
 
     public String getRoomid() {
         return roomid;
@@ -67,14 +78,18 @@ public class MessageModel {
         Sender_name = sender_name;
     }
 
-    public MessageModel(String roomid, String senderId, String text, String sender_name) {
+    public MessageModel(String roomid, String senderId, String text, String sender_name , String Data) {
         this.roomid = roomid;
         SenderId = senderId;
         this.text = text;
         Sender_name = sender_name;
+        this.Data=Data;
+        this.Latitude = null;
+        this.Longitude=null;
+        this.ImageUri=null;
     }
 
-    public MessageModel(String roomid, String senderId, String latitude, String longitude, String sender_name) {
+    public MessageModel(String roomid, String senderId, String latitude, String longitude, String sender_name,String Data) {
         this.roomid = roomid;
         SenderId = senderId;
         Latitude = latitude;
@@ -82,13 +97,17 @@ public class MessageModel {
         Sender_name = sender_name;
         this.text=null;
         this.ImageUri=null;
+        this.Data=Data;
     }
 
-    public MessageModel(String imageUri, String roomid, UserModel userModel) {
+    public MessageModel(String imageUri, String roomid, UserModel userModel,String Data) {
         ImageUri = imageUri;
         this.Sender_name = userModel.getName();
         this.SenderId = userModel.getUid();
         this.Longitude=null;
         this.Latitude=null;
+        this.Data=Data;
+        this.text=null;
+        this.roomid=roomid;
     }
 }

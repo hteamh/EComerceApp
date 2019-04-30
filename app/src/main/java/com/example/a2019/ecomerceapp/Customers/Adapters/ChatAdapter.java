@@ -1,6 +1,7 @@
 package com.example.a2019.ecomerceapp.Customers.Adapters;
 
 import android.net.Uri;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,20 +10,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity;
+import com.example.a2019.ecomerceapp.Customers.Activities.Home;
 import com.example.a2019.ecomerceapp.Customers.Models.MessageModel;
 import com.example.a2019.ecomerceapp.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity.MyGooGleMap;
+import static com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity.marker;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
      static List<MessageModel> MyMessage;
-      String Sender_Name;
      int Message_Text_Out = 1;
      int Message_Image_Out=2;
      int Message_Map_out=3;
@@ -30,14 +37,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
      int Message_image_in=5;
      int Message_Map_in=6;
 
-    public ChatAdapter(List<MessageModel> myMessage, String sender_Name) {
+    public ChatAdapter(List<MessageModel> myMessage) {
         MyMessage = myMessage;
-        Sender_Name = sender_Name;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(MyMessage.get(position).getSender_name()==Sender_Name)
+        if(MyMessage.get(position).getSender_name()== Home.userModel.getName())
         {
             // Out Message
             if(MyMessage.get(position).getImageUri()!=null)
@@ -87,7 +93,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
         }
         else if(TypeView==Message_Map_out)
         {
-            View view =LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.out_message_map,
+            View view =LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.out_map,
                     viewGroup,false);
             return new Out_message_MapVH(view);
         }
@@ -105,7 +111,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
         }
         else if(TypeView == Message_Map_in)
         {
-            View view =LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.in_message_map,
+            View view =LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.in_map,
                     viewGroup,false);
             return new In_Message_MapVH(view);
         }
@@ -122,7 +128,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
        else if(Type == Message_Image_Out)
         {
             ((outMessageImageVh) mainVH).Data.setText(message.getData());
-            ((outMessageImageVh) mainVH).Image.setImageURI(Uri.parse( message.getImageUri()));
+            Glide.with(((outMessageImageVh) mainVH).itemView)
+                    .load(Uri.parse( message.getImageUri()))
+                    .into(((outMessageImageVh) mainVH).Image);
         }
         else if(Type == Message_Map_out)
         {
@@ -144,8 +152,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
         }
         else if(Type== Message_image_in)
         {
-            ((In_Message_Image_VH) mainVH).imageView.setImageURI(Uri.parse(message.getImageUri()));
-            ((In_Message_Image_VH) mainVH).Sender_name.setText(message.getSender_name());
+            Glide.with( ((In_Message_Image_VH) mainVH).itemView)
+                    .load(Uri.parse( message.getImageUri()))
+                    .into( ((In_Message_Image_VH) mainVH).imageView);            ((In_Message_Image_VH) mainVH).Sender_name.setText(message.getSender_name());
             ((In_Message_Image_VH) mainVH).Data.setText(message.getData());
         }
         else if(Type==Message_Map_in )
@@ -189,13 +198,32 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
 
         }
     }
-    public class Out_message_MapVH extends MainVH {
+    public class Out_message_MapVH extends MainVH   implements OnMapReadyCallback{
             MapView mapView;
             TextView Data;
         Out_message_MapVH(@NonNull View itemView) {
             super(itemView);
             mapView = itemView.findViewById(R.id.Map_Out_Message);
             mapView = itemView.findViewById(R.id.Map_Out_MessageData);
+            mapView.getMapAsync(this);
+        }
+
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            MyGooGleMap = googleMap;
+            MessageModel MyMessage = ChatAdapter.MyMessage.get(getAdapterPosition());
+            LatLng latLng = new LatLng(Double.parseDouble(MyMessage.getLatitude()),Double.parseDouble(MyMessage.getLongitude()));
+            MarkerOptions markerOptions =new MarkerOptions().position(latLng).title("You Are Here");
+            if(ChatActivity.marker == null)
+            {
+                ChatActivity.marker=   MyGooGleMap.addMarker(markerOptions);
+            }
+            else
+            {
+                marker.setPosition(latLng);
+            }
+            MyGooGleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+
         }
     }
     public class In_Message_TextVH extends MainVH{
@@ -207,7 +235,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             Sender_Name = itemView.findViewById(R.id.Sender_Name);
         }
     }
-    public class In_Message_MapVH extends MainVH {
+    public class In_Message_MapVH extends MainVH  implements OnMapReadyCallback {
           TextView name,Data;
           MapView mapView;
         In_Message_MapVH(@NonNull View itemView) {
@@ -215,6 +243,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             name = itemView.findViewById(R.id.Sender_Name_map);
             mapView = itemView.findViewById(R.id.Map_In_Message);
             Data = itemView.findViewById(R.id.Map_In_Message_Data);
+            mapView.getMapAsync(this);
+        }
+
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            MyGooGleMap = googleMap;
+            MessageModel MyMessage = ChatAdapter.MyMessage.get(getAdapterPosition());
+            LatLng latLng = new LatLng(Double.parseDouble(MyMessage.getLatitude()),Double.parseDouble(MyMessage.getLongitude()));
+            MarkerOptions markerOptions =new MarkerOptions().position(latLng).title("You Are Here");
+            if(ChatActivity.marker == null)
+            {
+                ChatActivity.marker=   MyGooGleMap.addMarker(markerOptions);
+            }
+            else
+            {
+                marker.setPosition(latLng);
+            }
+            MyGooGleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
         }
     }
     public class In_Message_Image_VH extends MainVH {
@@ -227,6 +273,31 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             imageView = itemView.findViewById(R.id.Image_In_Message);
 
         }
+    }
+    public  void ChangeData(List <MessageModel> messageModels)
+    {
+        MyMessage =messageModels;
+        notifyDataSetChanged();
+    }
+    public void AddOneMessage(MessageModel messageModel)
+    {
+
+        if(MyMessage==null)
+        {
+            MyMessage = new ArrayList<>();
+            MyMessage.add(messageModel);
+            notifyItemInserted(0);
+        }
+        else
+        {
+            MyMessage.add(messageModel);
+            notifyItemInserted(MyMessage.size()-1);
+        }
+    }
+    public void Delete(MessageModel messageModel,int pos)
+    {
+        MyMessage.remove(messageModel);
+        notifyItemRemoved(MyMessage.size());
     }
 
 }

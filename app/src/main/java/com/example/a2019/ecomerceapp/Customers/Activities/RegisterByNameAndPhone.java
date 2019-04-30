@@ -74,13 +74,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
                         Toast.makeText(activity, "Your Login is success", Toast.LENGTH_LONG).show();
                         AddUserThread addUserThread = new AddUserThread(MyUserModel);
                         addUserThread.start();
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        },1000);
+                        finish();
                     }
                     else
                     {
