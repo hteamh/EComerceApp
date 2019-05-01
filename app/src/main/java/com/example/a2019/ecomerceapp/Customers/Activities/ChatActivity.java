@@ -42,34 +42,37 @@ import java.util.List;
 import static com.example.a2019.ecomerceapp.Admin.Activiteis.AddCategory.PICK_IMAGE_REQUEST;
 
 public class ChatActivity extends BaseActivity {
-     public  static int MY_PERMISSIONS_REQUEST_Loc = 900;
-      public static GoogleMap MyGooGleMap;
-      public  static Marker marker;
-      RecyclerView Chat_RecyclerView;
-      EditText TextInTheMessage;
-      ImageView Send_Button, Location,Choose_Image;
+    public static int MY_PERMISSIONS_REQUEST_Loc = 900;
+    public static GoogleMap MyGooGleMap;
+    public static Marker marker;
+    RecyclerView Chat_RecyclerView;
+    EditText TextInTheMessage;
+    ImageView Send_Button, Location, Choose_Image;
     LocationDao MyLocation;
     Location CurrentLocatin;
     MessageVm messageVm;
     ChatAdapter adapter;
-    Query  query;
+    Query query;
     RecyclerView.LayoutManager layoutManager;
+
     public void inti() {
         messageVm = ViewModelProviders.of(this).get(MessageVm.class);
         Chat_RecyclerView = findViewById(R.id.ChatReCyclerVIew);
         layoutManager = new LinearLayoutManager(this);
         ((LinearLayoutManager) layoutManager).setStackFromEnd(true);
-        adapter=new ChatAdapter(null);
+        adapter = new ChatAdapter(null,Home.userModel.getName());
         Chat_RecyclerView.setLayoutManager(layoutManager);
         Chat_RecyclerView.setAdapter(adapter);
-        TextInTheMessage =findViewById(R.id.message_text);
-        Send_Button =findViewById(R.id.message_send);
+        TextInTheMessage = findViewById(R.id.message_text);
+        Send_Button = findViewById(R.id.message_send);
         Location = findViewById(R.id.send_Loc);
-        MyLocation =new LocationDao(this,MyLocationListener);
+        MyLocation = new LocationDao(this, MyLocationListener);
         Choose_Image = findViewById(R.id.Imge_ch);
 
     }
-    @Override protected void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         inti();
@@ -77,49 +80,40 @@ public class ChatActivity extends BaseActivity {
         InitDataToAdapter();
     }
 
-    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-         @NonNull int[] grantResults) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode ==MY_PERMISSIONS_REQUEST_Loc)
-        {
-      CurrentLocatin= MyLocation.GetCurrentLocation();
-      messageVm.SetLocationMessage(CurrentLocatin);
+        if (requestCode == MY_PERMISSIONS_REQUEST_Loc) {
+            CurrentLocatin = MyLocation.GetCurrentLocation();
+            messageVm.SetLocationMessage(CurrentLocatin);
         }
     }
+
     public void Listener() {
         Location.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-     {
-       if( IsPermissionAllowed())
-               {
-        CurrentLocatin= MyLocation.GetCurrentLocation();
-        if(CurrentLocatin!=null)
-        {
-            messageVm.SetLocationMessage(CurrentLocatin);
-        }
-        else
-        {
-        }
-               }
-         else
-             {
-             Request_Location_Permission();
+            public void onClick(View v) {
+                if (IsPermissionAllowed()) {
+                    CurrentLocatin = MyLocation.GetCurrentLocation();
+                    if (CurrentLocatin != null) {
+                        messageVm.SetLocationMessage(CurrentLocatin);
+                    } else {
+                    }
+                } else {
+                    Request_Location_Permission();
 
-             }
-     }
+                }
+            }
         });
         Send_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextInTheMessage.getText().toString().trim().length()>0)
-                {
-                    String s= TextInTheMessage.getText().toString().trim();
-                    messageVm.SetTextMessage(s) ;
+                if (TextInTheMessage.getText().toString().trim().length() > 0) {
+                    String s = TextInTheMessage.getText().toString().trim();
+                    messageVm.SetTextMessage(s);
                     TextInTheMessage.setText(null);
-                }
-                else
-                {
+                } else {
                     Toast.makeText(activity, "No text To Send", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -132,19 +126,20 @@ public class ChatActivity extends BaseActivity {
         });
 
     }
+
     public void Request_Location_Permission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(ChatActivity.this,
                 Manifest.permission.READ_CONTACTS)) {
             // Show an explanation to the user
             showConfirmationMessage(R.string.Message, R.string.I_Need_This_Permisstion,
                     R.string.Yes, new MaterialDialog.SingleButtonCallback() {
-                @Override
-                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                    ActivityCompat.requestPermissions(ChatActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            MY_PERMISSIONS_REQUEST_Loc);
-                }
-            });
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            ActivityCompat.requestPermissions(ChatActivity.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    MY_PERMISSIONS_REQUEST_Loc);
+                        }
+                    });
 
         } else {
             // request the permission
@@ -153,18 +148,18 @@ public class ChatActivity extends BaseActivity {
                     MY_PERMISSIONS_REQUEST_Loc);
         }
     }
+
     public boolean IsPermissionAllowed() {
         if (ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             return false;
-        }
-        else return true;
+        } else return true;
     }
 
     LocationListener MyLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(android.location.Location location) {
-            CurrentLocatin=location;
+            CurrentLocatin = location;
         }
 
         @Override
@@ -180,64 +175,64 @@ public class ChatActivity extends BaseActivity {
 
         @Override
         public void onProviderDisabled(String provider) {
-            Toast.makeText(activity, provider+"Is Disabled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, provider + "Is Disabled", Toast.LENGTH_SHORT).show();
         }
     };
-    public void  OpenImageGalary() {
+
+    public void OpenImageGalary() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-            messageVm.SetImageMessage( data.getData());
+            messageVm.SetImageMessage(data.getData());
             Toast.makeText(activity, "Waiting for uploading your image", Toast.LENGTH_SHORT).show();
 
         }
     }
-   public void InitDataToAdapter()
-   {
-   query = MessageBranch.GetAllMessageByRoomId(Home.roomModel.getUid());
-   adapter.ChangeData(null);
-  query.addChildEventListener(childEventListener);
 
-   }
-   ChildEventListener childEventListener = new ChildEventListener() {
-       @Override
-       public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-           adapter.AddOneMessage(dataSnapshot.getValue(MessageModel.class));
+    public void InitDataToAdapter() {
+        query = MessageBranch.GetAllMessageByRoomId(Home.roomModel.getUid());
+        query.addChildEventListener(MyChildEventListener);
 
-       }
+    }
+    ChildEventListener MyChildEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            adapter.AddOneMessage(dataSnapshot.getValue(MessageModel.class),dataSnapshot.getValue(MessageModel.class).getSender_name());
+        }
 
-       @Override
-       public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-       }
+        }
 
-       @Override
-       public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-       }
+        }
 
-       @Override
-       public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-       }
+        }
 
-       @Override
-       public void onCancelled(@NonNull DatabaseError databaseError) {
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-       }
-   };
+        }
+    };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        query.removeEventListener(childEventListener);
-    }
+        query.removeEventListener(MyChildEventListener);
 
+    }
 }

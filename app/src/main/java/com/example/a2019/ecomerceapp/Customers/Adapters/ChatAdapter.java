@@ -28,6 +28,7 @@ import static com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity.ma
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
      static List<MessageModel> MyMessage;
+     String Sender_Name;
      int Message_Text_Out = 1;
      int Message_Image_Out=2;
      int Message_Map_out=3;
@@ -35,13 +36,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
      int Message_image_in=5;
      int Message_Map_in=6;
 
-    public ChatAdapter(List<MessageModel> myMessage) {
+    public ChatAdapter(List<MessageModel> myMessage, String Sender_Name) {
         MyMessage = myMessage;
+        this.Sender_Name = Sender_Name;
+
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(MyMessage.get(position).getSender_name()== Home.userModel.getName())
+        if(MyMessage.get(position).getSender_name().equals(Sender_Name))
         {
             // Out Message
             if(MyMessage.get(position).getImageUri()!=null)
@@ -197,13 +200,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
         }
     }
     public class Out_message_MapVH extends MainVH   implements OnMapReadyCallback{
-            MapView mapView;
-            TextView Data;
+           public MapView mapView;
+        public  TextView Data;
         Out_message_MapVH(@NonNull View itemView) {
+
             super(itemView);
             mapView = itemView.findViewById(R.id.Map_Out_Message);
-            mapView = itemView.findViewById(R.id.Map_Out_MessageData);
+            Data = itemView.findViewById(R.id.Map_Out_MessageData);
             mapView.getMapAsync(this);
+            mapView.onCreate(null);
+            mapView.onResume();
         }
 
         @Override
@@ -242,6 +248,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             mapView = itemView.findViewById(R.id.Map_In_Message);
             Data = itemView.findViewById(R.id.Map_In_Message_Data);
             mapView.getMapAsync(this);
+            mapView.onCreate(null);
+            mapView.onResume();
         }
 
         @Override
@@ -274,24 +282,33 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
     }
     public  void ChangeData(List <MessageModel> messageModels)
     {
-        if(MyMessage!=null)
+        if(messageModels!=null)
         {
             MyMessage.clear();
+            for(int i = 0 ; i < messageModels.size();i++)
+            {
+                MyMessage.add(messageModels.get(i));
+                getItemViewType(i);
+            }
+            notifyDataSetChanged();
         }
-        MyMessage =messageModels;
-        notifyDataSetChanged();
+
     }
-    public void AddOneMessage(MessageModel messageModel)
+
+    public void AddOneMessage(MessageModel messageModel, String SenderName)
     {
 
         if(MyMessage==null)
         {
             MyMessage = new ArrayList<>();
             MyMessage.add(messageModel);
-            notifyItemInserted(0);
+            this.Sender_Name=messageModel.getSender_name();
+
+                    notifyItemInserted(0);
         }
         else
         {
+            this.Sender_Name=messageModel.getSender_name();
             MyMessage.add(messageModel);
             notifyItemInserted(MyMessage.size()-1);
         }
