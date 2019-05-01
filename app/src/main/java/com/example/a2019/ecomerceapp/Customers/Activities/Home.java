@@ -1,8 +1,10 @@
 package com.example.a2019.ecomerceapp.Customers.Activities;
 
+import android.app.DownloadManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,7 +24,14 @@ import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.Customers.Fragments.CategoryHomeFragment;
 import com.example.a2019.ecomerceapp.Customers.Models.RoomModel;
 import com.example.a2019.ecomerceapp.Customers.ViewModel.HomeViewModel;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.RoomBranch;
 import com.example.a2019.ecomerceapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +132,7 @@ public class Home extends BaseActivity
                         public void run() {
                             Home.userModel=userModel;
                             roomModel = new RoomModel(userModel,userModel.getUid());
-                           startActivity(new Intent(Home.this,ChatActivity.class));
+                           CheekRoomIsCreatedBefore();
                         }
                     });
                 }
@@ -131,6 +140,50 @@ public class Home extends BaseActivity
         });
         threadGetUser.start();
 
+    }
+
+    private void CheekRoomIsCreatedBefore() {
+      Query query =  RoomBranch.getRoomRef().child(Home.userModel.getUid());
+      query.addListenerForSingleValueEvent(new ValueEventListener() {
+          @Override
+          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+              if(dataSnapshot.getValue(RoomModel.class)!=null)
+              {
+                 // Created Before Do not any Thing Just Open Chat Activity
+                  runOnUiThread(new Runnable() {
+                      @Override
+                      public void run() {
+                          startActivity(new Intent(Home.this,ChatActivity.class));
+                      }
+                  });
+              }
+              else
+              {
+                  // create new room
+                  RoomBranch.AddRoom(roomModel, new OnSuccessListener() {
+                      @Override
+                      public void onSuccess(Object o) {
+                          runOnUiThread(new Runnable() {
+                              @Override
+                              public void run() {
+                                  startActivity(new Intent(Home.this,ChatActivity.class));
+                              }
+                          });
+                      }
+                  }, new OnFailureListener() {
+                      @Override
+                      public void onFailure(@NonNull Exception e) {
+
+                      }
+                  });
+              }
+          }
+
+          @Override
+          public void onCancelled(@NonNull DatabaseError databaseError) {
+
+          }
+      });
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
