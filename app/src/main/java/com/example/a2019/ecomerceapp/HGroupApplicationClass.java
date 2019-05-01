@@ -9,5 +9,6 @@ public class HGroupApplicationClass extends Application  {
     public void onCreate() {
         super.onCreate();
         MyDatabase.init(this);
+        //.........
     }
 }
