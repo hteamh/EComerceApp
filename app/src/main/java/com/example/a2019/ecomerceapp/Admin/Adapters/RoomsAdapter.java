@@ -10,11 +10,17 @@ import android.widget.TextView;
 import com.example.a2019.ecomerceapp.Customers.Models.RoomModel;
 import com.example.a2019.ecomerceapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> {
 
     List<RoomModel>list;
+    OnItemClick onItemClick;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
 
     public RoomsAdapter(List<RoomModel> list) {
         this.list = list;
@@ -30,9 +36,18 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int pos) {
 
-        RoomModel model=list.get(pos);
+        final RoomModel model=list.get(pos);
         viewHolder.name.setText(model.getRoomname());
-        viewHolder.desc.setText(model.getRoomDes());
+        if(onItemClick!=null)
+        {
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClick.OnItemClick(model);
+                }
+            });
+        }
+
 
     }
 
@@ -46,6 +61,19 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         this.list = list;
         this.notifyDataSetChanged();
     }
+    public void AddRoom(RoomModel roomModel)
+    {
+        if(this.list==null)
+        {
+            list=new ArrayList<>();
+            list.add(roomModel);
+        }
+        else
+        {
+            list.add(roomModel);
+        }
+        this.notifyItemInserted(list.size()-1);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -54,10 +82,11 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.roomName);
-            desc=itemView.findViewById(R.id.roomDesc);
         }
     }
-
+    public interface OnItemClick{
+        void OnItemClick(RoomModel roomModel);
+    }
 
 
 }

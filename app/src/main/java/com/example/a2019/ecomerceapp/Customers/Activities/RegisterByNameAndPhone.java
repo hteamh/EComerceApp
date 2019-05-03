@@ -35,6 +35,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
             }
         });
 
+
     }
     private void Init()
     {
@@ -57,6 +58,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
                 {
                     String Uid = System.currentTimeMillis()+Username;
                     UserModel userModel = new UserModel(Uid,Username,Userphone,UserAdrees);
+                    userModel.setEmail(Google_Email.MyEmail);
                     myviewModel.login(userModel);
                     MyUserModel = userModel;
                 }

@@ -50,7 +50,7 @@ public class BasktActivity extends BaseActivity {
                                 MyUser = userModel;
                                 if(MyUser==null)
                                 {
-                                    startActivity(new Intent(BasktActivity.this,RegisterByNameAndPhone.class));
+                                    startActivity(new Intent(BasktActivity.this,Google_Email.class));
                                 }
                                 else
                                 {

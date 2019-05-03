@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity;
-import com.example.a2019.ecomerceapp.Customers.Activities.Home;
 import com.example.a2019.ecomerceapp.Customers.Models.MessageModel;
 import com.example.a2019.ecomerceapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,19 +21,24 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity.MyGooGleMap;
 import static com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity.marker;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
      static List<MessageModel> MyMessage;
-     String Sender_Name;
+    GoogleMap myGoogleMap;
+
+    String Sender_Name;
      int Message_Text_Out = 1;
      int Message_Image_Out=2;
      int Message_Map_out=3;
      int Message_text_in=4;
      int Message_image_in=5;
      int Message_Map_in=6;
+    onMapClickListner mapClickListner;
+
+    public void setMapClickListner(ChatAdapter.onMapClickListner mapClickListner) {
+        this.mapClickListner = mapClickListner;
+    }
 
     public ChatAdapter(List<MessageModel> myMessage, String Sender_Name) {
         MyMessage = myMessage;
@@ -119,7 +123,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
         return null;
     }
     @Override public void onBindViewHolder(@NonNull MainVH mainVH, int pos) {
-        MessageModel message = MyMessage.get(pos);
+        final MessageModel message = MyMessage.get(pos);
         int Type = getItemViewType(pos);
         if(Type ==Message_Text_Out)
         {
@@ -139,10 +143,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             ((Out_message_MapVH) mainVH).mapView.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
-                    MyGooGleMap=googleMap;
+                    myGoogleMap = googleMap;
                 }
             });
+
+
             ((Out_message_MapVH) mainVH).Data.setText(message.getData());
+            if(mapClickListner!=null)
+            {
+                ((Out_message_MapVH) mainVH).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mapClickListner.onMapclick(message);
+                    }
+                });
+            }
 
         }
         else if(Type== Message_text_in)
@@ -155,7 +170,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
         {
             Glide.with( ((In_Message_Image_VH) mainVH).itemView)
                     .load(Uri.parse( message.getImageUri()))
-                    .into( ((In_Message_Image_VH) mainVH).imageView);            ((In_Message_Image_VH) mainVH).Sender_name.setText(message.getSender_name());
+                    .into( ((In_Message_Image_VH) mainVH).imageView);
+            ((In_Message_Image_VH) mainVH).Sender_name.setText(message.getSender_name());
             ((In_Message_Image_VH) mainVH).Data.setText(message.getData());
         }
         else if(Type==Message_Map_in )
@@ -163,10 +179,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             ((In_Message_MapVH) mainVH).mapView.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
-                    MyGooGleMap = googleMap;
+                  myGoogleMap = googleMap;
                 }
             });
             ((In_Message_MapVH) mainVH).Data.setText(message.getData());
+            if(mapClickListner!=null)
+            {
+                ((In_Message_MapVH) mainVH).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mapClickListner.onMapclick(message);
+                    }
+                });
+            }
         }
     }
 
@@ -199,9 +224,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
 
         }
     }
-    public class Out_message_MapVH extends MainVH   implements OnMapReadyCallback{
-           public MapView mapView;
-        public  TextView Data;
+    public class Out_message_MapVH extends MainVH implements OnMapReadyCallback {
+        public MapView mapView;
+        public TextView Data;
+
         Out_message_MapVH(@NonNull View itemView) {
 
             super(itemView);
@@ -210,26 +236,30 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             mapView.getMapAsync(this);
             mapView.onCreate(null);
             mapView.onResume();
+
+
         }
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            MyGooGleMap = googleMap;
-            MessageModel MyMessage = ChatAdapter.MyMessage.get(getAdapterPosition());
-            LatLng latLng = new LatLng(Double.parseDouble(MyMessage.getLatitude()),Double.parseDouble(MyMessage.getLongitude()));
-            MarkerOptions markerOptions =new MarkerOptions().position(latLng).title("You Are Here");
-            if(ChatActivity.marker == null)
-            {
-                ChatActivity.marker=   MyGooGleMap.addMarker(markerOptions);
-            }
-            else
-            {
-                marker.setPosition(latLng);
-            }
-            MyGooGleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
-        }
+                myGoogleMap = googleMap;
+                MessageModel MyMessage = ChatAdapter.MyMessage.get(getAdapterPosition());
+                LatLng latLng = new LatLng(Double.parseDouble(MyMessage.getLatitude()),Double.parseDouble(MyMessage.getLongitude()));
+                MarkerOptions markerOptions =new MarkerOptions().position(latLng).title("You Are Here");
+                if(ChatActivity.marker == null)
+                {
+                    ChatActivity.marker=   myGoogleMap.addMarker(markerOptions);
+                }
+                else
+                {
+                    marker.setPosition(latLng);
+                }
+                myGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+            }
+
     }
+
     public class In_Message_TextVH extends MainVH{
         TextView Message,Data,Sender_Name;
         In_Message_TextVH(@NonNull View itemView) {
@@ -254,19 +284,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            MyGooGleMap = googleMap;
+            myGoogleMap = googleMap;
             MessageModel MyMessage = ChatAdapter.MyMessage.get(getAdapterPosition());
             LatLng latLng = new LatLng(Double.parseDouble(MyMessage.getLatitude()),Double.parseDouble(MyMessage.getLongitude()));
             MarkerOptions markerOptions =new MarkerOptions().position(latLng).title("You Are Here");
             if(ChatActivity.marker == null)
             {
-                ChatActivity.marker=   MyGooGleMap.addMarker(markerOptions);
+                ChatActivity.marker=   myGoogleMap.addMarker(markerOptions);
             }
             else
             {
                 marker.setPosition(latLng);
             }
-            MyGooGleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+            myGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
         }
     }
     public class In_Message_Image_VH extends MainVH {
@@ -300,8 +330,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
 
         if(MyMessage==null)
         {
+            ChatActivity.CheekRoomIsCreatedBefore();
             MyMessage = new ArrayList<>();
             MyMessage.add(messageModel);
+            getItemViewType(0);
             this.Sender_Name=messageModel.getSender_name();
 
                     notifyItemInserted(0);
@@ -311,12 +343,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             this.Sender_Name=messageModel.getSender_name();
             MyMessage.add(messageModel);
             notifyItemInserted(MyMessage.size()-1);
+            getItemViewType(MyMessage.size()-1);
         }
     }
-    public void Delete(MessageModel messageModel,int pos)
+    public void Delete(MessageModel messageModel)
     {
         MyMessage.remove(messageModel);
         notifyItemRemoved(MyMessage.size());
+    }
+    public interface onMapClickListner
+    {
+        void onMapclick(MessageModel messageModel);
     }
 
 }

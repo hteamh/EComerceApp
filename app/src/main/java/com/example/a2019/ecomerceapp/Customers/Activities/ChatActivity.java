@@ -23,28 +23,29 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.Customers.Adapters.ChatAdapter;
 import com.example.a2019.ecomerceapp.Customers.Models.MessageModel;
+import com.example.a2019.ecomerceapp.Customers.Models.RoomModel;
 import com.example.a2019.ecomerceapp.Customers.ViewModel.MessageVm;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.MessageBranch;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.RoomBranch;
 import com.example.a2019.ecomerceapp.MapLocation.LocationDao;
+import com.example.a2019.ecomerceapp.MapLocation.ShowMapActivity;
 import com.example.a2019.ecomerceapp.R;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.example.a2019.ecomerceapp.Admin.Activiteis.AddCategory.PICK_IMAGE_REQUEST;
 
 public class ChatActivity extends BaseActivity {
     public static int MY_PERMISSIONS_REQUEST_Loc = 900;
-    public static GoogleMap MyGooGleMap;
     public static Marker marker;
+    public static MessageModel MessageThatIWantTOGetTheLocationFromIT;
     RecyclerView Chat_RecyclerView;
     EditText TextInTheMessage;
     ImageView Send_Button, Location, Choose_Image;
@@ -68,7 +69,6 @@ public class ChatActivity extends BaseActivity {
         Location = findViewById(R.id.send_Loc);
         MyLocation = new LocationDao(this, MyLocationListener);
         Choose_Image = findViewById(R.id.Imge_ch);
-
     }
 
     @Override
@@ -76,6 +76,13 @@ public class ChatActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         inti();
+        adapter.setMapClickListner(new ChatAdapter.onMapClickListner() {
+            @Override
+            public void onMapclick(MessageModel messageModel) {
+                MessageThatIWantTOGetTheLocationFromIT = messageModel;
+                startActivity(new Intent(ChatActivity.this,ShowMapActivity.class));
+            }
+        });
         Listener();
         InitDataToAdapter();
     }
@@ -235,4 +242,37 @@ public class ChatActivity extends BaseActivity {
         query.removeEventListener(MyChildEventListener);
 
     }
+    public static void CheekRoomIsCreatedBefore() {
+        Query query =  RoomBranch.getRoomRef().child(Home.userModel.getUid());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue(RoomModel.class)!=null)
+                {
+                    // Created Before Do not any Thing
+                }
+                else
+                {
+                    // create new room
+                    RoomBranch.AddRoom(Home.roomModel, new OnSuccessListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+
+                        }
+                    }, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

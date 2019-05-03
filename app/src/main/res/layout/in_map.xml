@@ -18,11 +18,24 @@
             android:layout_height="wrap_content" />
         <com.google.android.gms.maps.MapView
             android:id="@+id/Map_In_Message"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Sender_Name_map">
         </com.google.android.gms.maps.MapView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Click Here To Show The Map"
+            android:textColor="@color/design_default_color_primary"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Map_In_Message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Map_In_Message"
+            app:layout_constraintTop_toTopOf="@+id/Map_In_Message" />
         <TextView
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Map_In_Message"

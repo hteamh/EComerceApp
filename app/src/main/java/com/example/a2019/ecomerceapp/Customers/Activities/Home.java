@@ -120,7 +120,7 @@ public class Home extends BaseActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(Home.this, RegisterByNameAndPhone.class));
+                            startActivity(new Intent(Home.this, Google_Email.class));
 
                         }
                     });
@@ -132,7 +132,8 @@ public class Home extends BaseActivity
                         public void run() {
                             Home.userModel=userModel;
                             roomModel = new RoomModel(userModel,userModel.getUid());
-                           CheekRoomIsCreatedBefore();
+                            startActivity(new Intent(Home.this,ChatActivity.class));
+
                         }
                     });
                 }
@@ -142,49 +143,6 @@ public class Home extends BaseActivity
 
     }
 
-    private void CheekRoomIsCreatedBefore() {
-      Query query =  RoomBranch.getRoomRef().child(Home.userModel.getUid());
-      query.addListenerForSingleValueEvent(new ValueEventListener() {
-          @Override
-          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-              if(dataSnapshot.getValue(RoomModel.class)!=null)
-              {
-                 // Created Before Do not any Thing Just Open Chat Activity
-                  runOnUiThread(new Runnable() {
-                      @Override
-                      public void run() {
-                          startActivity(new Intent(Home.this,ChatActivity.class));
-                      }
-                  });
-              }
-              else
-              {
-                  // create new room
-                  RoomBranch.AddRoom(roomModel, new OnSuccessListener() {
-                      @Override
-                      public void onSuccess(Object o) {
-                          runOnUiThread(new Runnable() {
-                              @Override
-                              public void run() {
-                                  startActivity(new Intent(Home.this,ChatActivity.class));
-                              }
-                          });
-                      }
-                  }, new OnFailureListener() {
-                      @Override
-                      public void onFailure(@NonNull Exception e) {
-
-                      }
-                  });
-              }
-          }
-
-          @Override
-          public void onCancelled(@NonNull DatabaseError databaseError) {
-
-          }
-      });
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -218,7 +176,7 @@ public class Home extends BaseActivity
     public class ThreadGetUser extends Thread{
         InUserGet inUserGet;
 
-        public ThreadGetUser(InUserGet inUserGet) {
+        private   ThreadGetUser(InUserGet inUserGet) {
             this.inUserGet = inUserGet;
         }
 
@@ -239,7 +197,7 @@ public class Home extends BaseActivity
 
         }
     }
-    public interface InUserGet
+    private interface InUserGet
     {
         void GetUser(UserModel userModel);
     }

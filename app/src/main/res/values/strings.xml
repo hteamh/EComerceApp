@@ -1,9 +1,9 @@
 <resources>
-    <string name="google_maps_key">AIzaSyAIM5gJ2Joua2KyYcGIqjBa16Oe1qetr5s  </string>
+    <string name="google_maps_key">AIzaSyAZiPveeIdgbXSQKv7iB1cUlbBq-gLNSUQ </string>
     <string name="app_name">EComerceApp</string>
     <string name="title_home">Add Category</string>
     <string name="title_dashboard">Orders</string>
-    <string name="title_notifications">Reports</string>
+    <string name="title_notifications">Messages</string>
     <string name="title_activity_commodities">Commodities</string>
     <string name="Loading">loading</string>
     <string name="Error">error</string>
@@ -26,6 +26,7 @@
     <string name="Message">Message</string>
     <string name="I_Need_This_Permisstion">I_Need_This_Permisstion</string>
     <string name="title_activity_vvvvvvvvvvvvvvvvvv">Map</string>
+    <string name="default_web_client_id">1037043084314-mc3n6ttugh4nl9tkvl9grk04f5ahbf8o.apps.googleusercontent.com</string>
 
 
 </resources>

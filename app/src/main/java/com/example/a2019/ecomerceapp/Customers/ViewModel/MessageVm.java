@@ -2,17 +2,25 @@ package com.example.a2019.ecomerceapp.Customers.ViewModel;
 
 import android.app.Application;
 import android.arch.persistence.room.RoomDatabase;
+import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
+import com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity;
 import com.example.a2019.ecomerceapp.Customers.Activities.Home;
 import com.example.a2019.ecomerceapp.Customers.Models.MessageModel;
+import com.example.a2019.ecomerceapp.Customers.Models.RoomModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.MessageBranch;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.RoomBranch;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.RoomMesssageImagebranches;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -101,4 +109,5 @@ public class MessageVm extends BaseViewModel {
             }
         });
     }
+
 }

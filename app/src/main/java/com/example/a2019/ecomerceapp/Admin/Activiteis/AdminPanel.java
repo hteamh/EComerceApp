@@ -8,7 +8,7 @@ import android.view.MenuItem;
 
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Fragments.Oreders;
-import com.example.a2019.ecomerceapp.Admin.Fragments.Reports;
+import com.example.a2019.ecomerceapp.Admin.Fragments.Message_Fragment;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.R;
 
@@ -28,8 +28,8 @@ public class AdminPanel extends BaseActivity {
                 case R.id.orders:
                     fragment = new Oreders();
                     break;
-                case R.id.reports:
-                    fragment = new Reports();
+                case R.id.message_fra:
+                    fragment = new Message_Fragment();
                     break;
             }
 

@@ -14,11 +14,21 @@
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/Map_Out_Message"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_margin="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click Here To Show The Map"
+            android:textColor="@color/design_default_color_primary"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Map_Out_Message"
+            app:layout_constraintEnd_toStartOf="@id/Map_Out_Message"
+            app:layout_constraintTop_toTopOf="@id/Map_Out_Message" />
         <TextView
             android:id="@+id/Map_Out_MessageData"
             app:layout_constraintEnd_toEndOf="parent"
