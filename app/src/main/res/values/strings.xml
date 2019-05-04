@@ -27,6 +27,17 @@
     <string name="I_Need_This_Permisstion">I_Need_This_Permisstion</string>
     <string name="title_activity_vvvvvvvvvvvvvvvvvv">Map</string>
     <string name="default_web_client_id">1037043084314-mc3n6ttugh4nl9tkvl9grk04f5ahbf8o.apps.googleusercontent.com</string>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="upload">Upload</string>
+    <string name="description">Description</string>
+    <string name="choose_the_image">Choose Image</string>
+    <string name="enter_your_phone">Enter Youre Phone Number</string>
+    <string name="enter_your_address">Enter Your Address</string>
+    <string name="login">Login</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 
 
 </resources>

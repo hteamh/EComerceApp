@@ -13,6 +13,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -36,32 +38,38 @@
             android:hint="name" />
 
     </android.support.design.widget.TextInputLayout>
+
     <Button
-        android:background="@color/colorPrimary"
         android:id="@+id/choose_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose The Image"
-        app:layout_constraintEnd_toEndOf="@+id/display_Image_Category"
-        app:layout_constraintHorizontal_bias="0.48"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/roundedbutton"
+        android:text="@string/choose_the_image"
+        android:textColor="@color/colorPrimaryDark"
+        android:padding="10dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/description"
+        app:layout_constraintStart_toStartOf="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
 
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose_image">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description" />
+            android:hint="@string/description" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -69,21 +77,25 @@
         android:id="@+id/Upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:layout_marginBottom="168dp"
-        android:background="@color/colorPrimary"
-        android:text="Upload"
-        app:layout_constraintBottom_toBottomOf="@id/choose_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toEndOf="@id/choose_image"
-        app:layout_constraintTop_toTopOf="@id/choose_image"
-        />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/roundedbutton"
+        android:text="@string/upload"
+        android:textColor="@color/colorPrimaryDark"
+        android:padding="10dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/choose_image"
+        app:layout_constraintStart_toStartOf="@+id/choose_image"
+        app:layout_constraintTop_toBottomOf="@+id/choose_image" />
+
     <ProgressBar
+        android:id="@+id/progrees"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/progrees"
-        app:layout_constraintTop_toBottomOf="@id/Upload"/>
+        app:layout_constraintTop_toBottomOf="@+id/Upload" />
 </android.support.constraint.ConstraintLayout>

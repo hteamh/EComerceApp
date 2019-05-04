@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Customers.Activities.ChatActivity"
-    android:background="@drawable/whats"
     >
 
     <android.support.v7.widget.RecyclerView

@@ -8,7 +8,7 @@ import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.Models.MyfevItem;
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 
-@Database(entities ={ItemModel.class, CategoryModel.class, UserModel.class, MyfevItem.class},version = 12,exportSchema = false)
+@Database(entities ={ItemModel.class, CategoryModel.class, UserModel.class, MyfevItem.class},version = 13,exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
       public abstract CategoryDao categoryDao();
       public  abstract ItemDao itemDao();
