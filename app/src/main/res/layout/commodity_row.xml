@@ -8,31 +8,32 @@
     >
 
     <android.support.constraint.ConstraintLayout
-        android:background="#ffffff"
         android:id="@+id/item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/top"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:background="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintBottom_toBottomOf="parent"
+
+       >
 
 
         <ImageView
             android:id="@+id/image_com"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toStartOf="@+id/fav"
+            app:layout_constraintStart_toEndOf="@+id/Lovely"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@mipmap/ic_launcher" />
 
@@ -58,21 +59,16 @@
 
         <TextView
             android:id="@+id/name_com"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:gravity="end"
+            android:textColor="#000"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/image_com"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_com"
-            app:layout_constraintVertical_bias="0.164"
             tools:text="أجهزة كهربائيه" />
 
 
@@ -80,26 +76,21 @@
             android:id="@+id/price_com"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="8dp"
+            android:gravity="end"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/name_com"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="@+id/name_com"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name_com"
             app:layout_constraintVertical_bias="0.09"
             tools:text="3500EGP" />
 
 
-
     </android.support.constraint.ConstraintLayout>
 
 
-    <android.support.constraint.Guideline
-        android:id="@+id/top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="192dp" />
+
 
 </android.support.constraint.ConstraintLayout>
