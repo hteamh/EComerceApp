@@ -55,6 +55,8 @@ public class BasktActivity extends BaseActivity {
                                 else
                                 {
                                     basketVm.SendOrder(MyUser,Home.itemModels);
+                                    finish();
+                                    Home.itemModels.clear();
                                 }
                             }
                         });
