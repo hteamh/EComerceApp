@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AdminPanel;
 import com.example.a2019.ecomerceapp.Admin.Adapters.orderAdapter;
@@ -48,8 +49,8 @@ public class Oreders extends BaseFragment {
    view= inflater.inflate(R.layout.fragment_oreders, container, false);
         IntiData();
         myViewModel.GetOneOrder();
-        ListneAdapter();
         Observe();
+
         return view;
     }
 
@@ -76,6 +77,7 @@ public class Oreders extends BaseFragment {
           public void onChanged(@Nullable final OrdersCountainer ordersCountainer) {
               if(ordersCountainer==null)
               {
+                  Toast.makeText(getActivity(), "No Order To Show ", Toast.LENGTH_LONG).show();
                   getActivity().finish();
                   startActivity(new Intent(getContext(), AdminPanel.class));
               }
@@ -104,10 +106,7 @@ public class Oreders extends BaseFragment {
 
     }
 
-    private void ListneAdapter()
-    {
 
-    }
 
     @Override
     public void onResume() {

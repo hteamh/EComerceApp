@@ -154,10 +154,10 @@ public class Home extends BaseActivity
         if (id == R.id.Home) {
             startActivity(new Intent(this,Home.class));
             finish();
-        } else if (id == R.id.nav_chat) {
+        } else if (id == R.id.nav_view) {
             CheekRegister();
 
-        } else if (id == R.id.nav_basket) {
+            //} else if (id == R.id.nav_basket) {
 
         } else if (id == R.id.nav_manage) {
 
