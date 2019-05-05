@@ -41,7 +41,9 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
         final CategoryModel model=list.get(viewHolder.getAdapterPosition());
         viewHolder.name.setText(model.getName());
         Glide.with(viewHolder.itemView)
-                .load(model.getImageUri()).into(viewHolder.imageView);
+
+                .load(model.getImageUri())
+                .into(viewHolder.imageView);
 
         if (onCategoryClickedListener!=null){
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

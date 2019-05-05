@@ -5,14 +5,14 @@
     <item
         android:id="@+id/Basket"
         android:orderInCategory="100"
-        android:icon="@drawable/shop_basket"
+        android:icon="@drawable/wbasket"
         app:showAsAction="always"
         tools:ignore="MenuTitle" />
 
     <item
         android:id="@+id/chate"
         android:orderInCategory="100"
-        android:icon="@drawable/chate"
+        android:icon="@drawable/wcaht"
         app:showAsAction="always"
         tools:ignore="MenuTitle" />
 
