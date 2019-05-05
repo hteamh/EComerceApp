@@ -333,17 +333,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
             ChatActivity.CheekRoomIsCreatedBefore();
             MyMessage = new ArrayList<>();
             MyMessage.add(messageModel);
-            getItemViewType(0);
             this.Sender_Name=messageModel.getSender_name();
-
-                    notifyItemInserted(0);
+            notifyItemInserted(0);
         }
         else
         {
             this.Sender_Name=messageModel.getSender_name();
             MyMessage.add(messageModel);
             notifyItemInserted(MyMessage.size()-1);
-            getItemViewType(MyMessage.size()-1);
         }
     }
     public void Delete(MessageModel messageModel)
