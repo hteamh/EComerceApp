@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Click Here To Show The Map"
             android:padding="5dp"
-            android:textColor="@color/design_default_color_primary"
+            android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/Map_Out_Message"
             app:layout_constraintEnd_toStartOf="@id/Map_Out_Message"
