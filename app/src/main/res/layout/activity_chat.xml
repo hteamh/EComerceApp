@@ -4,34 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".Customers.Activities.ChatActivity"
+
     >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ChatReCyclerVIew"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/message_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="10dp">
+        >
 
     </android.support.v7.widget.RecyclerView>
 
     <EditText
         android:id="@+id/message_text"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/message_bg"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/send_Loc"
         app:layout_constraintStart_toEndOf="@+id/message_send"
-        app:layout_constraintEnd_toStartOf="@id/send_Loc"/>
+        app:layout_constraintTop_toTopOf="@+id/message_send" />
 
     <ImageView
         android:id="@+id/message_send"
@@ -40,8 +41,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/oval_shape"
         android:layout_margin="10dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 
@@ -50,8 +51,8 @@
        android:id="@+id/send_Loc"
         android:padding="5dp"
         android:background="@drawable/oval_shape"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,8 +64,8 @@
         android:id="@+id/Imge_ch"
         android:padding="5dp"
         android:background="@drawable/oval_shape"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

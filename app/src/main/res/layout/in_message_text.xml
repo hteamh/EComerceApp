@@ -10,11 +10,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/rectungle_in">
+        android:background="@drawable/message_incoming_bg">
         <TextView
             android:id="@+id/Sender_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="dfdfdfdddfdfdfdfdfdfdff"
+            android:padding="5dp"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -24,13 +27,20 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:padding="5dp"
-            android:textSize="20dp"
+            android:text="dfdfdfdfdfdfdfddfdfdfd"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Sender_Name"/>
         <TextView
-            android:textSize="18dp"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="dfdfdsfdsfdfdfdf"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Text_In_Message"
             android:id="@+id/Text_In_Message_Data"/>
