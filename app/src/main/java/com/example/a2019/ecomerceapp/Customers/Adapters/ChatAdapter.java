@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.a2019.ecomerceapp.Customers.Activities.ChatActivity;
+import com.example.a2019.ecomerceapp.Customers.Activities.Home;
 import com.example.a2019.ecomerceapp.Customers.Models.MessageModel;
 import com.example.a2019.ecomerceapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -48,7 +49,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MainVH> {
 
     @Override
     public int getItemViewType(int position) {
-        if(MyMessage.get(position).getSender_name().equals(Sender_Name))
+        if(MyMessage.get(position).getSender_name().equals(Home.userModel.getName()))
         {
             // Out Message
             if(MyMessage.get(position).getImageUri()!=null)

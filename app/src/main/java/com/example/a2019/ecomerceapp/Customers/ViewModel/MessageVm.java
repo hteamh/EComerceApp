@@ -32,7 +32,7 @@ public class MessageVm extends BaseViewModel {
     }
 
     public void SetLocationMessage(Location currentLocatin) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd HH:mm");
         Date date = new Date();
         String Lat = Double.toString(currentLocatin.getLatitude());
         String lon = Double.toString(currentLocatin.getLongitude());
@@ -52,7 +52,7 @@ public class MessageVm extends BaseViewModel {
     }
 
     public void SetTextMessage(String message) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd HH:mm");
         Date date = new Date();
         String data =    dateFormat.format(date);
         MessageModel messageModel = new MessageModel(Home.roomModel.getRoomId(),Home.userModel.getUid(),
@@ -71,7 +71,7 @@ public class MessageVm extends BaseViewModel {
 
     public void SetImageMessage(final Uri imageUri) {
         SetHideProgrees(false);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd HH:mm");
         Date date = new Date();
         final String data =    dateFormat.format(date);
         final MessageModel messageModel = new MessageModel(imageUri.toString(),Home.userModel.getUid(),
