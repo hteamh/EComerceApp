@@ -49,6 +49,7 @@ public class Home extends BaseActivity
         setContentView(R.layout.activity_home);
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
        itemModels=new ArrayList<>();
         loadFragment();
@@ -153,9 +154,10 @@ public class Home extends BaseActivity
         if (id == R.id.Home) {
             startActivity(new Intent(this,Home.class));
             finish();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_chat) {
+            CheekRegister();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_basket) {
 
         } else if (id == R.id.nav_manage) {
 

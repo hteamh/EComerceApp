@@ -38,6 +38,8 @@
     <string name="enter_your_name">Enter Your Name</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="chat">Chat</string>
+    <string name="basket">Basket</string>
 
 
 </resources>
