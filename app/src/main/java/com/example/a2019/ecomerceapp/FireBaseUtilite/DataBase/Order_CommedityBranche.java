@@ -2,10 +2,7 @@ package com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase;
 
 import android.support.annotation.NonNull;
 
-import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
-import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
 import com.example.a2019.ecomerceapp.Admin.Models.Order_Commedity;
-import com.example.a2019.ecomerceapp.Admin.ViewModel.OrdersViewModels;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
