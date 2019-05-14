@@ -25,11 +25,16 @@ public class SalesItemBranches {
         return FirebaseDatabase.getInstance().getReference(SalesName);
     }
     public static void AddSalesItem(SalesItem salesItem, OnSuccessListener onSuccessListener,
-                                    OnFailureListener onFailureListener)
+                                      OnFailureListener onFailureListener)
     {
-        GetSalesItemBranches().push().setValue(salesItem)
+        GetSalesItemBranches().child(salesItem.getId()).setValue(salesItem)
                 .addOnFailureListener(onFailureListener).addOnSuccessListener(onSuccessListener);
     }
+    public static void DeleteSalesItem(SalesItem salesItem)
+    {
+        GetSalesItemBranches().child(salesItem.getId());
+    }
+
 
     public static void GetAllSalesItemBySalesOrderId(String SalesOrderID,
                                                      final GetAllSalesItemBySalesOrderIdListner getAllSalesItemBySalesOrderIdListner)

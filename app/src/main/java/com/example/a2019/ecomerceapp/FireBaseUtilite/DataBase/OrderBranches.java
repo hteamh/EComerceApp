@@ -50,8 +50,8 @@ public class OrderBranches {
     }
     public static void GetAllOrder(final GetAllOrderListner getAllOrderListner)
     {
+        final List<OrderModel> myOrder = new ArrayList<>();
         GetOrderBranches().addValueEventListener(new ValueEventListener() {
-            List<OrderModel> myOrder = new ArrayList<>();
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot mydata : dataSnapshot.getChildren())

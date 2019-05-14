@@ -2,7 +2,6 @@ package com.example.a2019.ecomerceapp.Customers.ViewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
@@ -69,7 +68,11 @@ public class BasketVm extends BaseViewModel {
         {
        TotalPrice  = Integer.toString(Integer.parseInt(TotalPrice)
          + Integer.parseInt(myItemList.get(i).getPrice())  * Integer.parseInt(myItemList.get(i).getCount()));
-            Order_CommedityBranche.AddOrder(new Order_Commedity(myItemList.get(i).getId(), orderid,myItemList.get(i).getCount()), new OnSuccessListener() {
+       Order_Commedity myorder_comedity = new Order_Commedity(myItemList.get(i).getId(), orderid,myItemList.get(i).getCount());
+            myorder_comedity.setItem_name(myItemList.get(i).getName());
+            myorder_comedity.setItem_Image(myItemList.get(i).getImageUri());
+            myorder_comedity.setItem_price(myItemList.get(i).getPrice());
+            Order_CommedityBranche.AddOrder(myorder_comedity, new OnSuccessListener() {
                 @Override
                 public void onSuccess(Object o) {
                 }

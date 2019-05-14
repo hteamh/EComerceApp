@@ -30,6 +30,17 @@ public class SalesBranches {
     public  static void DeleteSlaesBell(SalesModel salesModel)
     {
         GetSalesBranches().child(salesModel.getId()).removeValue();
+        SalesItemBranches.GetAllSalesItemBySalesOrderId(salesModel.getId(), new SalesItemBranches.GetAllSalesItemBySalesOrderIdListner() {
+            @Override
+            public void OnGetAllSalesItemBySalesOrder(List<SalesItem> MyList) {
+                for(int i=0;i<MyList.size();i++)
+                {
+                    SalesItem salesItem = MyList.get(i);
+                    SalesItemBranches.DeleteSalesItem(salesItem);
+                }
+
+            }
+        });
     }
     public  static  void EditSlaesBill(SalesModel salesModel,OnFailureListener onFailureListener , OnSuccessListener onSuccessListener)
     {
