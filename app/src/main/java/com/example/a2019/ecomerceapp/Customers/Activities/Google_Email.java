@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Google_Email extends AppCompatActivity {
-    private static final int RC_SIGN_IN =3000 ;
+    private static final int RC_SIGN_IN =3030 ;
     GoogleSignInOptions gso;
     GoogleSignInClient MyGoogleSignInClient;
     GoogleSignInAccount account;
@@ -69,6 +70,7 @@ public class Google_Email extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = MyGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        Toast.makeText(this, "Start", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
