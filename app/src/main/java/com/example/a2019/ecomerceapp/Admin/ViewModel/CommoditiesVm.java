@@ -5,9 +5,11 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
+import com.example.a2019.ecomerceapp.Admin.Models.Item_Images_Models;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.ItemBranches;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Item_Image;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.Storge.ItemImageBranches;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -97,6 +99,15 @@ public class CommoditiesVm extends BaseViewModel {
    {
        ItemBranches.DeleteItemByItemId(itemModel.getId());
        ItemImageBranches.DeleteImage(itemModel.getId());
+       Item_Image.GetAllImageByItemId(itemModel.getId(), new Item_Image.GetAllImageToTheItem() {
+           @Override
+           public void AllImage(List<Item_Images_Models> MyList) {
+               for(int i= 0 ; i <MyList.size();i++)
+               {
+                   Item_Image.DeleteImageyByid(MyList.get(i).getId());
+               }
+           }
+       });
 
    }
     public interface call {

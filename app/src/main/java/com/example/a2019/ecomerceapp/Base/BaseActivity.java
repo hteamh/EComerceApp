@@ -1,5 +1,6 @@
 package com.example.a2019.ecomerceapp.Base;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-
+import com.example.a2019.ecomerceapp.R;
 
 
 public class BaseActivity  extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class BaseActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activity = this;
         baseViewModel = ViewModelProviders.of(this).get(BaseViewModel.class);
+
     }
 
 
@@ -86,6 +88,7 @@ public class BaseActivity  extends AppCompatActivity {
         }
 
     }
+
 
 
 }

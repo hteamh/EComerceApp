@@ -28,15 +28,15 @@ public class CategoryImageBranches  {
                 .addOnFailureListener(onFailureListener)
                  ;
     }
-    public  static void DeleteImage (String id)
+    public   static void DeleteImage (String id)
     {
          CategoryReferance().child(id).delete();
     }
-    public static void DeleteAll()
+    public   static void DeleteAll()
     {
         CategoryReferance().delete();
     }
-    public static void  GetUri(CategoryModel categoryModel , final GetUriListner getUriListner)
+    public   static void  GetUri(CategoryModel categoryModel , final GetUriListner getUriListner)
     {
 
 

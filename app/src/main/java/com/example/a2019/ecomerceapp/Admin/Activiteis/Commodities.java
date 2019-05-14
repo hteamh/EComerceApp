@@ -99,6 +99,13 @@ public class Commodities extends BaseActivity {
                         });
             }
         });
+        adapter.setOnItemClickListener(new CommoditiesAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(ItemModel itemModel) {
+              Add_Item_Image_Activity.itemModel=itemModel;
+              startActivity(new Intent(Commodities.this,Add_Item_Image_Activity.class));
+            }
+        });
     }
     public void intiAdapter()
     {

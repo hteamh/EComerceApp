@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,11 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
   private   List<ItemModel> list;
   private   OnComodityEditListener onComodityEditListener;
   private   OnComodityDeleteListener onComodityDeleteListener;
+  private  OnItemClickListener onItemClickListener ;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public CommoditiesAdapter(List<ItemModel> list) {
         this.list = list;
@@ -69,6 +75,15 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
                 }
             });
         }
+        if(onItemClickListener!=null)
+        {
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.OnItemClick(model);
+                }
+            });
+        }
 
     }
 
@@ -104,5 +119,9 @@ public class CommoditiesAdapter extends RecyclerView.Adapter<CommoditiesAdapter.
     {
         this.list = list;
         this.notifyDataSetChanged();
+    }
+    public interface OnItemClickListener
+    {
+        void OnItemClick(ItemModel  itemModel );
     }
 }
