@@ -157,9 +157,11 @@ public class Home extends BaseActivity
         } else if (id == R.id.nav_view) {
             CheekRegister();
 
-            //} else if (id == R.id.nav_basket) {
+        } else if (id == R.id.nav_basket) {
+            startActivity(new Intent(Home.this,BasktActivity.class));
 
         } else if (id == R.id.nav_manage) {
+            startActivity(new Intent(Home.this,ProfileActivity.class));
 
         } else if (id == R.id.nav_share) {
 
