@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.UserDao;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.UserBranches;
 import com.example.a2019.ecomerceapp.R;
@@ -96,7 +98,7 @@ public class Google_Email extends BaseActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                // ...
+                // .. nnn.
             }
         }
     }
@@ -145,12 +147,13 @@ public class Google_Email extends BaseActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue(UserModel.class) !=null)
+                UserModel MyUser = dataSnapshot.getValue(UserModel.class);
+                if(MyUser !=null)
                 {
-                    AddUserTHread addUserTHread = new AddUserTHread(dataSnapshot.getValue(UserModel.class));
+                    Home.userModel = MyUser;
+                    AddUserTHread addUserTHread = new AddUserTHread(MyUser);
                     addUserTHread.start();
-                    Home.userModel = dataSnapshot.getValue(UserModel.class);
-                    finish();
+
                 }
                 else
                 {
@@ -181,28 +184,8 @@ public class Google_Email extends BaseActivity {
         @Override
         public void run() {
             super.run();
-            UserBranches.AddUser(userModel, new OnSuccessListener() {
-                @Override
-                public void onSuccess(Object o) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                        Home.userModel=userModel;
-                        }
-                    });
-                }
-            }, new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull final Exception e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showMessage("Error",e.getMessage(),"Ok");
-
-                        }
-                    });
-                }
-            });
+            MyDatabase.getInstance().userDao().AddUser(userModel);
+            finish();
         }
     }
 }
