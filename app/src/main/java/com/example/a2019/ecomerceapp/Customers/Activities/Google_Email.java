@@ -98,7 +98,7 @@ public class Google_Email extends BaseActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                // ...
+                // .. nnn.
             }
         }
     }
