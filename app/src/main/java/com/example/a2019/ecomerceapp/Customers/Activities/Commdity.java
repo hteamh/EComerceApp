@@ -2,6 +2,7 @@ package com.example.a2019.ecomerceapp.Customers.Activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +46,13 @@ RecyclerView.LayoutManager layoutManager;
     }
     private void AdapterListner()
     {
+        myadapter.setOnItemClick(new HomeCommoditiesAdapter.OnItemClick() {
+            @Override
+            public void OnClick(ItemModel itemModel) {
+                ShowItemDetailes.MyItem =itemModel;
+                startActivity(new Intent(Commdity.this,ShowItemDetailes.class));
+            }
+        });
         myadapter.setOnSHopClick(new HomeCommoditiesAdapter.OnSHopClick() {
             @Override
             public void OnClick(ItemModel itemModel) {

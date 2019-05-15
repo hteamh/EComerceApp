@@ -1,29 +1,38 @@
 package com.example.a2019.ecomerceapp.Admin.Fragments;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
+import com.example.a2019.ecomerceapp.Admin.Activiteis.OrderDetails;
+import com.example.a2019.ecomerceapp.Admin.Adapters.OrderAdapter;
+import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
+import com.example.a2019.ecomerceapp.Admin.ViewModel.orderViewModel;
 import com.example.a2019.ecomerceapp.Base.BaseFragment;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.OrderBranches;
 import com.example.a2019.ecomerceapp.R;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Oreders extends BaseFragment {
  RecyclerView.LayoutManager layoutManager;
+ OrderAdapter orderAdapter;
  View view;
- OrdersViewModels myViewModel;
-    RecyclerView Subrecycler;
-    orderAdapter SubAdapter;
-    TextView name,phone,Adrees,Date,totalPrice;
-    Button Send ;
+ orderViewModel viewModel;
+  RecyclerView recycler;
+
 
 
     public Oreders() {
@@ -35,21 +44,39 @@ public class Oreders extends BaseFragment {
                              Bundle savedInstanceState) {
    view= inflater.inflate(R.layout.fragment_oreders, container, false);
         IntiData();
-        myViewModel.GetOneOrder();
+        viewModel.GetAllOrders();
         Observe();
-
         return view;
     }
 
 
     private void IntiData()
     {
+    viewModel = ViewModelProviders.of(this).get(orderViewModel.class);
+    recycler = view.findViewById(R.id.OrderRecyclerView);
+    orderAdapter = new OrderAdapter(null);
+    layoutManager = new LinearLayoutManager(getContext());
+    recycler.setLayoutManager(layoutManager);
+    recycler.setAdapter(orderAdapter);
+    orderAdapter.setOnOrderClick(new OrderAdapter.OnOrderClick() {
+        @Override
+        public void InorderClick(OrderModel order) {
+            OrderDetails.MyOrder=order;
+            startActivity(new Intent(getContext(),OrderDetails.class));
+        }
+    });
 
     }
     private void Observe()
     {
 
 
+        viewModel.getMyOrders().observe(this, new Observer<List<OrderModel>>() {
+            @Override
+            public void onChanged(@Nullable List<OrderModel> orderModels) {
+                orderAdapter.ChangeData(orderModels);
+            }
+        });
     }
 
 
@@ -58,4 +85,6 @@ public class Oreders extends BaseFragment {
     public void onResume() {
         super.onResume();
     }
+
+
 }

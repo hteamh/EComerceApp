@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
@@ -80,6 +81,7 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
     {
         String name = this.commodityName.getEditText().getText().toString().trim();
         String Des =this.descriptionComm.getEditText().getText().toString().trim();
+
         String Price = this.price.getText().toString().trim();
         String BuyingPrice= this.Buyingprice.getText().toString().trim();
         String M = System.currentTimeMillis()+"";
@@ -108,10 +110,18 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
             return;
         }
         String Uri=MyImageUri.toString();
-        ItemModel itemModel = new ItemModel(name,Des,Uri,id,Price,
-                Categories.categoryModeWeWantToSHowHisItem.getName(),
-                "1",BuyingPrice);
-       myViewModel.InsertNewComModity(itemModel);
+        if (isStringInt(Price) && isStringInt(BuyingPrice))
+        {
+            ItemModel itemModel = new ItemModel(name,Des,Uri,id,Price,
+                    Categories.categoryModeWeWantToSHowHisItem.getName(),
+                    "1",BuyingPrice);
+            myViewModel.InsertNewComModity(itemModel);
+        }
+        else
+        {
+            Toast.makeText(activity, "You Shoud Add Integer Value in Price And BuyingPrice", Toast.LENGTH_LONG).show();
+        }
+
     }
     public void Observe() {
         myViewModel.getMessage().observe(this, new Observer<String>() {
@@ -145,6 +155,17 @@ public class Add_Commodity extends BaseActivity implements View.OnClickListener 
             }
         });
 
+    }
+    public boolean isStringInt(String s)
+    {
+        try
+        {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException ex)
+        {
+            return false;
+        }
     }
 
 }

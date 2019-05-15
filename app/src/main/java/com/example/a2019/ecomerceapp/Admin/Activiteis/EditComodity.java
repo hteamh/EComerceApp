@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Fragments.Categories;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
@@ -114,9 +115,17 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
             return;
         }
         String Uri=MyImageUri.toString();
-        ItemModel itemModel = new ItemModel(name,Des,Uri,Commodities.comodityWeWantEdit.getId(),Price,
-                Categories.categoryModeWeWantToSHowHisItem.getName(),"1",BuyingPrice);
-        vm.Update(itemModel);
+        if(isStringInt(Price) && isStringInt(BuyingPrice))
+        {
+            ItemModel itemModel = new ItemModel(name,Des,Uri,Commodities.comodityWeWantEdit.getId(),Price,
+                    Categories.categoryModeWeWantToSHowHisItem.getName(),"1",BuyingPrice);
+            vm.Update(itemModel);
+        }
+        else
+        {
+            Toast.makeText(this, "Price And Buying Price Should By Integer Value", Toast.LENGTH_LONG).show();
+        }
+
 
     }
 
@@ -147,6 +156,7 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
         Upload.setOnClickListener(EditComodity.this);
         price = findViewById(R.id.price);
         BuyingPrice = findViewById(R.id.Buingprice);
+        BuyingPrice.setText(Commodities.comodityWeWantEdit.getBuyingPrice());
         commodityImage.setImageURI(MyImageUri);
         commodityName.getEditText().setText(Commodities.comodityWeWantEdit.getName());
         descriptionComm.getEditText().setText(Commodities.comodityWeWantEdit.getDescription());
@@ -157,4 +167,16 @@ public class EditComodity extends BaseActivity implements View.OnClickListener {
         super.onBackPressed();
         finish();
     }
+    public boolean isStringInt(String s)
+    {
+        try
+        {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException ex)
+        {
+            return false;
+        }
+    }
+
 }

@@ -47,7 +47,6 @@ public class Add_Item_Image_Activity extends BaseActivity {
         });
         ViewModel.GetAllImageByItemId(itemModel.getId());
         observe();
-
     }
 
     private void observe() {
@@ -83,5 +82,11 @@ public class Add_Item_Image_Activity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }

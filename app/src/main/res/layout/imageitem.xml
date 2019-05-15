@@ -34,7 +34,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editButton_new"
         app:layout_constraintTop_toBottomOf="@+id/image_item_new" />
 
 </android.support.constraint.ConstraintLayout>
