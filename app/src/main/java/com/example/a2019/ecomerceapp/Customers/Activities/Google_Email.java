@@ -147,10 +147,11 @@ public class Google_Email extends BaseActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue(UserModel.class) !=null)
+                UserModel MyUser = dataSnapshot.getValue(UserModel.class);
+                if(MyUser !=null)
                 {
-                    Home.userModel = dataSnapshot.getValue(UserModel.class);
-                    AddUserTHread addUserTHread = new AddUserTHread(dataSnapshot.getValue(UserModel.class));
+                    Home.userModel = MyUser;
+                    AddUserTHread addUserTHread = new AddUserTHread(MyUser);
                     addUserTHread.start();
 
                 }
