@@ -3,6 +3,7 @@ package com.example.a2019.ecomerceapp.Admin.Fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.a2019.ecomerceapp.Admin.Activiteis.AdminPanel;
 import com.example.a2019.ecomerceapp.Admin.Activiteis.OrderDetails;
 import com.example.a2019.ecomerceapp.Admin.Adapters.OrderAdapter;
 import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.orderViewModel;
 import com.example.a2019.ecomerceapp.Base.BaseFragment;
+import com.example.a2019.ecomerceapp.Customers.Activities.Home;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.OrderBranches;
 import com.example.a2019.ecomerceapp.R;
 
@@ -44,8 +47,8 @@ public class Oreders extends BaseFragment {
                              Bundle savedInstanceState) {
    view= inflater.inflate(R.layout.fragment_oreders, container, false);
         IntiData();
-        viewModel.GetAllOrders();
         Observe();
+        viewModel.GetAllOrders();
         return view;
     }
 
@@ -79,12 +82,16 @@ public class Oreders extends BaseFragment {
         });
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
+        if(OrderDetails.DoRefresh == true)
+        {
+            OrderDetails.DoRefresh = false;
+            getActivity().finish();
+            startActivity(new Intent(getContext(), AdminPanel.class));
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .addToBackStack(null).replace(R.id.add_category, this).commit();
+        }
     }
-
-
 }

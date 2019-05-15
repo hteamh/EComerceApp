@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.a2019.ecomerceapp.Admin.Adapters.OrderItemAdapter;
+import com.example.a2019.ecomerceapp.Admin.Fragments.Oreders;
 import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
 import com.example.a2019.ecomerceapp.Admin.Models.Order_Commedity;
 import com.example.a2019.ecomerceapp.Admin.ViewModel.Order_details_Vm;
@@ -28,6 +29,7 @@ public class OrderDetails extends BaseActivity {
    RecyclerView.LayoutManager layoutManager;
    OrderItemAdapter adapter;
    Order_details_Vm MViewModel;
+   public  static boolean DoRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class OrderDetails extends BaseActivity {
     }
 
     private void Init() {
+        DoRefresh = false;
         myRecycler = findViewById(R.id.Order_Item_Recycler);
         name =  findViewById(R.id.Customer_name);
         Data=findViewById(R.id.Order_Data);
@@ -91,6 +94,7 @@ public class OrderDetails extends BaseActivity {
             if(aBoolean !=null && aBoolean)
             {
                 finish();
+                DoRefresh = true;
             }
         }
     });
@@ -106,5 +110,6 @@ public class OrderDetails extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        DoRefresh =true;
     }
 }

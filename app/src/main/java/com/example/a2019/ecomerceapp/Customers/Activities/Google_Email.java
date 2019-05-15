@@ -1,5 +1,6 @@
 package com.example.a2019.ecomerceapp.Customers.Activities;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
+import com.example.a2019.ecomerceapp.Base.BaseActivity;
+import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.UserBranches;
 import com.example.a2019.ecomerceapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -17,14 +21,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-public class Google_Email extends AppCompatActivity {
+public class Google_Email extends BaseActivity {
     private static final int RC_SIGN_IN =3030 ;
     GoogleSignInOptions gso;
     GoogleSignInClient MyGoogleSignInClient;
@@ -124,9 +134,75 @@ public class Google_Email extends AppCompatActivity {
     private void updateUI(FirebaseUser account) {
         if(account !=null)
         {
-            startActivity(new Intent(this,RegisterByNameAndPhone.class));
-            finish();
+            CheekIfEmailRegisterBefore(account.getEmail());
+
         }
 
+    }
+
+    private void CheekIfEmailRegisterBefore(String email) {
+        Query query = UserBranches.GetUserBranches().orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue(UserModel.class) !=null)
+                {
+                    AddUserTHread addUserTHread = new AddUserTHread(dataSnapshot.getValue(UserModel.class));
+                    addUserTHread.start();
+                    Home.userModel = dataSnapshot.getValue(UserModel.class);
+                    finish();
+                }
+                else
+                {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(Google_Email.this,RegisterByNameAndPhone.class));
+                            finish();
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                 showMessage("Error",databaseError.getMessage(),"Ok");
+            }
+        });
+    }
+    public  class AddUserTHread extends Thread{
+        UserModel userModel;
+        AddUserTHread(UserModel userModel)
+        {
+            this.userModel= userModel;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            UserBranches.AddUser(userModel, new OnSuccessListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                        Home.userModel=userModel;
+                        }
+                    });
+                }
+            }, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull final Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showMessage("Error",e.getMessage(),"Ok");
+
+                        }
+                    });
+                }
+            });
+        }
     }
 }
