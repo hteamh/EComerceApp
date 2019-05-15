@@ -149,10 +149,10 @@ public class Google_Email extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue(UserModel.class) !=null)
                 {
+                    Home.userModel = dataSnapshot.getValue(UserModel.class);
                     AddUserTHread addUserTHread = new AddUserTHread(dataSnapshot.getValue(UserModel.class));
                     addUserTHread.start();
-                    Home.userModel = dataSnapshot.getValue(UserModel.class);
-                    finish();
+
                 }
                 else
                 {
@@ -184,6 +184,7 @@ public class Google_Email extends BaseActivity {
         public void run() {
             super.run();
             MyDatabase.getInstance().userDao().AddUser(userModel);
+            finish();
         }
     }
 }
