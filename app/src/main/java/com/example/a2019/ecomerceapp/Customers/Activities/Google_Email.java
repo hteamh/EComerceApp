@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
+import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.UserDao;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.UserBranches;
 import com.example.a2019.ecomerceapp.R;
@@ -181,28 +183,7 @@ public class Google_Email extends BaseActivity {
         @Override
         public void run() {
             super.run();
-            UserBranches.AddUser(userModel, new OnSuccessListener() {
-                @Override
-                public void onSuccess(Object o) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                        Home.userModel=userModel;
-                        }
-                    });
-                }
-            }, new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull final Exception e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showMessage("Error",e.getMessage(),"Ok");
-
-                        }
-                    });
-                }
-            });
+            MyDatabase.getInstance().userDao().AddUser(userModel);
         }
     }
 }
