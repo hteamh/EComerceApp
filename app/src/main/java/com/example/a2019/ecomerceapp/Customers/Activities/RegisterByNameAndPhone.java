@@ -48,7 +48,7 @@ public class RegisterByNameAndPhone extends BaseActivity {
     {
         final String Username,Userphone,UserAdrees;
         Username =this.Username.getEditText().getText().toString().trim();
-        Userphone=this.UserPhone.getEditText().getText().toString().trim();
+            Userphone=this.UserPhone.getEditText().getText().toString().trim();
         UserAdrees = this.UserAdrees.getEditText().getText().toString().trim();
         if(UserAdrees.isEmpty() || Username.isEmpty() || Userphone.isEmpty())
                 {
@@ -57,10 +57,18 @@ public class RegisterByNameAndPhone extends BaseActivity {
                 else
                 {
                     String Uid = System.currentTimeMillis()+Username;
-                    UserModel userModel = new UserModel(Uid,Username,Userphone,UserAdrees);
-                    userModel.setEmail(Google_Email.MyEmail);
-                    myviewModel.login(userModel);
-                    MyUserModel = userModel;
+                    if(isStringInt(Userphone))
+                    {
+                        UserModel userModel = new UserModel(Uid,Username,Userphone,UserAdrees);
+                        userModel.setEmail(Google_Email.MyEmail);
+                        myviewModel.login(userModel);
+                        MyUserModel = userModel;
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "Phone Must Be Numeric ", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
 
@@ -105,6 +113,17 @@ public class RegisterByNameAndPhone extends BaseActivity {
         public void run() {
             super.run();
             MyDatabase.getInstance().userDao().AddUser(userModel);
+        }
+    }
+    public boolean isStringInt(String s)
+    {
+        try
+        {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException ex)
+        {
+            return false;
         }
     }
 }
