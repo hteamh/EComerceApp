@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Admin.Activiteis.OrderDetails"></activity>
+        <activity android:name=".Admin.Activiteis.favouriteActivity"></activity>
+        <activity android:name=".Customers.Activities.ShowItemDetailes" />
+        <activity android:name=".Admin.Activiteis.OrderDetails" />
         <activity android:name=".Admin.Activiteis.AddIM" />
         <activity android:name=".Admin.Activiteis.Add_Item_Image_Activity" />
         <activity android:name=".MapLocation.ShowMapActivity" />

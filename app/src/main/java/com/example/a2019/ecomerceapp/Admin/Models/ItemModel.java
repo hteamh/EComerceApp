@@ -106,7 +106,8 @@ public class ItemModel  {
     }
     @Ignore
 
-    public ItemModel(String name, String description, String imageUri, @NonNull String id, String price, String categoryName, String count, String buyingPrice) {
+    public ItemModel(String name, String description,
+                     String imageUri, @NonNull String id, String price, String categoryName, String count, String buyingPrice) {
         this.name = name;
         Description = description;
         ImageUri = imageUri;
@@ -115,6 +116,20 @@ public class ItemModel  {
         CategoryName = categoryName;
         Count = count;
         BuyingPrice = buyingPrice;
-        this.Item_profit="0";
+        this.Item_profit=Integer.toString(Integer.parseInt(Price)-Integer.parseInt(buyingPrice));
     }
+    public ItemModel(MyfevItem myfevItem)
+    {
+        this.setId(myfevItem.getId());
+        this.setBuyingPrice(myfevItem.getBuyingPrice());
+        this.setCategoryName(myfevItem.getCategoryName());
+        this.setCount(myfevItem.getCount());
+        this.setDescription(myfevItem.getDescription());
+        this.setImageUri(myfevItem.getImageUri());
+        this.setItem_profit(myfevItem.getItem_profit());
+        this.setName(myfevItem.getName());
+        this.setPrice(myfevItem.getPrice());
+
+    }
+
 }

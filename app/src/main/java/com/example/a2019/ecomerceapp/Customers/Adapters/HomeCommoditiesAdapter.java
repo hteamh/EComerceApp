@@ -19,6 +19,11 @@ public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommodities
   private   List<ItemModel>list;
    private OnSHopClick onSHopClick;
   private   OnHeart onHeart;
+    OnItemClick OnItemClick;
+
+    public void setOnItemClick(HomeCommoditiesAdapter.OnItemClick onItemClick) {
+        OnItemClick = onItemClick;
+    }
 
     public void setOnSHopClick(OnSHopClick onSHopClick) {
         this.onSHopClick = onSHopClick;
@@ -59,7 +64,22 @@ public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommodities
         }
         if(onHeart !=null)
         {
-            onHeart.OnClick(model);
+            viewHolder.Love.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onHeart.OnClick(model);
+                }
+            });
+
+        }
+        if(OnItemClick !=null)
+        {
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OnItemClick.OnClick(model);
+                }
+            });
         }
 
     }
@@ -95,6 +115,10 @@ public class HomeCommoditiesAdapter extends RecyclerView.Adapter<HomeCommodities
     }
     public interface OnHeart{
          void OnClick(ItemModel itemModel);
+    }
+    public interface OnItemClick
+    {
+        void OnClick(ItemModel itemModel);
     }
 
 }
