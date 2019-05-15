@@ -17,18 +17,18 @@ public class UserModel {
     private  String Phone;
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     @ColumnInfo
     private  String Adrees;
 
     @ColumnInfo
-    private  String Email;
+    private  String email;
     public String getUid() {
         return Uid;
     }
@@ -69,7 +69,7 @@ public class UserModel {
         this.name = name;
         Phone = phone;
         Adrees = adrees;
-        this.Email=null;
+        this.email =null;
     }
 
     public UserModel(@NonNull String uid, String name, String phone, String adrees, String email) {
@@ -77,6 +77,6 @@ public class UserModel {
         this.name = name;
         Phone = phone;
         Adrees = adrees;
-        Email = email;
+        this.email = email;
     }
 }

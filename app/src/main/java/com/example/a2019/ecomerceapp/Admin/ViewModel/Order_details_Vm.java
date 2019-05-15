@@ -8,6 +8,7 @@ import com.example.a2019.ecomerceapp.Admin.Models.OrderModel;
 import com.example.a2019.ecomerceapp.Admin.Models.Order_Commedity;
 import com.example.a2019.ecomerceapp.Admin.Models.SalesItem;
 import com.example.a2019.ecomerceapp.Admin.Models.SalesModel;
+import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 import com.example.a2019.ecomerceapp.Base.BaseViewModel;
 import com.example.a2019.ecomerceapp.Customers.Activities.Home;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.OrderBranches;
@@ -47,7 +48,9 @@ public class Order_details_Vm extends BaseViewModel {
     }
 
     public void SendToSalesBasket(final OrderModel myOrder) {
-        final SalesModel salesModel = new SalesModel(Home.userModel,myOrder.getId());
+        UserModel userModel = new UserModel (myOrder.getUid(),myOrder.getName(),myOrder.getPhone(),
+                myOrder.getAdrees(),myOrder.getEmail());
+        final SalesModel salesModel = new SalesModel(userModel,myOrder.getId());
         Order_CommedityBranche.GetAllOrderCommedityBrancheByOrderId(myOrder.getId(), new Order_CommedityBranche.GetAllOrderCommedityBrancheByOrderIdListner() {
             @Override
             public void onAllOrderCommedityBrancheGet(List<Order_Commedity> order_commedities) {
