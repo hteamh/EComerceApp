@@ -23,7 +23,7 @@ import com.example.a2019.ecomerceapp.R;
 import java.util.List;
 
 public class Add_Item_Image_Activity extends BaseActivity {
-    public  static ItemModel itemModel;
+    public static ItemModel itemModel;
     public Button mybutton;
     public RecyclerView myRecycler;
     ImageAdapter imageAdapter;
@@ -41,7 +41,7 @@ public class Add_Item_Image_Activity extends BaseActivity {
             public void OnCLick(Item_Images_Models item_images_models) {
                 Item_Image.DeleteImageyByid(item_images_models.getId());
                 finish();
-                startActivity(new Intent(Add_Item_Image_Activity.this,Add_Item_Image_Activity.class));
+                startActivity(new Intent(Add_Item_Image_Activity.this, Add_Item_Image_Activity.class));
 
             }
         });
@@ -58,24 +58,23 @@ public class Add_Item_Image_Activity extends BaseActivity {
         });
     }
 
-    public void init()
-    {
+    public void init() {
         MainImage = findViewById(R.id.MainImage);
         Glide.with(this).load(itemModel.getImageUri()).into(MainImage);
         ViewModel = ViewModelProviders.of(this).get(Add_Item_Image_VM.class);
-       mybutton = findViewById(R.id.add_new_image);
-       myRecycler = findViewById(R.id.ImageRecycler);
-       imageAdapter = new ImageAdapter(null);
-       layoutManager =new LinearLayoutManager(this);
-       myRecycler.setAdapter(imageAdapter);
-       myRecycler.setLayoutManager(layoutManager);
-       mybutton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               startActivity(new Intent(Add_Item_Image_Activity.this,AddIM.class));
+        mybutton = findViewById(R.id.add_new_image);
+        myRecycler = findViewById(R.id.ImageRecycler);
+        imageAdapter = new ImageAdapter(null);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        myRecycler.setAdapter(imageAdapter);
+        myRecycler.setLayoutManager(layoutManager);
+        mybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Add_Item_Image_Activity.this, AddMoreImages.class));
 
-           }
-       });
+            }
+        });
     }
 
     @Override

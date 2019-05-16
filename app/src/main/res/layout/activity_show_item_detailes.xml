@@ -4,51 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".Customers.Activities.ShowItemDetailes">
+
+
+
 
     <ImageView
         android:id="@+id/MainImage2"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="8dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ImageRecycler2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/recyclerview_pager_indicator"
         app:layout_constraintEnd_toEndOf="@+id/MainImage2"
         app:layout_constraintStart_toStartOf="@+id/MainImage2"
-        app:layout_constraintTop_toBottomOf="@+id/MainImage2">
-    </android.support.v7.widget.RecyclerView>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+        android:id="@+id/recyclerview_pager_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:selectedDotColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/gLine"
+        app:layout_constraintStart_toStartOf="@+id/ImageRecycler2"
+        app:layout_constraintTop_toBottomOf="@+id/ImageRecycler2" />
 
     <TextView
         android:id="@+id/Item_Name"
-        android:hint="Item_Name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:gravity="start"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerview_pager_indicator"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImageRecycler2"/>
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview_pager_indicator"
+        tools:text="Honor 8x" />
+
     <TextView
         android:id="@+id/Item_Price"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/roundedbutton"
+        android:gravity="center"
         android:hint="Item_Price"
-        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/Item_Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Item_Name" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Item_Name"/>
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/description"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/Item_Description"
+        app:layout_constraintStart_toStartOf="@+id/Item_Name"
+        app:layout_constraintTop_toBottomOf="@+id/Item_Name" />
+
     <TextView
         android:id="@+id/Item_Description"
-        android:hint="Item_Description"
-        android:layout_width="match_parent"
+        android:layout_width="301dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Item_Price"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Item_Description"
+        android:padding="5dp"
+        android:text="الوصف عبارة عما دل على الذات باعتبار معنى هو المقصود من جوهر حروفه، أي يدل على الذات بصفة، كأحمر فإنه بجوهر حروفه يدل على معنى مقصود وهو الحمرة؛ فالوصف والصفة مصدران، كالوعد والعدة، والمتكلمون فرقوا بينهما فقالوا الوصف يقوم بالواصف والصفة تقوم بالموصوف. وقيل الوصف هو القائم بالفاعل "
+        android:textColor="#535353"
+        android:maxLines="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/Item_Price" />
 </android.support.constraint.ConstraintLayout>

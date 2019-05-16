@@ -43,16 +43,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/roundedbutton"
+        android:padding="10dp"
         android:text="@string/choose_the_image"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
-        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="@+id/display_Image_Category"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="@+id/category_name"
-        app:layout_constraintTop_toBottomOf="@+id/progrees" />
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/description"
@@ -74,27 +74,17 @@
         android:id="@+id/Upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/roundedbutton"
-        android:text="@string/upload"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
-        android:padding="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundedbutton"
+        android:padding="10dp"
+        android:text="@string/upload"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/choose_image"
         app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="@+id/choose_image"
         app:layout_constraintTop_toBottomOf="@+id/choose_image" />
-
-    <ProgressBar
-        android:id="@+id/progrees"
-        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
 
 </android.support.constraint.ConstraintLayout>

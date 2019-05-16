@@ -2,6 +2,13 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/favourite"
+        android:orderInCategory="100"
+        android:icon="@drawable/wfav"
+        app:showAsAction="always"
+        tools:ignore="MenuTitle" />
     <item
         android:id="@+id/Basket"
         android:orderInCategory="100"
@@ -9,12 +16,12 @@
         app:showAsAction="always"
         tools:ignore="MenuTitle" />
 
+
+
     <item
         android:id="@+id/chate"
         android:orderInCategory="100"
         android:icon="@drawable/wcaht"
         app:showAsAction="always"
         tools:ignore="MenuTitle" />
-
-
 </menu>

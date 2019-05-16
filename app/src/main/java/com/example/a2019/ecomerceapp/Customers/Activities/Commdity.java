@@ -44,7 +44,7 @@ RecyclerView.LayoutManager layoutManager;
         myrecycler.setLayoutManager(layoutManager);
         myrecycler.setAdapter(myadapter);
     }
-    private void AdapterListner()
+    public void AdapterListner()
     {
         myadapter.setOnItemClick(new HomeCommoditiesAdapter.OnItemClick() {
             @Override
@@ -67,6 +67,8 @@ RecyclerView.LayoutManager layoutManager;
            ,itemModel.getImageUri(),itemModel.getId(),itemModel.getPrice(),itemModel.getCategoryName(),itemModel.getCount(),itemModel.getBuyingPrice());
                 AddFevThread addFevThread = new AddFevThread(myfevItem);
                 addFevThread.start();
+                Toast.makeText(Commdity.this, "add to favourite", Toast.LENGTH_SHORT).show();
+
             }
         });
 

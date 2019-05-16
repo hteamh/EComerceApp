@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/commodity_image"
         android:layout_width="0dp"
-        android:layout_height="151dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -18,19 +18,27 @@
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/image"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/gLine"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.30"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/commodity_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commodity_image">
+        app:layout_constraintTop_toBottomOf="@+id/gLine">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -43,23 +51,22 @@
         android:id="@+id/choose_image_comm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/roundedbutton"
         android:padding="8dp"
-        android:textStyle="bold"
         android:text="@string/choose_the_image"
         android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/description_comm"
         app:layout_constraintStart_toStartOf="@+id/description_comm"
-        app:layout_constraintTop_toBottomOf="@id/progrees"
-        tools:layout_editor_absoluteY="526dp" />
+        app:layout_constraintTop_toBottomOf="@+id/description_comm" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/description_comm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="@+id/Buingprice"
         app:layout_constraintStart_toStartOf="@+id/Buingprice"
@@ -79,13 +86,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/roundedbutton"
         android:text="@string/upload"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/choose_image_comm"
+        app:layout_constraintStart_toStartOf="@+id/choose_image_comm"
         app:layout_constraintTop_toBottomOf="@id/choose_image_comm" />
 
     <EditText
@@ -93,30 +101,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:hint="@string/price"
         app:layout_constraintEnd_toEndOf="@+id/commodity_name"
         app:layout_constraintStart_toStartOf="@+id/commodity_name"
         app:layout_constraintTop_toBottomOf="@id/commodity_name" />
 
-    <ProgressBar
-        android:id="@+id/progrees"
-        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description_comm" />
-
     <EditText
         android:id="@+id/Buingprice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:hint="B P"
         app:layout_constraintEnd_toEndOf="@+id/price"
         app:layout_constraintStart_toStartOf="@+id/price"

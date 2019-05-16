@@ -13,63 +13,85 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@id/Customer_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
     </android.support.v7.widget.RecyclerView>
+
     <TextView
-        android:hint="Customer_Name:"
-        app:layout_constraintTop_toBottomOf="@+id/Order_Item_Recycler"
         android:id="@+id/Customer_name"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@color/black"
+        android:hint="@string/customer_name"
+        app:layout_constraintStart_toStartOf="@+id/Order_Item_Recycler"
+        app:layout_constraintTop_toBottomOf="@+id/Order_Item_Recycler" />
+
     <TextView
-        android:hint="Customer_phone:"
-        app:layout_constraintTop_toBottomOf="@+id/Customer_name"
         android:id="@+id/Customer_phone"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@color/black"
+        android:hint="@string/customer_phone"
+        app:layout_constraintStart_toStartOf="@+id/Order_Item_Recycler"
+        app:layout_constraintTop_toBottomOf="@+id/Customer_name" />
+
     <TextView
-        android:hint="Customer_adrees:"
-        app:layout_constraintTop_toBottomOf="@+id/Customer_phone"
         android:id="@+id/Customer_adrees"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@color/black"
+        android:hint="@string/customer_ddress"
+        app:layout_constraintStart_toStartOf="@+id/Order_Item_Recycler"
+        app:layout_constraintTop_toBottomOf="@+id/Customer_phone" />
+
     <TextView
-        android:hint="TotalPrice:"
-        app:layout_constraintTop_toBottomOf="@+id/Customer_adrees"
         android:id="@+id/Customer_TotalPrice"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@color/black"
+        android:hint="@string/totalprice"
+        app:layout_constraintStart_toStartOf="@+id/Order_Item_Recycler"
+        app:layout_constraintTop_toBottomOf="@+id/Customer_adrees" />
+
     <TextView
-        android:hint="Data:"
-        app:layout_constraintTop_toBottomOf="@+id/Customer_TotalPrice"
         android:id="@+id/Order_Data"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="@string/data"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/Order_Item_Recycler"
+        app:layout_constraintTop_toBottomOf="@+id/Customer_TotalPrice" />
+
     <Button
         android:id="@+id/Send_To_Sales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@+id/Order_Data"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/roundedbutton"
+        android:text="@string/send_to_sales_basket"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Send To Sales Basket "
-        />
+        app:layout_constraintTop_toBottomOf="@+id/Order_Data" />
 
     <Button
         android:id="@+id/Ignore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/Send_To_Sales"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/colorPrimary"
-        android:text="Ignore"
-        />
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundedbutton"
+        android:text="@string/ignore"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/Send_To_Sales"
+        app:layout_constraintStart_toStartOf="@+id/Send_To_Sales"
+        app:layout_constraintTop_toBottomOf="@+id/Send_To_Sales" />
 
 </android.support.constraint.ConstraintLayout>

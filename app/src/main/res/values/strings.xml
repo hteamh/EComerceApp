@@ -40,6 +40,14 @@
     <string name="edit">Edit</string>
     <string name="chat">Chat</string>
     <string name="basket">Basket</string>
+    <string name="buy">Buy</string>
+    <string name="send_to_sales_basket">Send To Sales Basket</string>
+    <string name="ignore">Ignore</string>
+    <string name="customer_name">Customer Name:</string>
+    <string name="customer_phone">Customer Phone:</string>
+    <string name="customer_ddress">Customer Address:</string>
+    <string name="totalprice">Total Price:</string>
+    <string name="data">Data:</string>
 
 
 </resources>
