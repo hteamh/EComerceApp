@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.a2019.ecomerceapp.Admin.Activiteis.AdminPanel;
+import com.example.a2019.ecomerceapp.Admin.Activiteis.favouriteActivity;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.Models.UserModel;
 import com.example.a2019.ecomerceapp.Admin.RoomDataBaseUtilite.MyDatabase;
@@ -107,7 +108,13 @@ public class Home extends BaseActivity
             return true;
         }else if (id==R.id.chate){
                 CheekRegister();
+                return true;
+        }else if (id==R.id.favourite){
+            startActivity(new Intent(Home.this, favouriteActivity.class));
+
+            return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }

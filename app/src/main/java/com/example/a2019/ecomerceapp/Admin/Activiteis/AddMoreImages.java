@@ -17,7 +17,7 @@ import com.example.a2019.ecomerceapp.Admin.ViewModel.AddImVm;
 import com.example.a2019.ecomerceapp.Base.BaseActivity;
 import com.example.a2019.ecomerceapp.R;
 
-public class AddIM extends BaseActivity {
+public class AddMoreImages extends BaseActivity {
     ImageView AddImage;
     Button  upload_Image,ChooseImage;
     Uri uri;
@@ -62,7 +62,7 @@ public class AddIM extends BaseActivity {
     }
 
     private void Observe() {
-        ViewModel.getMessage().observe(AddIM.this, new Observer<String>() {
+        ViewModel.getMessage().observe(AddMoreImages.this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 showMessage("error",s,"yes");
@@ -71,7 +71,7 @@ public class AddIM extends BaseActivity {
 
         });
 
-        ViewModel.getHideProgress().observe(AddIM.this, new Observer<Boolean>() {
+        ViewModel.getHideProgress().observe(AddMoreImages.this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 if(aBoolean!=null)
@@ -102,7 +102,7 @@ public class AddIM extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Image_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
          uri = data.getData();
-            Glide.with(AddIM.this).load(uri).into(AddImage);
+            Glide.with(AddMoreImages.this).load(uri).into(AddImage);
         }
 
     }

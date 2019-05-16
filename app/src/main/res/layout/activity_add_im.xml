@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.Activiteis.AddIM">
+    tools:context=".Admin.Activiteis.AddMoreImages">
 
     <ImageView
         android:id="@+id/Add_Image_Item"
@@ -24,26 +24,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/roundedbutton"
         android:padding="10dp"
-        android:text="Upload"
-        app:layout_constraintBottom_toBottomOf="@+id/Add_Image_Item_button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Add_Image_Item_button2" />
+        android:text="@string/upload"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/Add_Image_Item_button2"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="@+id/Add_Image_Item_button2"
+        app:layout_constraintTop_toBottomOf="@+id/Add_Image_Item_button2" />
 
     <Button
         android:id="@+id/Add_Image_Item_button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/roundedbutton"
         android:padding="10dp"
-        android:text="ChoesImage"
-        app:layout_constraintEnd_toStartOf="@+id/Add_Image_Item_button"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:text="@string/choose_the_image"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/Add_Image_Item"
+        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Add_Image_Item" />
 

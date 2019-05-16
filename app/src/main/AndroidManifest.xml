@@ -20,7 +20,7 @@
         <activity android:name=".Admin.Activiteis.favouriteActivity"></activity>
         <activity android:name=".Customers.Activities.ShowItemDetailes" />
         <activity android:name=".Admin.Activiteis.OrderDetails" />
-        <activity android:name=".Admin.Activiteis.AddIM" />
+        <activity android:name=".Admin.Activiteis.AddMoreImages" />
         <activity android:name=".Admin.Activiteis.Add_Item_Image_Activity" />
         <activity android:name=".MapLocation.ShowMapActivity" />
         <activity android:name=".Customers.Activities.Google_Email" />
@@ -52,6 +52,8 @@
         <activity android:name=".Admin.Activiteis.Add_Commodity" />
         <activity android:name=".Admin.Activiteis.EditCategory" />
         <activity android:name=".Admin.Activiteis.EditComodity" />
+        <activity android:name=".Admin.Activiteis.Add_Item_Image_Activity"></activity>
+        <activity android:name=".Admin.Activiteis.AddMoreImages"></activity>
         <activity
             android:name=".Customers.Activities.Home"
             android:label="@string/app_name"
