@@ -136,56 +136,12 @@ public class Google_Email extends BaseActivity {
     private void updateUI(FirebaseUser account) {
         if(account !=null)
         {
-            CheekIfEmailRegisterBefore(account.getEmail());
-
-        }
-
-    }
-
-    private void CheekIfEmailRegisterBefore(String email) {
-        Query query = UserBranches.GetUserBranches().orderByChild("email").equalTo(email);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel MyUser = dataSnapshot.getValue(UserModel.class);
-                if(MyUser !=null)
-                {
-                    Home.userModel = MyUser;
-                    AddUserTHread addUserTHread = new AddUserTHread(MyUser);
-                    addUserTHread.start();
-
-                }
-                else
-                {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(new Intent(Google_Email.this,RegisterByNameAndPhone.class));
-                            finish();
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                 showMessage("Error",databaseError.getMessage(),"Ok");
-            }
-        });
-    }
-    public  class AddUserTHread extends Thread{
-        UserModel userModel;
-        AddUserTHread(UserModel userModel)
-        {
-            this.userModel= userModel;
-        }
-
-        @Override
-        public void run() {
-            super.run();
-            MyDatabase.getInstance().userDao().AddUser(userModel);
+            MyEmail = account.getEmail();
+            startActivity(new Intent(Google_Email.this,RegisterByNameAndPhone.class));
             finish();
         }
+
     }
+
+
 }
