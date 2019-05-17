@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,16 +23,11 @@
 
     <Button
         android:id="@+id/delete_new"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
 
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="20dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/roundedbutton"
-        android:text="@string/delete"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/image_item_new"
-        app:layout_constraintTop_toBottomOf="@+id/image_item_new" />
+        android:background="@drawable/deletew"
+        app:layout_constraintEnd_toEndOf="@+id/image_item_new"
+        app:layout_constraintTop_toTopOf="@+id/image_item_new" />
 
-</android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

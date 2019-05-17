@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.a2019.ecomerceapp.Admin.Adapters.ImageAdapter;
 import com.example.a2019.ecomerceapp.Admin.Models.ItemModel;
 import com.example.a2019.ecomerceapp.Admin.Models.Item_Images_Models;
+import com.example.a2019.ecomerceapp.Customers.Adapters.ImageAdapter;
 import com.example.a2019.ecomerceapp.FireBaseUtilite.DataBase.Item_Image;
 import com.example.a2019.ecomerceapp.R;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ShowItemDetailes extends AppCompatActivity {
      public static ItemModel MyItem;
-     ImageAdapter adapter;
+     com.example.a2019.ecomerceapp.Customers.Adapters.ImageAdapter adapter;
      RecyclerView.LayoutManager layoutManager;
      RecyclerView ImageRecycler2;
      TextView name,Des,price;

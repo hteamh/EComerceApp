@@ -8,16 +8,23 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/Order_Item_Recycler"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@id/Customer_name"
+        app:layout_constraintBottom_toTopOf="@id/gLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
     </android.support.v7.widget.RecyclerView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
 
     <TextView
         android:id="@+id/Customer_name"
@@ -73,9 +80,10 @@
         android:id="@+id/Send_To_Sales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/roundedbutton"
+        android:padding="8dp"
         android:text="@string/send_to_sales_basket"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
