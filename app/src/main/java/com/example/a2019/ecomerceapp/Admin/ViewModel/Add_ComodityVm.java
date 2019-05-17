@@ -35,8 +35,8 @@ public class Add_ComodityVm extends BaseViewModel {
              {
                  SetHideProgrees(true);
                  SetMessage(" Can Not Insert New Commodity  Cheek Your Internet Connection");
-             }
 
+             }
     }
     private void   InsertIntoFIreBaseStorg(final ItemModel itemModel) {
         ItemImageBranches.AddItemImage(itemModel, new OnSuccessListener() {

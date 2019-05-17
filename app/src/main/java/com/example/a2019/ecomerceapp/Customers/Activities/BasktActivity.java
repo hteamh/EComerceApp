@@ -42,41 +42,46 @@ public class BasktActivity extends BaseActivity {
             public void onClick(View v) {
                 if(Home.itemModels!=null)
                 {
-                    if(Home.itemModels.size()>0)
+                    if(internetIsConnected())
                     {
-                        getUserThread getUserThread = new getUserThread(new OnitemUserGitListner() {
-                            @Override
-                            public void Userget(UserModel userModel) {
-                                MyUser = userModel;
-                                if(MyUser==null)
-                                {
-                                    startActivity(new Intent(BasktActivity.this,Google_Email.class));
+                        if(Home.itemModels.size()>0)
+                        {
+                            getUserThread getUserThread = new getUserThread(new OnitemUserGitListner() {
+                                @Override
+                                public void Userget(UserModel userModel) {
+                                    MyUser = userModel;
+                                    if(MyUser==null)
+                                    {
+                                        startActivity(new Intent(BasktActivity.this,Google_Email.class));
+                                    }
+                                    else
+                                    {
+                                        basketVm.SendOrder(MyUser,Home.itemModels);
+                                        finish();
+                                        Home.itemModels.clear();
+                                    }
                                 }
-                                else
-                                {
-                                    basketVm.SendOrder(MyUser,Home.itemModels);
-                                    finish();
-                                    Home.itemModels.clear();
-                                }
-                            }
-                        });
-                        getUserThread.start();
+                            });
+                            getUserThread.start();
 
 
+                        }
+                        else
+                        {
+                            showMessage("Message","No item Selected","Ok");
+
+                        }
                     }
                     else
                     {
-                        showMessage("Message","No item Selected","Ok");
+                        Toast.makeText(activity, "فضلا تحقق من الاتصال بالانترنت ", Toast.LENGTH_SHORT).show();
+                    }
 
                     }
-                }
-                else
-                {
-                    showMessage("Message","No item Selected","Ok");
 
-                }
 
-            }
+
+            }// end OnClick
         });
         Observe();
 
@@ -168,5 +173,13 @@ userModel =MyDatabase.getInstance().userDao().GetAllUser();
         }
     }
 }
+    public boolean internetIsConnected() {
+        try {
+            String command = "ping -c 1 google.com";
+            return (Runtime.getRuntime().exec(command).waitFor() == 0);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
 

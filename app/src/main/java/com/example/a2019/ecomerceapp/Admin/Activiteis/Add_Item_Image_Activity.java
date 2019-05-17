@@ -86,6 +86,13 @@ public class Add_Item_Image_Activity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+       if(AddMoreImages.refresh ==1)
+       {
+           finish();
+           AddMoreImages.refresh=0;
+           startActivity(new Intent(Add_Item_Image_Activity.this,Add_Item_Image_Activity.class));
+       }
     }
+
+
 }

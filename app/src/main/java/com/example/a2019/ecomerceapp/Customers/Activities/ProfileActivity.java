@@ -45,10 +45,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initView() {
-        pName = (EditText) findViewById(R.id.pName);
-        pPhone = (EditText) findViewById(R.id.pPhone);
-        pAddress = (EditText) findViewById(R.id.pAddress);
-        pEdit = (Button) findViewById(R.id.pEdit);
+        pName =  findViewById(R.id.pName);
+        pPhone =  findViewById(R.id.pPhone);
+        pAddress = findViewById(R.id.pAddress);
+        pEdit = findViewById(R.id.pEdit);
         pEdit.setOnClickListener(ProfileActivity.this);
     }
 

@@ -22,6 +22,7 @@ public class AddMoreImages extends BaseActivity {
     Button  upload_Image,ChooseImage;
     Uri uri;
     AddImVm ViewModel;
+    public static int refresh = 0;
     public static int Image_Code = 88;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +45,27 @@ public class AddMoreImages extends BaseActivity {
         upload_Image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(uri !=null)
+                if(internetIsConnected())
                 {
-                    String Url =  uri.toString();
-                    String ItemId= Add_Item_Image_Activity.itemModel.getId();
-                    String id= Long.toString(System.currentTimeMillis());
-                    Item_Images_Models item_images_models =  new Item_Images_Models(ItemId,id,Url);
-                    ViewModel.AddImage(item_images_models);
-                   Observe();
+                    if(uri !=null)
+                    {
+                        String Url =  uri.toString();
+                        String ItemId= Add_Item_Image_Activity.itemModel.getId();
+                        String id= Long.toString(System.currentTimeMillis());
+                        Item_Images_Models item_images_models =  new Item_Images_Models(ItemId,id,Url);
+                        ViewModel.AddImage(item_images_models);
+                        Observe();
+                    }
+                    else
+                    {
+                        Toast.makeText(activity, "No Image Selected", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
-                    Toast.makeText(activity, "No Image Selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "فضلا تحقق من الاتصال بالانترنت", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }
@@ -79,6 +88,7 @@ public class AddMoreImages extends BaseActivity {
                     if(aBoolean)
                     {
                         hideProgressBar();
+                        refresh = 1;
                         finish();
                     }
                     else
@@ -112,5 +122,13 @@ public class AddMoreImages extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+    public boolean internetIsConnected() {
+        try {
+            String command = "ping -c 1 google.com";
+            return (Runtime.getRuntime().exec(command).waitFor() == 0);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
