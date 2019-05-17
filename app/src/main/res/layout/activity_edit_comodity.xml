@@ -9,22 +9,30 @@
     <ImageView
         android:id="@+id/commodity_image"
         android:layout_width="0dp"
-        android:layout_height="151dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/gLine"
         android:src="@drawable/image"
         android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gLine"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/commodity_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -42,23 +50,23 @@
         android:id="@+id/choose_image_comm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@drawable/roundedbutton"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
         android:padding="10dp"
         android:text="@string/choose_the_image"
-        android:layout_marginTop="15dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/commodity_image"
         app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="@+id/commodity_name"
-        app:layout_constraintTop_toBottomOf="@+id/progrees" />
+        app:layout_constraintTop_toBottomOf="@+id/description_comm" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/description_comm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,14 +83,12 @@
         android:id="@+id/Upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/roundedbutton"
         android:padding="10dp"
         android:text="@string/upload"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/choose_image_comm"
         app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="@+id/choose_image_comm"
@@ -93,7 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:hint="@string/price"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,23 +107,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/commodity_name" />
 
-    <ProgressBar
-        android:id="@+id/progrees"
-        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description_comm" />
-
     <EditText
         android:id="@+id/Buingprice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:hint="B p"
         app:layout_constraintEnd_toEndOf="@+id/price"
         app:layout_constraintHorizontal_bias="0.487"
